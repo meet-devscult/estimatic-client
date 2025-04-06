@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const axiosInstance = axios.create({ baseURL: process.env.BASE_URL });
+const axiosInstance = axios.create({ baseURL: 'http://localhost:9898' });
 
 // ==============================
 
@@ -14,12 +14,12 @@ export default axiosInstance;
 // ==============================
 
 export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
-    const [url, config] = Array.isArray(args) ? args : [args];
-  
-    const res = await axiosInstance.get(url, { ...config });
-  
-    return res.data;
-  };
+  const [url, config] = Array.isArray(args) ? args : [args];
+
+  const res = await axiosInstance.get(url, { ...config });
+
+  return res.data;
+};
 
 // ==============================
 

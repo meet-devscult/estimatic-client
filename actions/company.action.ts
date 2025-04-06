@@ -1,8 +1,7 @@
-import { endpoints } from '@/lib/axios';
-import axios from 'axios';
+import axiosInstance, { endpoints } from '@/lib/axios';
 
 export async function getCompany() {
     const URL = endpoints.companies.root;
-    const response = await axios.get(URL)
+    const response = await axiosInstance.get(URL)
     return response
 }
