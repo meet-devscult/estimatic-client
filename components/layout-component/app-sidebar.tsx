@@ -60,12 +60,12 @@ const data = {
     },
     {
       title: "Transactions",
-      url: "#",
+      url: "/transaction",
       icon: Banknote,
     },
     {
       title: "Roles",
-      url: "#",
+      url: "/role",
       icon: Users2,
     },
     {

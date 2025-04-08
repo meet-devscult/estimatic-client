@@ -26,8 +26,28 @@ export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
 const PRE_ROUTE = '';
 
 export const endpoints = {
-    companies: {
-        root: `${PRE_ROUTE}/companies`,
-        detail: (id: string) => `${PRE_ROUTE}/companies/${id}`,
-    },
+  companies: {
+    root: `${PRE_ROUTE}/companies`,
+    detail: (id: string) => `${PRE_ROUTE}/companies/${id}`,
+  },
+  users: {
+    root: `${PRE_ROUTE}/users`,
+    detail: (id: string) => `${PRE_ROUTE}/users/${id}`,
+  },
+  machines: {
+    root: `${PRE_ROUTE}/machines`,
+    detail: (id: string) => `${PRE_ROUTE}/machines/${id}`,
+  },
+  transactions: {
+    root: `${PRE_ROUTE}/transactions`,
+    detail: (id: string) => `${PRE_ROUTE}/transactions/${id}`,
+  },
+  parts: {
+    root: `${PRE_ROUTE}/parts`,
+    detail: (id: string) => `${PRE_ROUTE}/parts/${id}`,
+  },
+  plants: {
+    root: `${PRE_ROUTE}/plants`,
+    detail: (id: string) => `${PRE_ROUTE}/plants/${id}`,
+  },
 }

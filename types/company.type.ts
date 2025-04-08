@@ -1,12 +1,16 @@
 // ==============================
 
 export interface ICompany {
-    id: string;
+    id: number;
     companyName: string;
-    status: string;
+    status: 'active' | 'inactive';
     users: number;
     quotationsStatus: string;
-    type: string;
+    type: 'Free' | 'Paid';
     plants: number;
     machines: number;
-}
+    website: string;
+    createdOn: string;
+    validUpto: string;
+  }
+  

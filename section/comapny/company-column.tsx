@@ -1,11 +1,8 @@
-import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
-import { ICompany } from "@/types/company"
+import { ICompany } from "@/types/company.type"
 import { ColumnDef } from "@tanstack/react-table"
 import { ChevronRight } from "lucide-react"
-
-
-
+import Link from "next/link"
 
 export const companyColumn: ColumnDef<ICompany>[] = [
     {
@@ -70,9 +67,9 @@ export const companyColumn: ColumnDef<ICompany>[] = [
       id: "actions",
       cell: ({ row }) => (
         <div className="flex justify-end">
-        <Button variant="ghost" className="flex items-center text-sm text-gray-600 hover:text-gray-900" onClick={() => console.log(row.original)}>
+      <Link  href={`/company/${row.original.id}`} className="flex items-center text-sm ">
           Show Details <ChevronRight className="ml-1 h-4 w-4" />
-        </Button></div>
+        </Link></div>
       ),
     },
   ]

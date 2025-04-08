@@ -1,14 +1,13 @@
 "use client"
 
-
 import { DataTable } from "@/components/table-layout/data-table"
 import { Button } from "@/components/ui/button"
-import { useCompany } from "@/hooks/use-company"
+import { useUsers } from "@/hooks/use-user"
 import { Loader2, PlusIcon } from "lucide-react"
-import { companyColumn } from "../company-column"
+import { roleTableColumn } from "../roles-column"
 
-export default function ComapnyViewSection() {
-    const { data, isLoading } = useCompany()
+export default function RoleViewSection() {
+    const { data, isLoading } = useUsers()
 
     if (isLoading) return <div className="flex justify-center items-center h-screen">
         <Loader2 className="w-10 h-10 animate-spin" />
@@ -17,15 +16,15 @@ export default function ComapnyViewSection() {
     console.log(data)
 
   return <div>
-    <div>
+    <div className="container">
       <div className="flex justify-between items-center p-5 border-b border-dashed">
-        <h1 className="text-2xl font-bold">Companies</h1>
+        <h1 className="text-2xl font-bold">Roles</h1>
         <Button variant="outline" size="lg" className="border-dashed">
           <PlusIcon />
-          <span className="hidden lg:inline">Add Company</span>
+          <span className="hidden lg:inline">Add Role</span>
         </Button>
       </div>
     </div>
-    <DataTable columns={companyColumn} data={data?.data}  />
+    <DataTable columns={roleTableColumn} data={data} />
   </div>
 }

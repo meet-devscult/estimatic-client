@@ -16,15 +16,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { cn } from "@/lib/utils"
 import { DataTablePagination } from "./pagination"
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  headerClassName?: string
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  headerClassName,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -42,7 +45,7 @@ export function DataTable<TData, TValue>({
             <TableRow key={headerGroup.id} className="border-dashed">
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="text-center">
+                  <TableHead key={header.id} className={cn("text-center", headerClassName)}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -59,7 +62,7 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
-                className="border-dashed"
+                className="border-dashed h-12"
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
