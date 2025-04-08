@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button"
 import { IPart } from "@/types/part.type"
 import { ColumnDef } from "@tanstack/react-table"
+import Link from "next/link"
 
 export const partTableColumn: ColumnDef<IPart>[] = [
     {
@@ -45,10 +45,10 @@ export const partTableColumn: ColumnDef<IPart>[] = [
     {
         accessorKey: "action",
         header: " ",
-        cell: () => <div className="flex items-center justify-end gap-2">
-            <Button variant="outline" size="sm">
+        cell: ({ row }) => <div className="flex items-center justify-end gap-2">
+            <Link href={`/company/${row.original.companyId}/part/${row.original.id}`}>
               Show Details
-            </Button>
+            </Link>
         </div>,
     },
   ]

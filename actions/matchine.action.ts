@@ -11,3 +11,9 @@ export async function getMachinesByCompanyId(companyId: string) {
     const response = await axiosInstance.get(URL)
     return response.data
 }
+
+export async function getMachineById(id: string) {
+    const URL = endpoints.machines.root + `/${id}`
+    const response = await axiosInstance.get(URL)
+    return response.data
+}

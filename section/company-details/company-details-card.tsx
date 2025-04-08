@@ -11,7 +11,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
 
     const { data, isLoading } = useCompanyById(id)
 
-    if (isLoading) return <div className="flex justify-center items-center h-screen">
+    if (isLoading) return <div className="flex justify-center items-center">
         <Loader2 className="w-10 h-10 animate-spin" />
     </div>
 
