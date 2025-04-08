@@ -1,4 +1,3 @@
-import DashboardWrapper from "@/components/wrapper/dashboard.wrapper";
 import MainWrapper from "@/components/wrapper/main.wrapper";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -31,9 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MainWrapper>
-          <DashboardWrapper>
-            {children}
-          </DashboardWrapper>
+          {children}
         </MainWrapper>
       </body>
     </html>
