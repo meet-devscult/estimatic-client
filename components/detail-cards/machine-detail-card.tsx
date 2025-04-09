@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { IMachine } from "@/types/matchine.type"
+import { IMachine } from "@/types/machine.type"
 import { PencilIcon } from "lucide-react"
 import { Button } from "../ui/button"
 
@@ -19,27 +19,27 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
         },
         {
             label: "Machine Type",
-            value: "STATIC_DATA"
+            value: machine.machineType
         },
         {
             label: "Machine",
-            value: "STATIC_DATA"
+            value: machine.machineType
         },
         {
             label: "Manufacturer",
-            value: "STATIC_DATA"
+            value: machine.manufacturer
         },
         {
             label: "Spindle Max RPM",
-            value: "000"
+            value: machine.spindleMaxRPM
         },
         {
             label: "Efficiency %",
-            value: "00 %"
+            value: machine.efficiency
         },
         {
             label: "Power Consumption (KW/hour)",
-            value: "00"
+            value: machine.powerConsumption
         }
     ]
 
@@ -50,46 +50,46 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
         },
         {
             label: "Allowance (in%)",
-            value: "00"
+            value: machine.allowance
         },
         {
             label: "Setup Base Time",
-            value: "00 Mins"
+            value: machine.setupBaseTime
         },
         {
             label: "Machine Hourly Rate",
-            value: "00 Rs"
+            value: machine.machineHourlyRate
         },
         {
             label: "Setup Hour Rate ",
-            value: "000 Rs"
+            value: machine.setupHourRate
         },
     ]
 
     const section3 = [
         {
             label: "Max. Tool Length",
-            value: "000 (in meters)"
+            value: machine.maxToolLength
         },
         {
             label: "Max Tool Dia",
-            value: "000 (in meters)"
+            value: machine.maxToolDiameter
         },
         {
             label: "Max Table Length ",
-            value: "000 (in meters)"
+            value: machine.maxTableLength
         },
         {
             label: "Max table Breadth ",
-            value: "000 (in meters)"
+            value: machine.maxTableBreadth
         },
         {
             label: "Max Workpiece Weight ",
-            value: "000 (in meters)"
+            value: machine.maxWorkpieceWeight
         },
         {
             label: "Tool Change Time",
-            value: "000 (in meters)"
+            value: machine.toolChangeTime
         },
     ]
 

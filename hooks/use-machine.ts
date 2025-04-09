@@ -1,4 +1,4 @@
-import { getMachineById, getMachines, getMachinesByCompanyId } from "@/actions/matchine.action";
+import { getMachineById, getMachines, getMachinesByCompanyId } from "@/actions/machine.action";
 import { useQuery } from "@tanstack/react-query";
 
 export function useMachines() {

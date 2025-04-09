@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
-import { IMachine } from "@/types/matchine.type"
+import { IMachine } from "@/types/machine.type"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
 

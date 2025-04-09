@@ -2,7 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import CompanyDetailsCard from "../company-details-card"
-import MatchineTableSection from "../matchine-table/matchine-table-section"
+import MatchineTableSection from "../machine-table/machine-table-section"
 import PartTableSection from "../parts-table/part-table-section"
 import TransactionTableSection from "../transaction-table/transaction-table-section"
 import UserTableSection from "../user-table/user-table-section"

@@ -15,53 +15,53 @@ export default function PartDetailCard({ part }: PartDetailCardProps) {
         },
         {
             label: "Company",
-            value: "STATIC_DATA"
+            value: part.companyId
         },
         {
             label: "No. of lots",
-            value: "000"
+            value: part.noOfLots
         },
         {
             label: "Stock per lot",
-            value: "000"
+            value: part.stockPerLot
         },
         {
             label: "Material Cost ",
-            value: "000 Rs. (per kg)"
+            value: part.materialCost
         }
     ]
 
     const section2 = [
         {
             label: "Shape",
-            value: "STATIC_DATA"
+            value: part.shape
         },
         {
             label: "Diameter",
-            value: "STATIC_DATA"
+            value: part.diameter
         },
         {
             label: "Length",
-            value: "STATIC_DATA"
+            value: part.length
         },
     ]
 
     const section3 = [
         {
             label: "Scrap Cost",
-            value: "STATIC_DATA"
+            value: part.scrapCost
         },
         {
             label: "Gross Weight ",
-            value: "STATIC_DATA"
+            value: part.grossWeight
         },
         {
             label: "Net Weight",
-            value: "STATIC_DATA"
+            value: part.netWeight
         },
         {
             label: "Tolerance %",
-            value: "000"
+            value: part.tolerancePercent
         },
     ]
 

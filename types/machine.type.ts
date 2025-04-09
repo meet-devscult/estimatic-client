@@ -1,0 +1,38 @@
+export interface IMachine {
+  id: number;
+  companyId: number;
+  name: string;
+  description: string;
+  status: 'active' | 'inactive';
+  plant: string;
+  addedBy: string;
+  addedByRole: string;
+  avgSetupTime: string;
+  hourlyCost: number;
+  machineType: string;
+  manufacturer: string;
+  spindleMaxRPM: number;
+  efficiency: number;
+  powerConsumption: number;
+  powerConsumptionUnit: string;
+  allowance: number;
+  allowanceUnit: string;
+  setupBaseTime: number;
+  setupBaseTimeUnit: string;
+  machineHourlyRate: number;
+  machineHourlyRateUnit: string;
+  setupHourRate: number;
+  setupHourRateUnit: string;
+  maxToolLength: number;
+  maxToolLengthUnit: string;
+  maxToolDiameter: number;
+  maxToolDiameterUnit: string;
+  maxTableLength: number;
+  maxTableLengthUnit: string;
+  maxTableBreadth: number;
+  maxTableBreadthUnit: string;
+  maxWorkpieceWeight: number;
+  maxWorkpieceWeightUnit: string;
+  toolChangeTime: number;
+  toolChangeTimeUnit: string;
+}

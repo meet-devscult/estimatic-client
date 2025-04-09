@@ -1,8 +1,8 @@
 import { DataTable } from "@/components/table-layout/data-table";
 import { Button } from "@/components/ui/button";
-import { useMachineByCompanyId } from "@/hooks/use-matchine";
+import { useMachineByCompanyId } from "@/hooks/use-machine";
 import { Loader2, PlusIcon } from "lucide-react";
-import { machineTableColumn } from "./matchine-table-column";
+import { machineTableColumn } from "./machine-table-column";
 
 interface MatchineTableSectionProps {
     company_id: string
