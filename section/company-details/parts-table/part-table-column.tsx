@@ -6,13 +6,13 @@ export const partTableColumn: ColumnDef<IPart>[] = [
     {
       accessorKey: "name",
       header: "Name",
-      cell: ({ row }) => <div >{row.original.name}</div>,
+      cell: ({ row }) => <div className="text-center">{row.original.name}</div>,
     },
     {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => (
-        <div className="flex items-center gap-2">
+        <div className="text-center">
           {row.original.status}
         </div>
       ),
@@ -20,27 +20,36 @@ export const partTableColumn: ColumnDef<IPart>[] = [
     {
       accessorKey: "type",
       header: "Type",
-      cell: ({ row }) => <div >{row.original.type}</div>,
+      cell: ({ row }) => <div className="text-center">{row.original.type}</div>,
     },
     {
       accessorKey: "material",
       header: "Material",
-      cell: ({ row }) => <div >{row.original.material}</div>,
+      cell: ({ row }) => <div className="text-center">
+        <p className="text-sm">{row.original.material}</p>
+        <p className="text-xs text-muted-foreground">{row.original.shape}</p>
+        </div>,
     },
     {
       accessorKey: "time",
       header: "Time",
-      cell: ({ row }) => <div >{row.original.time}</div>,
+      cell: ({ row }) => <div className="text-center">
+        <p className="text-sm">{row.original.time}</p>
+        <p className="text-xs text-muted-foreground">{row.original.timeUnit}</p>
+      </div>,
     },
     {
       accessorKey: "cost",
       header: "Cost",
-      cell: ({ row }) => <div >{row.original.cost}</div>,
+      cell: ({ row }) => <div className="text-center">
+        <p className="text-sm">{row.original.cost}</p>
+        <p className="text-xs text-muted-foreground">{row.original.costUnit}</p>
+      </div>,
     }, 
     {
       accessorKey: "createdOn",
       header: "Created On",
-      cell: ({ row }) => <div >{row.original.createdOn}</div>,
+      cell: ({ row }) => <div className="text-center">{row.original.createdOn}</div>,
     }, 
     {
         accessorKey: "action",

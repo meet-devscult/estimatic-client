@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { IUser } from "@/types/user.type"
 import { ColumnDef } from "@tanstack/react-table"
+import Link from "next/link"
 
 export const userTableColumn: ColumnDef<IUser>[] = [
     {
@@ -42,13 +43,13 @@ export const userTableColumn: ColumnDef<IUser>[] = [
     {
         accessorKey: "action",
         header: " ",
-        cell: () => <div className="flex items-center justify-end gap-2">
+        cell: ({ row }) => <div className="flex items-center justify-end gap-2">
             <Button variant="outline" size="sm">
               Edit Info
             </Button>
-            <Button variant="outline" size="sm">
+            <Link href={`/company/${row.original.companyId}/user/${row.original.id}`}>
               Show Details
-            </Button>
+            </Link>
         </div>,
     },
   ]

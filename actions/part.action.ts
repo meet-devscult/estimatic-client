@@ -17,3 +17,9 @@ export async function getPartById(id: string) {
     const response = await axiosInstance.get(URL)
     return response.data
 }
+
+export async function getPartByUserIdAndCompanyId(userId: string, companyId: string) {
+    const URL = endpoints.parts.root + `?userId=${userId}&companyId=${companyId}`
+    const response = await axiosInstance.get(URL)
+    return response.data
+}
