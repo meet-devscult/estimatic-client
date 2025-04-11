@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const axiosInstance = axios.create({ baseURL: 'http://localhost:9898' });
+const axiosInstance = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL });
 
 // ==============================
 

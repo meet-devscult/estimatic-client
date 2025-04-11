@@ -11,9 +11,9 @@ type Props = {
 }
 
 // ==============================
+const queryClient = new QueryClient()
 
 const MainWrapper = ({ children }: Props) => {
-  const queryClient = new QueryClient()
 
   return (
     <ThemeProvider
@@ -21,7 +21,7 @@ const MainWrapper = ({ children }: Props) => {
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
-          >
+    >
     <QueryClientProvider client={queryClient}>
       {children}
       <ReactQueryDevtools initialIsOpen={false} />

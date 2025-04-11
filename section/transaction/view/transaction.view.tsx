@@ -4,7 +4,9 @@ import { DataTable } from "@/components/table-layout/data-table"
 import { Button } from "@/components/ui/button"
 import { useTransactions } from "@/hooks/use-transaction"
 import { Loader2, PlusIcon } from "lucide-react"
+import AddTransactionPopup from "../../../components/form-fields-components/form-popup-layout"
 import { transactionTableColumn } from "../transaction-column"
+import TransactionForm from "../transaction-form"
 
 export default function TransactionViewSection() {
     const { data, isLoading } = useTransactions()
@@ -16,13 +18,20 @@ export default function TransactionViewSection() {
     console.log(data)
 
   return <div>
-    <div className="container">
+    <div>
       <div className="flex justify-between items-center p-5 border-b border-dashed">
         <h1 className="text-2xl font-bold">Transactions</h1>
-        <Button variant="outline" size="lg" className="border-dashed">
-          <PlusIcon />
-          <span className="hidden lg:inline">Add Transaction</span>
-        </Button>
+        <AddTransactionPopup title="Add New Transaction" 
+          triggerText={
+            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
+              <PlusIcon />
+              <span className="hidden lg:inline">Add Transaction</span>
+            </Button>
+          } 
+          form={<TransactionForm />} 
+          submitFunction={() => {}}
+          buttonText="Add Transaction"
+        />        
       </div>
     </div>
     <DataTable columns={transactionTableColumn} data={data}  />
