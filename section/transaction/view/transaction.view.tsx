@@ -8,8 +8,16 @@ import AddTransactionPopup from "../../../components/form-fields-components/form
 import { transactionTableColumn } from "../transaction-column"
 import TransactionForm from "../transaction-form"
 
+import { TTransactionFormType } from "@/zod/transactions.zod"
+import { useForm } from "react-hook-form"
+
 export default function TransactionViewSection() {
     const { data, isLoading } = useTransactions()
+    const form = useForm<TTransactionFormType>();
+
+    const handleAddTransaction = (data: TTransactionFormType) => {
+      console.log("New transaction submitted:", data);
+    };
 
     if (isLoading) return <div className="flex justify-center items-center h-screen">
         <Loader2 className="w-10 h-10 animate-spin" />
@@ -28,8 +36,14 @@ export default function TransactionViewSection() {
               <span className="hidden lg:inline">Add Transaction</span>
             </Button>
           } 
-          form={<TransactionForm />} 
-          submitFunction={() => {}}
+          form={
+            <TransactionForm
+              form={form}
+              onSubmit={handleAddTransaction}
+            />}
+            submitFunction={() => {
+              handleAddTransaction(form.getValues());
+          }}
           buttonText="Add Transaction"
         />        
       </div>
