@@ -23,12 +23,14 @@ interface CalendarInputBoxProps<T extends FieldValues> {
     futureDatesOnly?: boolean;
     minDate?: Date;
     maxDate?: Date;
+    placeholder?: string;
 }
 
 export default function CalendarInputBox<T extends FieldValues>({ 
     form, 
     name, 
     className,
+    placeholder,
     pastDatesOnly = false,
     futureDatesOnly = false,
     minDate,
@@ -68,7 +70,7 @@ export default function CalendarInputBox<T extends FieldValues>({
                                     <span
                                         className={cn("truncate", !date && "text-muted-foreground")}
                                     >
-                                        {date ? format(date, "PPP") : "Pick a date"}
+                                        {date ? format(date, "PPP") : placeholder || "Pick a date"}
                                     </span>
                                     <CalendarIcon
                                         size={16}

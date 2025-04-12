@@ -8,6 +8,7 @@ import AddTransactionPopup from "../../../components/form-fields-components/form
 import { transactionTableColumn } from "../transaction-column"
 import TransactionForm from "../transaction-form"
 
+import axiosInstance, { endpoints } from "@/lib/axios"
 import { TTransactionFormType } from "@/zod/transactions.zod"
 import { useForm } from "react-hook-form"
 
@@ -15,8 +16,10 @@ export default function TransactionViewSection() {
     const { data, isLoading } = useTransactions()
     const form = useForm<TTransactionFormType>();
 
-    const handleAddTransaction = (data: TTransactionFormType) => {
+    const onTransactionSubmit = async (data: TTransactionFormType) => {
       console.log("New transaction submitted:", data);
+      const response = await axiosInstance.post(endpoints.transactions.root, data)
+      console.log(response)
     };
 
     if (isLoading) return <div className="flex justify-center items-center h-screen">
@@ -39,10 +42,11 @@ export default function TransactionViewSection() {
           form={
             <TransactionForm
               form={form}
-              onSubmit={handleAddTransaction}
+              onSubmit={onTransactionSubmit}
             />}
             submitFunction={() => {
-              handleAddTransaction(form.getValues());
+              onTransactionSubmit(form.getValues());
+              form.reset();
           }}
           buttonText="Add Transaction"
         />        
