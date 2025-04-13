@@ -1,8 +1,7 @@
 "use client"
 
-import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
-import { useId, useState } from "react"
+import { useEffect, useId, useState } from "react"
 import { FieldValues, Path, UseFormReturn } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
@@ -14,6 +13,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
+import dayjs from "dayjs"
 
 interface CalendarInputBoxProps<T extends FieldValues> {
     form: UseFormReturn<T>;
@@ -37,7 +37,16 @@ export default function CalendarInputBox<T extends FieldValues>({
     maxDate
 }: CalendarInputBoxProps<T>) {
     const id = useId()
-    const [date, setDate] = useState<Date | undefined>()
+    const formValue = form.watch(name);
+    const [date, setDate] = useState<Date | undefined>(() => {
+        return formValue ? new Date(formValue) : undefined;
+    });
+
+    useEffect(() => {
+        if (formValue) {
+            setDate(new Date(formValue));
+        }
+    }, [formValue]);
 
     const getDisabledDates = () => {
         if (pastDatesOnly) {
@@ -70,7 +79,7 @@ export default function CalendarInputBox<T extends FieldValues>({
                                     <span
                                         className={cn("truncate", !date && "text-muted-foreground")}
                                     >
-                                        {date ? format(date, "PPP") : placeholder || "Pick a date"}
+                                        {date ? dayjs(date).format("DD/MM/YYYY") : placeholder || "Pick a date"}
                                     </span>
                                     <CalendarIcon
                                         size={16}

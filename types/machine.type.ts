@@ -1,9 +1,11 @@
-export interface IMachine {
-  id: number;
-  companyId: number;
+export type UUID = string;
+
+export interface Machine {
+  id: UUID;
+  companyId: UUID;
   name: string;
   description: string;
-  status: 'active' | 'inactive';
+  status: string;
   plant: string;
   addedBy: string;
   addedByRole: string;

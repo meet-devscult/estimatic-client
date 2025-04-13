@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { useCompanyById } from "@/hooks/use-company"
 import { cn } from "@/lib/utils"
+import dayjs from "dayjs"
 import { Loader2, PlusIcon } from "lucide-react"
 
 interface CompanyDetailsCardProps {
@@ -26,7 +27,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
         },
         {
             title: "Created On",
-            value: data?.data.createdOn
+            value: dayjs.unix(data?.data.createdOn).format("DD/MM/YYYY")
         },  
         {
             title: "Type",
@@ -38,7 +39,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
         },
         {
             title: "Valid Upto",
-            value: data?.data.validUpto
+            value: dayjs.unix(data?.data.validUpto).format("DD/MM/YYYY")
         },
         {
             title: "Quotations",

@@ -1,9 +1,10 @@
-export interface IPlant {
-    id: number;
-    companyId: number;
-    name: string;
-    location: string;
-    area: string;
-    machineCount: number;
-  }
-  
+export type UUID = string;
+
+export interface Plant {
+  id: UUID;
+  companyId: UUID;
+  name: string;
+  location: string;
+  area: string;
+  machineCount: number;
+}

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { ITransaction } from "@/types/transaction.type"
 import { ColumnDef } from "@tanstack/react-table"
+import dayjs from "dayjs"
 
 export const transactionTableColumn: ColumnDef<ITransaction>[] = [
     {
@@ -11,7 +12,7 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
     {
       accessorKey: "datePaid",
       header: "Date Paid",
-      cell: ({ row }) => <div >{row.original.datePaid}</div>,
+      cell: ({ row }) => <div >{dayjs.unix(row.original.datePaid).format("DD/MM/YYYY")}</div>,
     },
     {
       accessorKey: "amount",
@@ -21,7 +22,7 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
     {
       accessorKey: "validUntil",
       header: "Valid Until",
-      cell: ({ row }) => <div >{row.original.validUntil}</div>,
+      cell: ({ row }) => <div >{dayjs.unix(row.original.validUntil).format("DD/MM/YYYY")}</div>,
     },
     {
       accessorKey: "paidVia",

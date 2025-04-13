@@ -1,5 +1,6 @@
 import { IPart } from "@/types/part.type"
 import { ColumnDef } from "@tanstack/react-table"
+import dayjs from "dayjs"
 import Link from "next/link"
 
 export const partTableColumn: ColumnDef<IPart>[] = [
@@ -49,7 +50,7 @@ export const partTableColumn: ColumnDef<IPart>[] = [
     {
       accessorKey: "createdOn",
       header: "Created On",
-      cell: ({ row }) => <div className="text-center">{row.original.createdOn}</div>,
+      cell: ({ row }) => <div className="text-center">{dayjs.unix(row.original.createdOn).format("DD/MM/YYYY")}</div>,
     }, 
     {
         accessorKey: "action",

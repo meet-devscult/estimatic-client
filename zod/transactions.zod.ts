@@ -2,11 +2,11 @@ import { z } from "zod";
 
 export const transactionSchema = z.object({
     name: z.string(),
-    paidDate: z.date(),
+    datePaid: z.date(),
     amount: z.number(),
-    validUntil: z.string(),
-    paymentMethod: z.string(),
-    paidFor: z.string(),
+    validUntil: z.date(),
+    paidVia: z.enum(['UPI', 'Cash', 'Cheque', 'Bank Transfer']),
+    paidFor: z.enum(['Free', 'Pro']),
 });
 
 export type TTransactionFormType = z.infer<typeof transactionSchema>;

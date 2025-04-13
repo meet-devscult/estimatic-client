@@ -26,7 +26,7 @@ export default function PartTableSection({ company_id }: PartTableSectionProps) 
                     </Button>
                 </div>
             </div>
-            <DataTable columns={partTableColumn} data={parts} headerClassName="text-left" />
+            <DataTable columns={partTableColumn} data={parts} headerClassName="text-center" />
         </div>
     )
 }

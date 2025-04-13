@@ -1,17 +1,50 @@
 import CalendarInputBox from "@/components/form-fields-components/calender-input-box";
 import DropdownBox from "@/components/form-fields-components/dropdown-box";
+import AddTransactionPopup from "@/components/form-fields-components/form-popup-layout";
 import InputBox from "@/components/form-fields-components/input-box";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useCompany } from "@/hooks/use-company";
+import { useCreateTransaction } from "@/hooks/use-transaction";
 import { TTransactionFormType } from "@/zod/transactions.zod";
-import { UseFormReturn } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { PlusIcon } from "lucide-react";
+import { useForm, UseFormReturn } from "react-hook-form";
+
+export default function NewTransaction({defaultValues}: { defaultValues?: TTransactionFormType}) {
+
+    const form = useForm<TTransactionFormType>({defaultValues})
+    const queryClient = useQueryClient()
+  
+    const { mutate: createTransaction, isPending: isCreatingTransaction } = useCreateTransaction(queryClient)
+    
+    return <AddTransactionPopup title={defaultValues ? "Edit Transaction" : "Add New Transaction"} 
+          triggerText={
+            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" disabled={isCreatingTransaction}>
+              {!defaultValues && <PlusIcon />}
+              {defaultValues ? <span className="hidden lg:inline">Edit Info</span> : <span className="hidden lg:inline">Add Transaction</span>}
+            </Button>
+          } 
+          form={
+            <TransactionForm
+              form={form}
+              onSubmit={createTransaction}
+            />}
+            submitFunction={() => {
+              createTransaction(form.getValues())
+              form.reset()
+            //   refetch()
+            }}
+          buttonText="Add Transaction"
+        />    
+}
 
 interface TransactionFormProps {
     form: UseFormReturn<TTransactionFormType>;
     onSubmit: (data: TTransactionFormType) => void;
 }
 
-export default function TransactionForm({form, onSubmit}: TransactionFormProps) {
+export function TransactionForm({form, onSubmit}: TransactionFormProps) {
 
     const { data, isLoading } = useCompany()
 
@@ -28,10 +61,10 @@ export default function TransactionForm({form, onSubmit}: TransactionFormProps) 
                         options={data?.data.map((company: {companyName: string}) => ({label: company.companyName, value: company.companyName})) || []} 
                         className="w-full h-full" 
                     />
-                    <CalendarInputBox form={form} name="paidDate" placeholder="Paid Date" futureDatesOnly />
+                    <CalendarInputBox form={form} name="datePaid" placeholder="Paid Date" futureDatesOnly />
                     <InputBox form={form} name="amount" placeholder="Amount Paid" type="number" />
                     <CalendarInputBox form={form} name="validUntil" placeholder="Valid Until" futureDatesOnly />
-                    <DropdownBox form={form} name="paymentMethod" placeholder="Payment Mode" options={[{label: "UPI", value: "upi"}, {label: "Bank Transfer", value: "banktransfer"}, {label: "Cheque", value: "cheque"}, {label: "Cash", value: "cash"}]} className="w-full h-full" />
+                    <DropdownBox form={form} name="paidVia" placeholder="Payment Mode" options={[{label: "UPI", value: "UPI"}, {label: "Bank Transfer", value: "Bank Transfer"}, {label: "Cheque", value: "Cheque"}, {label: "Cash", value: "Cash"}]} className="w-full h-full" />
                     <DropdownBox form={form} name="paidFor" placeholder="Paid For" options={[{label: "Free", value: "free"}, {label: "Pro", value: "pro"}]} className="w-full h-full" />
                 </div>
             </form>

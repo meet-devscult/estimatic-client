@@ -1,17 +1,19 @@
+export type UUID = string;
+
 export interface IPart {
-  id: number;
+  id: UUID;
   name: string;
-  status: 'Ongoing' | 'Estimated' | 'Completed';
-  type: 'Drawing' | 'CAD Model';
+  status: string;
+  type: string;
   material: string;
   materialType: string;
   time: number;
   timeUnit: string;
   cost: number;
   costUnit: string;
-  createdOn: string;
-  companyId: number;
-  userId: number; // ID of the user assigned to this part
+  createdOn: number;
+  companyId: UUID;
+  userId: UUID;
   shape: string;
   diameter?: number;
   diameterUnit?: string;
@@ -21,8 +23,6 @@ export interface IPart {
   widthUnit?: string;
   thickness?: number;
   thicknessUnit?: string;
-  height?: number;
-  heightUnit?: string;
   scrapCost: string;
   grossWeight: number;
   grossWeightUnit: string;

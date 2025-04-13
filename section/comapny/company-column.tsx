@@ -8,7 +8,7 @@ export const companyColumn: ColumnDef<ICompany>[] = [
     {
       accessorKey: "id",
       header: "Sr. No.",
-      cell: ({ row }) => <div className="text-center">{row.original.id}</div>,
+      cell: ({ row }) => <div className="text-center">{row.index + 1}</div>,
     },
     {
       accessorKey: "name",
