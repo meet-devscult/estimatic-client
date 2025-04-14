@@ -11,13 +11,6 @@ import NewTransaction from "../transaction-form"
 export default function TransactionViewSection() {  
   const { data, isLoading, isRefetching } = useTransactions()
 
-
-  // const onTransactionSubmit = async (data: TTransactionFormType) => {
-  //   console.log("New transaction submitted:", data);
-  //   const response = await axiosInstance.post(endpoints.transactions.root, data)
-  //   console.log(response)
-  // };
-
   if (isLoading || isRefetching) return <div className="flex justify-center items-center h-screen">
     <Loader2 className="w-10 h-10 animate-spin" />
   </div>

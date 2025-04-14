@@ -33,7 +33,6 @@ export default function NewTransaction({defaultValues}: { defaultValues?: TTrans
             submitFunction={() => {
               createTransaction(form.getValues())
               form.reset()
-            //   refetch()
             }}
           buttonText="Add Transaction"
         />    
@@ -65,7 +64,7 @@ export function TransactionForm({form, onSubmit}: TransactionFormProps) {
                     <InputBox form={form} name="amount" placeholder="Amount Paid" type="number" />
                     <CalendarInputBox form={form} name="validUntil" placeholder="Valid Until" futureDatesOnly />
                     <DropdownBox form={form} name="paidVia" placeholder="Payment Mode" options={[{label: "UPI", value: "UPI"}, {label: "Bank Transfer", value: "Bank Transfer"}, {label: "Cheque", value: "Cheque"}, {label: "Cash", value: "Cash"}]} className="w-full h-full" />
-                    <DropdownBox form={form} name="paidFor" placeholder="Paid For" options={[{label: "Free", value: "free"}, {label: "Pro", value: "pro"}]} className="w-full h-full" />
+                    <DropdownBox form={form} name="paidFor" placeholder="Paid For" options={[{label: "Free", value: "Free"}, {label: "Pro", value: "Pro"}]} className="w-full h-full" />
                 </div>
             </form>
         </Form>

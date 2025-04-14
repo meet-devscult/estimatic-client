@@ -9,7 +9,7 @@ export interface ITransaction {
   datePaid: number; // Epoch
   validUntil: number; // Epoch
   paidVia: 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer';
-  paidFor: 'Free' | 'Paid';
+  paidFor: 'Free' | 'Pro';
   paymentMethod?: string;
 }
 

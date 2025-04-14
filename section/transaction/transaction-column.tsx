@@ -48,7 +48,7 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
                 amount: row.original.amount,
                 validUntil: dayjs(row.original.validUntil).toDate(),
                 paidVia: row.original.paidVia as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer',
-                paidFor: row.original.paidFor as 'Free' | 'Paid',
+                paidFor: row.original.paidFor as 'Free' | 'Pro',
             }} />
         </div>,
     },
