@@ -2,11 +2,12 @@
 
 import PopupForForm from "@/components/form-fields-components/form-popup-layout";
 import { Button } from "@/components/ui/button";
-import { companyCreationSchema, newUserSchema, TCompanyCreationSchema, TNewUserSchema } from "@/zod/company-creation.zod";
+import { companyCreationSchema, newMachineSchema, newUserSchema, TCompanyCreationSchema, TNewMachineSchema, TNewUserSchema } from "@/zod/company-creation.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import CompanyBasicDetailsForm from "../company-basic-details.form";
+import NewMachineDetailsForm from "../new-machine-details.form";
 import NewUserDetailsForm from "../new-user-details.form";
 
 export default function CompanyCreationView() {
@@ -31,7 +32,17 @@ export default function CompanyCreationView() {
             password: "",
         },
     })
-
+    
+    const machineForm = useForm<TNewMachineSchema>({
+        resolver: zodResolver(newMachineSchema),
+        defaultValues: {
+            plantName: "",
+            machineName: "",
+            machineType: "",
+            machineCategory: "",
+            machineManufacturer: "",
+        },
+    })
 
     function onSubmit(data: TCompanyCreationSchema) {
         console.log(data);
@@ -41,6 +52,13 @@ export default function CompanyCreationView() {
         if (userForm.formState.isValid) {
             console.log(data);
             userForm.reset();
+        }
+    }
+
+    function onMachineSubmit(data: TNewMachineSchema) {
+        if (machineForm.formState.isValid) {
+            console.log(data);
+            machineForm.reset();
         }
     }
 
@@ -72,17 +90,29 @@ export default function CompanyCreationView() {
                         formInstance={userForm}
                     />
                 </div>
-            <p className="text-sm text-center text-muted-foreground">No User Added</p>
+                <p className="text-sm text-center text-muted-foreground">No User Added</p>
             </div>
             <div className="p-5 border-b border-dashed space-y-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-bold">Add Machines</h1>
-                <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
-                <PlusIcon />
-                <span className="hidden lg:inline">Add Machine</span>
-                </Button>
-            </div>
-            <p className="text-sm text-center text-muted-foreground">No User Added</p>
+                    <PopupForForm
+                        title="Add Machine" 
+                        triggerText={
+                            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
+                                <PlusIcon />
+                                <span className="hidden lg:inline">Add Machine</span>
+                            </Button>
+                        } 
+                        form={<NewMachineDetailsForm form={machineForm} onSubmit={onMachineSubmit} />} 
+                        submitFunction={() => {
+                            onMachineSubmit(machineForm.getValues());
+                            form.reset();
+                        }}
+                        buttonText="Add Machine"
+                        formInstance={machineForm}
+                    />
+                </div>
+                <p className="text-sm text-center text-muted-foreground">No Machine Added</p>
             </div>
             <div className="p-5 border-b border-dashed flex justify-end items-center gap-4">
                 <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" onClick={() => {
