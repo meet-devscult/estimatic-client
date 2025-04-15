@@ -1,6 +1,6 @@
 export type UUID = string;
 
-export interface Machine {
+export interface IMachine {
   id: UUID;
   companyId: UUID;
   name: string;
