@@ -1,13 +1,14 @@
+import { Button } from "@/components/ui/button";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState } from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 
 interface PopupForFormProps<T extends FieldValues> {
@@ -17,6 +18,7 @@ interface PopupForFormProps<T extends FieldValues> {
   submitFunction: () => void;
   buttonText: string;
   formInstance?: UseFormReturn<T>;
+  enableCloseButton?: boolean;
 }
   
 export default function PopupForForm<T extends FieldValues>({ 
@@ -25,15 +27,18 @@ export default function PopupForForm<T extends FieldValues>({
   form, 
   submitFunction, 
   buttonText, 
-  formInstance 
+  formInstance,
+  enableCloseButton = false
 }: PopupForFormProps<T>) {
+
+  const [isOpen, setIsOpen] = useState(false);
   const handleSubmit = () => {
     if (formInstance) {
-      // Trigger form validation
       formInstance.trigger();
-      
-      // Check if form is valid
+
       if (formInstance.formState.isValid) {
+        setIsOpen(false);
+        formInstance.reset();
         submitFunction();
       }
     } else {
@@ -41,28 +46,35 @@ export default function PopupForForm<T extends FieldValues>({
     }
   };
 
+  const handleCancel = () => {
+    setIsOpen(false);
+    formInstance?.reset();
+  }
+
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
         {triggerText}
-      </AlertDialogTrigger>
-      <AlertDialogContent className="border-dashed min-w-1/2">
-        <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-        </AlertDialogHeader> 
-        {form}
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction 
+      </DialogTrigger>
+      <DialogContent className="border-dashed flex flex-col p-0 sm:max-h-[min(640px,80vh)] sm:max-w-xl" enableCloseButton={enableCloseButton}>
+        <DialogHeader className="p-5">
+          <DialogTitle>{title}</DialogTitle>
+        </DialogHeader> 
+        <ScrollArea className="flex max-h-full flex-col overflow-hidden">
+          {form}
+        </ScrollArea>
+        <DialogFooter className="p-5">
+          <Button variant="destructive" onClick={handleCancel}>Cancel</Button>
+          <Button 
             type="submit"
             className="dark:bg-white bg-black dark:text-black text-white hover:bg-black"
             onClick={handleSubmit}
           >
             {buttonText}
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
   

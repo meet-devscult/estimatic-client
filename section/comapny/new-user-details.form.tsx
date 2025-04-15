@@ -15,7 +15,7 @@ export default function NewUserDetailsForm({form, onSubmit}: NewUserDetailsFormP
         <>
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 px-5">
                     <InputBox form={form} name="name" placeholder="Name" />
                     <InputBox form={form} name="designation" placeholder="Designation" />
                     <InputBox form={form} name="phone" placeholder="Phone" />
