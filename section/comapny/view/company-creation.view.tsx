@@ -1,18 +1,15 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { CompanyCreationSchema, TCompanyCreationSchema, TNewMachineSchema } from "@/zod/company-creation.zod";
+import { CompanyCreationSchema, TCompanyCreationSchema } from "@/zod/company-creation.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon, XIcon } from "lucide-react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CompanyBasicDetailsForm from "../company-basic-details.form";
 import NewMachineDetails from "../new-machine-details.form";
 import NewUserDetailsForm from "../new-user-details.form";
 
 export default function CompanyCreationView() {
-
-    const [ machines, setMachines ] = useState<TNewMachineSchema[]>([])
 
     const form = useForm<TCompanyCreationSchema>({
         resolver: zodResolver(CompanyCreationSchema),
@@ -24,7 +21,7 @@ export default function CompanyCreationView() {
     })
 
     function onSubmit(data: TCompanyCreationSchema) {
-        console.log({data, machines: machines});
+        console.log({data});
     }
 
     return (
@@ -42,14 +39,14 @@ export default function CompanyCreationView() {
                     <NewUserDetailsForm />
                 </div>
                 <p className="text-sm text-center text-muted-foreground">No User Added</p>
+
             </div>
             <div className="p-5 border-b border-dashed space-y-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-bold">Add Machines</h1>
-                    <NewMachineDetails setMachines={(data) => setMachines([...machines, data])} />
+                    <NewMachineDetails />
                 </div>
-                {machines.length === 0 && <p className="text-sm text-center text-muted-foreground">No Machine Added</p>}
-                {machines.length > 0 && <p className="text-sm text-center text-muted-foreground">Machines Added {machines.length}</p>}
+                <p className="text-sm text-center text-muted-foreground">No Machine Added</p>
             </div>
             <div className="p-5 border-b border-dashed flex justify-end items-center gap-4">
                 <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" onClick={() => {

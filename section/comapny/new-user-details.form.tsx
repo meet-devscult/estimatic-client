@@ -8,8 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon } from "lucide-react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
-
-
 export default function NewUserDetailsForm() {
 
     const userForm = useForm<TNewUserSchema>({
