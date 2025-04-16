@@ -1,22 +1,21 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { companyCreationSchema, TCompanyCreationSchema, TNewMachineSchema, TNewUserSchema } from "@/zod/company-creation.zod";
+import { CompanyCreationSchema, TCompanyCreationSchema, TNewMachineSchema } from "@/zod/company-creation.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CompanyBasicDetailsForm from "../company-basic-details.form";
-import NewMachineDetailsFormPopUp from "../new-machine-details.form";
-import NewUserDetailsFormPopUp from "../new-user-details.form";
+import NewMachineDetails from "../new-machine-details.form";
+import NewUserDetailsForm from "../new-user-details.form";
 
 export default function CompanyCreationView() {
 
-    const [ users, setUsers ] = useState<TNewUserSchema[]>([])
     const [ machines, setMachines ] = useState<TNewMachineSchema[]>([])
 
     const form = useForm<TCompanyCreationSchema>({
-        resolver: zodResolver(companyCreationSchema),
+        resolver: zodResolver(CompanyCreationSchema),
         defaultValues: {
             name: "",
             website: "",
@@ -40,14 +39,14 @@ export default function CompanyCreationView() {
             <div className="p-5 border-b border-dashed space-y-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-bold">Add Users</h1>
-                    <NewUserDetailsFormPopUp setUsers={(data) => setUsers([...users, data])} />
+                    <NewUserDetailsForm />
                 </div>
                 <p className="text-sm text-center text-muted-foreground">No User Added</p>
             </div>
             <div className="p-5 border-b border-dashed space-y-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-bold">Add Machines</h1>
-                    <NewMachineDetailsFormPopUp setMachines={(data) => setMachines([...machines, data])} />
+                    <NewMachineDetails setMachines={(data) => setMachines([...machines, data])} />
                 </div>
                 {machines.length === 0 && <p className="text-sm text-center text-muted-foreground">No Machine Added</p>}
                 {machines.length > 0 && <p className="text-sm text-center text-muted-foreground">Machines Added {machines.length}</p>}

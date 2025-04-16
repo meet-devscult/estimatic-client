@@ -11,7 +11,6 @@ interface CompanyBasicDetailsFormProps {
 }
 
 export default function CompanyBasicDetailsForm({form, onSubmit}: CompanyBasicDetailsFormProps) {
-
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
