@@ -1,15 +1,74 @@
 import DropdownBox from "@/components/form-fields-components/dropdown-box";
+import PopupForForm from "@/components/form-fields-components/form-popup-layout";
 import InputBox from "@/components/form-fields-components/input-box";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { TNewMachineSchema } from "@/zod/company-creation.zod";
-import { UseFormReturn } from "react-hook-form";
+import { useMachineTypes } from "@/hooks/use-machine";
+import { newMachineSchema, TNewMachineSchema } from "@/zod/company-creation.zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PlusIcon } from "lucide-react";
+import { useForm, UseFormReturn } from "react-hook-form";
+
+interface NewMachineDetailsFormPopUpProps {
+    setMachines?: (data: TNewMachineSchema) => void;
+    defaultValues?: TNewMachineSchema;
+}
+
+export default function NewMachineDetailsFormPopUp({setMachines, defaultValues}: NewMachineDetailsFormPopUpProps) {
+
+    const machineForm = useForm<TNewMachineSchema>({
+        resolver: zodResolver(newMachineSchema),
+        defaultValues: defaultValues ? defaultValues : {
+            plantName: "",
+            machineName: "",
+            machineType: "",
+            machineCategory: "",
+            machineManufacturer: "",
+        },
+    })
+
+    function onMachineSubmit(data: TNewMachineSchema) {
+        if (machineForm.formState.isValid) {
+            if(setMachines) {
+                setMachines(data);
+                machineForm.reset();
+                return;
+            }
+            console.log(data);
+            machineForm.reset();
+        }
+    }
+    
+    return (
+        <PopupForForm
+            title="Add Machine" 
+            triggerText={
+                <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
+                    <PlusIcon />
+                    <span className="hidden lg:inline">Add Machine</span>
+                </Button>
+            } 
+            form={<NewMachineDetailsForm form={machineForm} onSubmit={onMachineSubmit} />} 
+            submitFunction={() => {
+                onMachineSubmit(machineForm.getValues());
+                machineForm.reset();
+            }}
+            buttonText="Add Machine"
+            formInstance={machineForm}
+        />
+    )
+}
 
 interface NewMachineDetailsFormProps {
     form: UseFormReturn<TNewMachineSchema>;
     onSubmit: (data: TNewMachineSchema) => void;
 }
 
-export default function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormProps) {
+export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormProps) {
+
+    const { data: machineTypes, isLoading: isMachineTypesLoading } = useMachineTypes()
+
+    if (isMachineTypesLoading) return null
 
     return (
         <Form {...form}>
@@ -18,7 +77,9 @@ export default function NewMachineDetailsForm({form, onSubmit}: NewMachineDetail
                     <div className="grid grid-cols-2 gap-4">
                         <InputBox form={form} name="plantName" placeholder="Plant Name" />
                         <InputBox form={form} name="machineName" placeholder="Machine Name" />
-                        <DropdownBox form={form} name="machineType" placeholder="Machine Type" options={[{label: "Option 1", value: "option 1"}, {label: "Option 2", value: "option 2"}]} className="w-full h-full" />
+                        <DropdownBox form={form} name="machineType" placeholder="Machine Type" options={
+                            machineTypes.map((machineType: {value: string, label: string}) => ({label: machineType.label, value: machineType.value}))
+                        } className="w-full h-full" />
                         <DropdownBox form={form} name="machineCategory" placeholder="Machine Category" options={[{label: "Option 1", value: "option 1"}, {label: "Option 2", value: "option 2"}]} className="w-full h-full" />
                         <InputBox form={form} name="machineManufacturer" placeholder="Machine Manufacturer" />
                         <InputBox form={form} name="spindleMaxRPM" placeholder="Spindle Max RPM" type="number" />

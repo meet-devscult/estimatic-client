@@ -1,4 +1,4 @@
-import { getMachineById, getMachines, getMachinesByCompanyId } from "@/actions/machine.action";
+import { getMachineById, getMachines, getMachinesByCompanyId, getMachineTypes } from "@/actions/machine.action";
 import { useQuery } from "@tanstack/react-query";
 
 export function useMachines() {
@@ -26,4 +26,14 @@ export function useMachineById(id: string) {
     })
 
     return { data, isLoading }
+}
+
+
+export function useMachineTypes() {
+    const { data, isLoading, error, isError, refetch, isFetching } = useQuery({
+        queryKey: ['machine-types'],
+        queryFn: () => getMachineTypes(),
+    })
+
+    return { data, isLoading, error, isError, refetch, isFetching }
 }

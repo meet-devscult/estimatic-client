@@ -52,7 +52,7 @@ export function TransactionForm({form, onSubmit}: TransactionFormProps) {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 px-5">
                     <DropdownBox 
                         form={form} 
                         name="name" 

@@ -2,15 +2,18 @@
 
 import PopupForForm from "@/components/form-fields-components/form-popup-layout";
 import { Button } from "@/components/ui/button";
-import { companyCreationSchema, newMachineSchema, newUserSchema, TCompanyCreationSchema, TNewMachineSchema, TNewUserSchema } from "@/zod/company-creation.zod";
+import { companyCreationSchema, newUserSchema, TCompanyCreationSchema, TNewMachineSchema, TNewUserSchema } from "@/zod/company-creation.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon, XIcon } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CompanyBasicDetailsForm from "../company-basic-details.form";
-import NewMachineDetailsForm from "../new-machine-details.form";
+import NewMachineDetailsFormPopUp from "../new-machine-details.form";
 import NewUserDetailsForm from "../new-user-details.form";
 
 export default function CompanyCreationView() {
+
+    const [ machines, setMachines ] = useState<TNewMachineSchema[]>([])
 
     const form = useForm<TCompanyCreationSchema>({
         resolver: zodResolver(companyCreationSchema),
@@ -20,6 +23,10 @@ export default function CompanyCreationView() {
             companyType: "",
         },
     })
+
+    function onSubmit(data: TCompanyCreationSchema) {
+        console.log({data, machines: machines});
+    }
 
     const userForm = useForm<TNewUserSchema>({
         resolver: zodResolver(newUserSchema),
@@ -33,32 +40,10 @@ export default function CompanyCreationView() {
         },
     })
     
-    const machineForm = useForm<TNewMachineSchema>({
-        resolver: zodResolver(newMachineSchema),
-        defaultValues: {
-            plantName: "",
-            machineName: "",
-            machineType: "",
-            machineCategory: "",
-            machineManufacturer: "",
-        },
-    })
-
-    function onSubmit(data: TCompanyCreationSchema) {
-        console.log(data);
-    }
-
     function onUserSubmit(data: TNewUserSchema) {
         if (userForm.formState.isValid) {
             console.log(data);
             userForm.reset();
-        }
-    }
-
-    function onMachineSubmit(data: TNewMachineSchema) {
-        if (machineForm.formState.isValid) {
-            console.log(data);
-            machineForm.reset();
         }
     }
 
@@ -95,24 +80,10 @@ export default function CompanyCreationView() {
             <div className="p-5 border-b border-dashed space-y-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-bold">Add Machines</h1>
-                    <PopupForForm
-                        title="Add Machine" 
-                        triggerText={
-                            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
-                                <PlusIcon />
-                                <span className="hidden lg:inline">Add Machine</span>
-                            </Button>
-                        } 
-                        form={<NewMachineDetailsForm form={machineForm} onSubmit={onMachineSubmit} />} 
-                        submitFunction={() => {
-                            onMachineSubmit(machineForm.getValues());
-                            form.reset();
-                        }}
-                        buttonText="Add Machine"
-                        formInstance={machineForm}
-                    />
+                    <NewMachineDetailsFormPopUp setMachines={(data) => setMachines([...machines, data])} />
                 </div>
-                <p className="text-sm text-center text-muted-foreground">No Machine Added</p>
+                {machines.length === 0 && <p className="text-sm text-center text-muted-foreground">No Machine Added</p>}
+                {machines.length > 0 && <p className="text-sm text-center text-muted-foreground">Machines Added {machines.length}</p>}
             </div>
             <div className="p-5 border-b border-dashed flex justify-end items-center gap-4">
                 <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" onClick={() => {

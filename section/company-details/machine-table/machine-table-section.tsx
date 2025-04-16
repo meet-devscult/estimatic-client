@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/table-layout/data-table";
-import { Button } from "@/components/ui/button";
 import { useMachineByCompanyId } from "@/hooks/use-machine";
-import { Loader2, PlusIcon } from "lucide-react";
+import NewMachineDetailsFormPopUp from "@/section/comapny/new-machine-details.form";
+import { Loader2 } from "lucide-react";
 import { machineTableColumn } from "./machine-table-column";
 
 interface MatchineTableSectionProps {
@@ -20,10 +20,7 @@ export default function MatchineTableSection({ company_id }: MatchineTableSectio
             <div>
                 <div className="flex justify-between items-center p-5 border-b border-dashed">
                     <h1 className="text-2xl font-bold">Machines</h1>
-                    <Button variant="outline" size="lg" className="border-dashed">
-                        <PlusIcon />
-                        <span className="hidden lg:inline">Add Machine</span>
-                    </Button>
+                    <NewMachineDetailsFormPopUp />
                 </div>
             </div>
             <DataTable columns={machineTableColumn} data={machines} headerClassName="text-left" />
