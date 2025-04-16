@@ -29,11 +29,11 @@ export default function NewMachineDetailsFormPopUp({setMachines, defaultValues}:
 
     function onMachineSubmit(data: TNewMachineSchema) {
         if (machineForm.formState.isValid) {
-            if(setMachines) {
-                setMachines(data);
-                machineForm.reset();
-                return;
-            }
+            // if(setMachines) {
+            //     setMachines(data);
+            //     machineForm.reset();
+            //     return;
+            // }
             console.log(data);
             machineForm.reset();
         }
@@ -67,8 +67,10 @@ interface NewMachineDetailsFormProps {
 export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormProps) {
 
     const { data: machineTypes, isLoading: isMachineTypesLoading } = useMachineTypes()
+    // const { data: machineCategories, isLoading: isMachineCategoriesLoading } = useMachineCategories()
 
     if (isMachineTypesLoading) return null
+    // if (isMachineCategoriesLoading) return null
 
     return (
         <Form {...form}>

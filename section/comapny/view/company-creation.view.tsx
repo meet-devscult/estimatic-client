@@ -1,18 +1,18 @@
 "use client"
 
-import PopupForForm from "@/components/form-fields-components/form-popup-layout";
 import { Button } from "@/components/ui/button";
-import { companyCreationSchema, newUserSchema, TCompanyCreationSchema, TNewMachineSchema, TNewUserSchema } from "@/zod/company-creation.zod";
+import { companyCreationSchema, TCompanyCreationSchema, TNewMachineSchema, TNewUserSchema } from "@/zod/company-creation.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CompanyBasicDetailsForm from "../company-basic-details.form";
 import NewMachineDetailsFormPopUp from "../new-machine-details.form";
-import NewUserDetailsForm from "../new-user-details.form";
+import NewUserDetailsFormPopUp from "../new-user-details.form";
 
 export default function CompanyCreationView() {
 
+    const [ users, setUsers ] = useState<TNewUserSchema[]>([])
     const [ machines, setMachines ] = useState<TNewMachineSchema[]>([])
 
     const form = useForm<TCompanyCreationSchema>({
@@ -28,25 +28,6 @@ export default function CompanyCreationView() {
         console.log({data, machines: machines});
     }
 
-    const userForm = useForm<TNewUserSchema>({
-        resolver: zodResolver(newUserSchema),
-        defaultValues: {
-            name: "",
-            designation: "",
-            phone: "",
-            type: "",
-            email: "",
-            password: "",
-        },
-    })
-    
-    function onUserSubmit(data: TNewUserSchema) {
-        if (userForm.formState.isValid) {
-            console.log(data);
-            userForm.reset();
-        }
-    }
-
     return (
         <div>
             <div className="p-5 border-b border-dashed">
@@ -59,21 +40,7 @@ export default function CompanyCreationView() {
             <div className="p-5 border-b border-dashed space-y-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-bold">Add Users</h1>
-                    <PopupForForm
-                        title="Add User" 
-                        triggerText={
-                            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
-                                <PlusIcon />
-                                <span className="hidden lg:inline">Add User</span>
-                            </Button>
-                        } 
-                        form={<NewUserDetailsForm form={userForm} onSubmit={onUserSubmit} />} 
-                        submitFunction={() => {
-                            onUserSubmit(userForm.getValues());
-                        }}
-                        buttonText="Add User"
-                        formInstance={userForm}
-                    />
+                    <NewUserDetailsFormPopUp setUsers={(data) => setUsers([...users, data])} />
                 </div>
                 <p className="text-sm text-center text-muted-foreground">No User Added</p>
             </div>

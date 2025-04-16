@@ -37,3 +37,12 @@ export function useMachineTypes() {
 
     return { data, isLoading, error, isError, refetch, isFetching }
 }
+
+export function useMachineCategories() {
+    const { data, isLoading, error, isError, refetch, isFetching } = useQuery({
+        queryKey: ['machine-categories'],
+        queryFn: () => getMachineTypes(),
+    })
+
+    return { data, isLoading, error, isError, refetch, isFetching }
+}
