@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/table-layout/data-table";
-import { Button } from "@/components/ui/button";
 import { useTransactionByCompanyId } from "@/hooks/use-transaction";
-import { Loader2, PlusIcon } from "lucide-react";
+import NewTransection from "@/section/transaction/transaction-form";
+import { Loader2 } from "lucide-react";
 import { transactionTableColumn } from "./transaction-table-column";
 
 interface TransactionTableSectionProps {
@@ -20,10 +20,7 @@ export default function TransactionTableSection({ company_id }: TransactionTable
             <div>
                 <div className="flex justify-between items-center p-5 border-b border-dashed">
                     <h1 className="text-2xl font-bold">Transactions</h1>
-                    <Button variant="outline" size="lg" className="border-dashed">
-                        <PlusIcon />
-                        <span className="hidden lg:inline">Add Transaction</span>
-                    </Button>
+                    <NewTransection />
                 </div>
             </div>
             <DataTable columns={transactionTableColumn} data={transactions} headerClassName="text-left" />

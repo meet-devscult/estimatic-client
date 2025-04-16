@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/table-layout/data-table";
-import { Button } from "@/components/ui/button";
 import { useUserByCompanyId } from "@/hooks/use-user";
-import { Loader2, PlusIcon } from "lucide-react";
+import NewUserDetailsFormPopUp from "@/section/comapny/new-user-details.form";
+import { Loader2 } from "lucide-react";
 import { userTableColumn } from "./user-table-column";
 
 interface UserTableSectionProps {
@@ -20,10 +20,7 @@ export default function UserTableSection({ company_id }: UserTableSectionProps) 
             <div>
                 <div className="flex justify-between items-center p-5 border-b border-dashed">
                     <h1 className="text-2xl font-bold">Users</h1>
-                    <Button variant="outline" size="lg" className="border-dashed">
-                        <PlusIcon />
-                        <span className="hidden lg:inline">Add User</span>
-                    </Button>
+                    <NewUserDetailsFormPopUp />
                 </div>
             </div>
             <DataTable columns={userTableColumn} data={users} headerClassName="text-left" />

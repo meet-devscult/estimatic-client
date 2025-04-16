@@ -41,3 +41,13 @@ export async function getMachineTypes() {
     const response = await axiosInstance.get(URL)
     return response.data
 }
+
+/**
+ * Get all machine categories
+ * @returns Machine categories
+ */
+export async function getMachineCategories() {
+    const URL = endpoints.machines.machine_categories
+    const response = await axiosInstance.get(URL)
+    return response.data
+}
