@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import NewTransaction from "@/section/transaction/transaction-form"
 import { ITransaction } from "@/types/transaction.type"
 import { ColumnDef } from "@tanstack/react-table"
 import dayjs from "dayjs"
@@ -37,10 +37,18 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
     {
         accessorKey: "action",
         header: " ",
-        cell: () => <div className="flex items-center justify-end gap-2">
-            <Button variant="outline" size="sm">
+        cell: ({ row }) => <div className="flex items-center justify-end gap-2">
+            {/* <Button variant="outline" size="sm">
               Edit Info
-            </Button>
+            </Button> */}
+            <NewTransaction defaultValues={{
+                            name: row.original.name,
+                            datePaid: dayjs(row.original.datePaid).toDate(),
+                            amount: row.original.amount,
+                            validUntil: dayjs(row.original.validUntil).toDate(),
+                            paidVia: row.original.paidVia as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer',
+                            paidFor: row.original.paidFor as 'Free' | 'Pro',
+                        }} />
         </div>,
     },
   ]
