@@ -44,9 +44,6 @@ export const userTableColumn: ColumnDef<IUser>[] = [
         accessorKey: "action",
         header: " ",
         cell: ({ row }) => <div className="flex items-center justify-end gap-2">
-            {/* <Button variant="outline" size="sm">
-              Edit Info
-            </Button> */}
             <NewUserDetailsForm defaultValues={{
               ...row.original,
               phone: row.original.contactNo,

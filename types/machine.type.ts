@@ -12,6 +12,7 @@ export interface IMachine {
   avgSetupTime: string;
   hourlyCost: number;
   machineType: string;
+  machineCategory: string; // Machine Category Added
   manufacturer: string;
   spindleMaxRPM: number;
   efficiency: number;

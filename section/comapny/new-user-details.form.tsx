@@ -27,12 +27,8 @@ export default function NewUserDetailsForm({defaultValues}: { defaultValues?: TN
     }
 
     return  <AddNewUserPopup
-    title="Add New User"
+        title={defaultValues ? "Edit User" : "Add New User"}
         triggerText={
-            // <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
-            // <PlusIcon />
-            // <span className="hidden lg:inline">Add User</span>
-            // </Button>
             <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
               {!defaultValues && <PlusIcon />}
               {defaultValues ? <span className="hidden lg:inline">Edit Info</span> : <span className="hidden lg:inline">Add User</span>}
