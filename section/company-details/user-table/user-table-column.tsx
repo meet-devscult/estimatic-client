@@ -47,7 +47,13 @@ export const userTableColumn: ColumnDef<IUser>[] = [
             {/* <Button variant="outline" size="sm">
               Edit Info
             </Button> */}
-            <NewUserDetailsForm />
+            <NewUserDetailsForm defaultValues={{
+              ...row.original,
+              phone: row.original.contactNo,
+              email: row.original.emailId,
+              type: row.original.role,
+              password: "",
+            }} />
             <Link href={`/company/${row.original.companyId}/user/${row.original.id}`}>
               Show Details
             </Link>
