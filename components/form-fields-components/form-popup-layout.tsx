@@ -33,16 +33,29 @@ export default function PopupForForm<T extends FieldValues>({
 
   const [isOpen, setIsOpen] = useState(false);
   const handleSubmit = () => {
-    if (formInstance) {
-      formInstance.trigger();
+    // if (formInstance) {
+    //   formInstance.trigger();
 
-      if (formInstance.formState.isValid) {
-        setIsOpen(false);
-        formInstance.reset();
-        submitFunction();
-      }
-    } else {
+    //   console.log(formInstance.formState.isValid);
+    //   if (formInstance.formState.isValid) {
+    //     setIsOpen(false);
+    //     submitFunction();
+    //     formInstance.reset();
+    //   }
+    // } else {
+    //   submitFunction();
+    // }
+
+    /**
+     * Temparary changes
+     */
+    if(formInstance) {
+      formInstance.trigger();
+      setIsOpen(false);
       submitFunction();
+      formInstance.reset();
+    } else {
+      console.log("no form instance");
     }
   };
 

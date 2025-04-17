@@ -35,6 +35,7 @@ export default function NewTransaction({defaultValues}: { defaultValues?: TTrans
               form.reset()
             }}
           buttonText="Add Transaction"
+          formInstance={form}
         />    
 }
 

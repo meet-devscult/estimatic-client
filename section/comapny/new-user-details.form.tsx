@@ -44,6 +44,7 @@ export default function NewUserDetailsForm() {
             userForm.reset()
             }}
         buttonText="Add User"
+        formInstance={userForm}
         />    
 
 }
