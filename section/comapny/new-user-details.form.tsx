@@ -8,11 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon } from "lucide-react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
-export default function NewUserDetailsForm() {
+export default function NewUserDetailsForm({defaultValues}: { defaultValues?: TNewUserSchema }) {
 
     const userForm = useForm<TNewUserSchema>({
         resolver: zodResolver(NewUserSchema),
-        defaultValues: {
+        defaultValues: defaultValues || {
             name: "",
             email: "",
             password: "",
@@ -27,11 +27,11 @@ export default function NewUserDetailsForm() {
     }
 
     return  <AddNewUserPopup
-    title="Add New User"
+        title={defaultValues ? "Edit User" : "Add New User"}
         triggerText={
-            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
-            <PlusIcon />
-            <span className="hidden lg:inline">Add User</span>
+            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
+              {!defaultValues && <PlusIcon />}
+              {defaultValues ? <span className="hidden lg:inline">Edit Info</span> : <span className="hidden lg:inline">Add User</span>}
             </Button>
         } 
         form={
@@ -62,7 +62,7 @@ export function UserDetailsForm({form, onSubmit}: NewUserDetailsFormProps) {
                     <InputBox form={form} name="name" placeholder="Name" />
                     <InputBox form={form} name="designation" placeholder="Designation" />
                     <InputBox form={form} name="phone" placeholder="Phone" />
-                    <DropdownBox form={form} name="type" placeholder="Type" options={[{label: "Admin", value: "admin"}, {label: "User", value: "user"}]} className="w-full h-full" />
+                    <DropdownBox form={form} name="type" placeholder="Type" options={[{label: "Admin", value: "Admin"}, {label: "Non-Admin", value: "Non-Admin"}]} className="w-full h-full" />
                     <InputBox form={form} name="email" placeholder="Email" />
                     <InputBox form={form} name="password" placeholder="Password" type="password" />
                 </div>

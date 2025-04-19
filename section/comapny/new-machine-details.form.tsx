@@ -41,11 +41,11 @@ export default function NewMachineDetails({setMachines, defaultValues}: NewMachi
     
     return (
         <PopupForForm
-            title="Add Machine" 
+            title={defaultValues ? "Edit Machine" : "Add Machine"} 
             triggerText={
-                <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
-                    <PlusIcon />
-                    <span className="hidden lg:inline">Add Machine</span>
+                <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
+                    {!defaultValues && <PlusIcon />}
+                    {defaultValues ? <span className="hidden lg:inline">Edit Info</span> : <span className="hidden lg:inline">Add Machine</span>}
                 </Button>
             } 
             form={<NewMachineDetailsForm form={machineForm} onSubmit={onMachineSubmit} />} 
