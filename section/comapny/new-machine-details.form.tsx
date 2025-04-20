@@ -81,7 +81,7 @@ export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormPro
                         <DropdownBox form={form} name="machineType" placeholder="Machine Type" options={
                             machineTypes.map((machineType: {value: string, label: string}) => ({label: machineType.label, value: machineType.value}))
                         } className="w-full h-full" />
-                        <DropdownBox form={form} name="machineCategory" placeholder="Machine Category" options={[{label: "Option 1", value: "option 1"}, {label: "Option 2", value: "option 2"}]} className="w-full h-full" />
+                        <DropdownBox form={form} name="machineCategory" placeholder="Machine Category" options={[{label: "Option 1", value: "option_1"}, {label: "Option 2", value: "option_2"}]} className="w-full h-full" />
                         <InputBox form={form} name="machineManufacturer" placeholder="Machine Manufacturer" />
                         <InputBox form={form} name="spindleMaxRPM" placeholder="Spindle Max RPM" type="number" />
                         <InputBox form={form} name="efficiency" placeholder="Efficiency %" type="number" />

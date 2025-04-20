@@ -44,24 +44,13 @@ export const machineTableColumn: ColumnDef<IMachine>[] = [
       accessorKey: "action",
       header: " ",
       cell: ({ row }) => <div className="flex items-center justify-end gap-2">
-        <NewMachineDetails defaultValues={{plantName: row.original.plant,
-                                            machineName: row.original.name,
-                                            machineType: row.original.machineType,
-                                            machineCategory: row.original.machineCategory,
-                                            machineManufacturer: row.original.manufacturer,
-                                            spindleMaxRPM: row.original.spindleMaxRPM,
-                                            efficiency: row.original.efficiency,
-                                            powerConsumption: row.original.powerConsumption,
-                                            allowance: row.original.allowance,
-                                            setupBaseTime: row.original.setupBaseTime,
-                                            ratePerHour: row.original.machineHourlyRate,
-                                            setupRatePerHour: row.original.setupHourRate,
-                                            maxToolLength: row.original.maxToolLength,
-                                            maxToolDiameter: row.original.maxToolDiameter,
-                                            maxTableLength: row.original.maxTableLength,
-                                            maxTableBreadth: row.original.maxTableBreadth,
-                                            maxWorkpieceWeight: row.original.maxWorkpieceWeight,
-                                            toolChangeTime: row.original.toolChangeTime,
+        <NewMachineDetails defaultValues={{
+          ...row.original,
+          plantName: row.original.plant,
+          machineName: row.original.name,
+          machineManufacturer: row.original.manufacturer,
+          ratePerHour: row.original.machineHourlyRate,
+          setupRatePerHour: row.original.setupHourRate,
         }} />
         <Link href={`/company/${row.original.companyId}/machine/${row.original.id}`}>
           Show Details
