@@ -11,7 +11,7 @@ export function useCompany() {
         queryFn: () => getCompany(),
     })
 
-    return { data, isLoading, error, isError, refetch, isFetching }
+    return { data: data?.data, isLoading, error, isError, refetch, isFetching }
 }
 
 /**
@@ -25,5 +25,5 @@ export function useCompanyById(id: string) {
         queryFn: () => getCompanyById(id),
     })
 
-    return { data, isLoading, error, isError, refetch, isFetching }
+    return { data: data?.data, isLoading, error, isError, refetch, isFetching }
 }

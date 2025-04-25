@@ -28,6 +28,6 @@ export default function ComapnyViewSection() {
         </Button>
       </div>
     </div>
-    <DataTable columns={companyColumn} data={data?.data}  />
+    <DataTable columns={companyColumn} data={data?.data?.list || []}  />
   </div>
 }

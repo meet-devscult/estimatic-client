@@ -1,14 +1,46 @@
+"use client"
+
+import { loginAction } from '@/actions/auth.action'
 import { appConfig } from '@/app-config'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { HexagonIcon } from 'lucide-react'
+
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
 export default function LoginPage() {
+    const router = useRouter()
+    
+    const [isLoading, setIsLoading] = useState(false)
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            email: '',
+            password: ''
+        }
+    })
+
+    const onSubmit = async (data: { email: string; password: string }) => {
+        
+        try {
+            setIsLoading(true)
+            await loginAction(data)
+
+            router.push('/') // Redirect to dashboard after successful login
+        } catch (error) {
+            toast.error('Invalid email or password')
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
-            <form action="" className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
+            <form onSubmit={handleSubmit(onSubmit)} className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
                 <div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
                     <div className="text-center">
                         <Link href="/" aria-label="go home" className="mx-auto block w-fit">
@@ -21,14 +53,20 @@ export default function LoginPage() {
                     <div className="mt-6 space-y-6">
                         <div className="space-y-2">
                             <Label htmlFor="email" className="block text-sm">
-                                Username
+                                Email
                             </Label>
-                            <Input type="email" required name="email" id="email" />
+                            <Input 
+                                type="email" 
+                                required 
+                                id="email" 
+                                {...register('email', { required: 'Email is required' })}
+                            />
+                            {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
                         </div>
 
                         <div className="space-y-0.5">
                             <div className="flex items-center justify-between">
-                                <Label htmlFor="pwd" className="text-title text-sm">
+                                <Label htmlFor="password" className="text-title text-sm">
                                     Password
                                 </Label>
                                 <Button asChild variant="link" size="sm">
@@ -37,10 +75,19 @@ export default function LoginPage() {
                                     </Link>
                                 </Button>
                             </div>
-                            <Input type="password" required name="pwd" id="pwd" className="input sz-md variant-mixed" />
+                            <Input 
+                                type="password" 
+                                required 
+                                id="password" 
+                                {...register('password', { required: 'Password is required' })}
+                                className="input sz-md variant-mixed" 
+                            />
+                            {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
                         </div>
 
-                        <Button className="w-full dark:text-white ">Sign In</Button>
+                        <Button type="submit" className="w-full dark:text-white" disabled={isLoading}>
+                            {isLoading ? 'Signing in...' : 'Sign In'}
+                        </Button>
                     </div>
 
                     <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">

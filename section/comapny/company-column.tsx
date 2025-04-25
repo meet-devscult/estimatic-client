@@ -13,7 +13,7 @@ export const companyColumn: ColumnDef<ICompany>[] = [
     {
       accessorKey: "name",
       header: "Company Name",
-      cell: ({ row }) => <div className="text-center">{row.original.companyName}</div>,
+      cell: ({ row }) => <div className="text-center">{row.original.name}</div>,
     },
     {
       accessorKey: "active",
@@ -32,14 +32,14 @@ export const companyColumn: ColumnDef<ICompany>[] = [
       accessorKey: "users",
       header: "Users",
       cell: ({ row }) => (
-          <div className="text-center">{row.original.users}</div>
+          <div className="text-center">{row.original.users_count}</div>
       ),
     },
     {
       accessorKey: "quotations",
       header: "Quotations Status",
       cell: ({ row }) => (
-        <div className="text-center">{row.original.quotationsStatus}</div>
+        <div className="text-center">{row.original.quotations_limits}</div>
       ),
     },
     {
@@ -53,21 +53,21 @@ export const companyColumn: ColumnDef<ICompany>[] = [
       accessorKey: "plants",
       header: "Plants",
       cell: ({ row }) => (
-        <div className="text-center">{row.original.plants}</div>
+        <div className="text-center">{row.original.plants_count || 0}</div>
       ),
     },
     {
       accessorKey: "machines",
       header: "Machines",
       cell: ({ row }) => (
-        <div className="text-center">{row.original.machines}</div>
+        <div className="text-center">{row.original.machines_count || 0}</div>
       ),
     },
     {
       id: "actions",
       cell: ({ row }) => (
         <div className="flex justify-end">
-      <Link  href={`/company/${row.original.id}`} className="flex items-center text-sm ">
+      <Link  href={`/company/${row.original.company_id}`} className="flex items-center text-sm ">
           Show Details <ChevronRight className="ml-1 h-4 w-4" />
         </Link></div>
       ),

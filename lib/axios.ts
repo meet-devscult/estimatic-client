@@ -1,6 +1,12 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const axiosInstance = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL });
+const axiosInstance = axios.create({ 
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `${process.env.NEXT_PUBLIC_TOKEN}`
+  }
+});
 
 // ==============================
 
@@ -23,9 +29,13 @@ export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
 
 // ==============================
 
-const PRE_ROUTE = '';
+const PRE_ROUTE = '/api';
 
 export const endpoints = {
+  auth:{
+    login: `${PRE_ROUTE}/auth/login`,
+    logout: `${PRE_ROUTE}/auth/logout`,
+  },
   companies: {
     root: `${PRE_ROUTE}/companies`,
     detail: (id: string) => `${PRE_ROUTE}/companies/${id}`,

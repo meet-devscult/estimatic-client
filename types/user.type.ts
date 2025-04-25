@@ -1,17 +1,17 @@
 export type UUID = string;
 
 export interface IUser {
-  id: UUID;
-  companyId: UUID;
-  name: string;
-  username: string;
+  user_id: string;
+  user_name: string;
+  company_id: string;
+  company_name: string;
   designation: string;
-  contactNo: string;
-  emailId: string;
-  role: 'Admin' | 'Non-Admin';
-  status: string;
-  createdOn: number; // Epoch
-  quotations: string;
-  mobileNumber: string;
-  partsAssigned: UUID[];
+  phone_number: string;
+  email: string;
+  password: string;
+  role: string;
+  type: 'admin' | 'non-admin';
+  status: 'active' | 'inactive';
+  created_at: number; // Epoch
+  is_deleted: boolean;
 }

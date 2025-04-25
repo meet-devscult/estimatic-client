@@ -23,7 +23,7 @@ export default function UserTableSection({ company_id }: UserTableSectionProps) 
                     <NewUserDetailsForm />
                 </div>
             </div>
-            <DataTable columns={userTableColumn} data={users} headerClassName="text-left" />
+            <DataTable columns={userTableColumn} data={users.data.list} headerClassName="text-left" />
         </div>
     )
 }

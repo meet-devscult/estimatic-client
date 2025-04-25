@@ -6,9 +6,9 @@ import Link from "next/link"
 
 export const userTableColumn: ColumnDef<IUser>[] = [
     {
-      accessorKey: "name",
+      accessorKey: "user_name",
       header: "Name",
-      cell: ({ row }) => <div >{row.original.name}</div>,
+      cell: ({ row }) => <div >{row.original.user_name}</div>,
     },
     {
       accessorKey: "designation",
@@ -16,14 +16,14 @@ export const userTableColumn: ColumnDef<IUser>[] = [
       cell: ({ row }) => <div >{row.original.designation}</div>,
     },
     {
-      accessorKey: "contactNo",
+      accessorKey: "phone_number",
       header: "Contact No.",
-      cell: ({ row }) => <div >{row.original.contactNo}</div>,
+      cell: ({ row }) => <div >{row.original.phone_number}</div>,
     },
     {
-      accessorKey: "emailId",
+      accessorKey: "email",
       header: "Email",
-      cell: ({ row }) => <div >{row.original.emailId}</div>,
+      cell: ({ row }) => <div >{row.original.email}</div>,
     },
     {
       accessorKey: "role",
@@ -45,13 +45,14 @@ export const userTableColumn: ColumnDef<IUser>[] = [
         header: " ",
         cell: ({ row }) => <div className="flex items-center justify-end gap-2">
             <NewUserDetailsForm defaultValues={{
-              ...row.original,
-              phone: row.original.contactNo,
-              email: row.original.emailId,
+              name: row.original.user_name,
+              designation: row.original.designation,
+              phone: row.original.phone_number,
+              email: row.original.email,
               type: row.original.role,
               password: "",
             }} />
-            <Link href={`/company/${row.original.companyId}/user/${row.original.id}`}>
+            <Link href={`/company/${row.original.company_id}/user/${row.original.user_id}`}>
               Show Details
             </Link>
         </div>,

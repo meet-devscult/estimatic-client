@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { useCompanyById } from "@/hooks/use-company"
 import { cn } from "@/lib/utils"
+import { ICompany } from "@/types/company.type"
 import dayjs from "dayjs"
 import { Loader2, PlusIcon } from "lucide-react"
 
@@ -16,42 +17,44 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
         <Loader2 className="w-10 h-10 animate-spin" />
     </div>
 
+    const { name, website, updated_at, type, status, upto_validated_at, quotations_limits, users_count, machines_count } = data.data as ICompany;
+
     const company_details_grid: Record<string, string>[] = [
         {
             title: "Company Name",
-            value: data?.data.companyName
+            value: name
         },
         {
             title: "Website",
-            value: data?.data.website
+            value: website
         },
         {
             title: "Created On",
-            value: dayjs.unix(data?.data.createdOn).format("DD/MM/YYYY")
+            value: dayjs.unix(updated_at).format("DD/MM/YYYY")
         },  
         {
             title: "Type",
-            value: data?.data.type
+            value: type
         },
         {
             title: "Status",
-            value: data?.data.status
+            value: status
         },
         {
             title: "Valid Upto",
-            value: dayjs.unix(data?.data.validUpto).format("DD/MM/YYYY")
+            value: dayjs.unix(upto_validated_at).format("DD/MM/YYYY")
         },
         {
             title: "Quotations",
-            value: data?.data.quotationsStatus
+            value: quotations_limits.toString()
         },
         {
             title: "Users",
-            value: data?.data.users
+            value: users_count.toString()
         },
         {
             title: "Machines",
-            value: data?.data.machines
+            value: machines_count.toString() || "0"    
         },
     ]
 
