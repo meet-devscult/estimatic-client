@@ -1,24 +1,26 @@
+import { cookies } from 'next/headers'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
 // This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-  // const isAuthenticated = request.cookies.has('auth-token') // You can change this based on your auth implementation
+export async function middleware(request: NextRequest) {
+  const cookieStore = await cookies()
+  const authToken = cookieStore.get('auth-token')?.value
 
-  // // If the user is not authenticated and trying to access protected routes
-  // if (!isAuthenticated && !request.nextUrl.pathname.startsWith('/auth')) {
-  //   return NextResponse.redirect(new URL('/auth', request.url))
-  // }
-
-  // // If the user is authenticated and trying to access login page
-  // if (isAuthenticated && request.nextUrl.pathname.startsWith('/auth')) {
-  //   return NextResponse.redirect(new URL('/', request.url))
-  // }
+  // If the user is not authenticated and trying to access protected routes
+  if (!authToken && !request.nextUrl.pathname.startsWith('/auth')) {
+    console.log('Redirecting to login page')
+    return NextResponse.redirect(new URL('/auth', request.url))
+  }
+  
+  // If the user is authenticated and trying to access login page
+  if (authToken && request.nextUrl.pathname.startsWith('/auth')) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
 
   return NextResponse.next()
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
   matcher: [
     /*

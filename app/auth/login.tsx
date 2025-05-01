@@ -29,8 +29,6 @@ export default function LoginPage() {
         try {
             setIsLoading(true)
             await loginAction(data)
-
-            router.push('/') // Redirect to dashboard after successful login
         } catch (error) {
             toast.error('Invalid email or password')
         } finally {

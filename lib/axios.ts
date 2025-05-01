@@ -4,11 +4,18 @@ const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `${process.env.NEXT_PUBLIC_TOKEN}`
   }
 });
 
 // ==============================
+
+// Request interceptor to add auth token
+axiosInstance.interceptors.request.use(async function (config) {
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
+
 
 axiosInstance.interceptors.response.use(
   (res) => res,

@@ -2,13 +2,14 @@
 
 import axiosInstance, { endpoints } from "@/lib/axios"
 import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
+
 interface LoginParams {
     email: string
     password: string
 }
 
 export async function loginAction({ email, password }: LoginParams) {
-
     const cookieStore = await cookies()
 
     const response = await axiosInstance.post(endpoints.auth.login, {
@@ -16,16 +17,17 @@ export async function loginAction({ email, password }: LoginParams) {
         password,
     })
 
-    console.log(response.data)
-    cookieStore.set('auth-token', response.data.token, {
-        maxAge: 8 * 60 * 60, // 8 hours in seconds
+    const token = response.data.data.token
+    
+    cookieStore.set('auth-token', token, {
+        maxAge: 24 * 60 * 60, // 24 hours in seconds
         path: '/',
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
         httpOnly: true // Makes the cookie inaccessible to JavaScript
     })
 
-    return response.data
+    redirect('/')
 }
 
 export async function logout() {
