@@ -1,41 +1,56 @@
 export type UUID = string;
 
 export interface IMachine {
-  id: UUID;
-  companyId: UUID;
+  machine_id: string;
+  company_id: string;
+  company_name: string;
+  user_id: string;
+  user_name: string;
+  plant_name: string;
   name: string;
-  description: string;
-  status: string;
-  plant: string;
-  addedBy: string;
-  addedByRole: string;
-  avgSetupTime: string;
-  hourlyCost: number;
-  machineType: string;
-  machineCategory: string; // Machine Category Added
+  type: string;
+  category: string;
   manufacturer: string;
-  spindleMaxRPM: number;
+  max_rpm: number;
   efficiency: number;
-  powerConsumption: number;
-  powerConsumptionUnit: string;
+  power_consumption: number;
   allowance: number;
-  allowanceUnit: string;
-  setupBaseTime: number;
-  setupBaseTimeUnit: string;
-  machineHourlyRate: number;
-  machineHourlyRateUnit: string;
-  setupHourRate: number;
-  setupHourRateUnit: string;
-  maxToolLength: number;
-  maxToolLengthUnit: string;
-  maxToolDiameter: number;
-  maxToolDiameterUnit: string;
-  maxTableLength: number;
-  maxTableLengthUnit: string;
-  maxTableBreadth: number;
-  maxTableBreadthUnit: string;
-  maxWorkpieceWeight: number;
-  maxWorkpieceWeightUnit: string;
-  toolChangeTime: number;
-  toolChangeTimeUnit: string;
+  setup_base_time: number;
+  machine_rate: number;
+  setup_hour_rate: number;
+  max_tool_length: number;
+  max_tool_diameter: number;
+  max_table_length: number;
+  max_table_breadth: number;
+  max_workpiece_weight: number;
+  tool_change_time: number;
+  created_at: number;
+  is_deleted: boolean;
 }
+
+export enum MachineType {
+  DRILLING = 'Drilling',
+  TURNING = 'Turning',
+  MILLING = 'Milling',
+  GRINDING = 'Grinding',
+  BORING = 'Boring',
+  BROACHING = 'Broaching',
+  SAWING = 'Sawing',
+}
+
+export enum MachineCategory {
+  THREE_AXIS_CNC = '3 Axis CNC',
+  FOUR_AXIS_CNC = '4 Axis CNC',
+  FIVE_AXIS_CNC = '5 Axis CNC',
+  SIX_AXIS_CNC = '6 Axis CNC',
+  VERTICAL_MACHINING_CENTER = 'Vertical Machining Center',
+  HORIZONTAL_MACHINING_CENTER = 'Horizontal Machining Center',
+  CNC_LATHE = 'CNC Lathe',
+  CNC_SWISS_LATHE = 'CNC Swiss Lathe',
+  CNC_ROUTER = 'CNC Router',
+  CNC_GRINDING_MACHINE = 'CNC Grinding Machine',
+  CNC_BROACHING_MACHINE = 'CNC Broaching Machine',
+  CNC_BANDSAW_MACHINE = 'CNC Bandsaw Machine',
+  CNC_COLD_SAW_MACHINE = 'CNC Cold Saw Machine',
+}
+

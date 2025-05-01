@@ -1,4 +1,4 @@
-import { getMachineById, getMachines, getMachinesByCompanyId, getMachineTypes } from "@/actions/machine.action";
+import { getMachineById, getMachines, getMachineTypes } from "@/actions/machine.action";
 import { useQuery } from "@tanstack/react-query";
 
 export function useMachines() {
@@ -13,7 +13,9 @@ export function useMachines() {
 export function useMachineByCompanyId(companyId: string) {
     const { data, isLoading } = useQuery({
         queryKey: ['machines', 'company', companyId],
-        queryFn: () => getMachinesByCompanyId(companyId),
+        // TODO: remove this when getMachinesByCompanyId api is ready
+        queryFn: () => getMachines(),
+        // queryFn: () => getMachinesByCompanyId(companyId),
     })
 
     return { data, isLoading }

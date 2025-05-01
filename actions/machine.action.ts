@@ -7,7 +7,7 @@ import axiosInstance, { endpoints } from "@/lib/axios"
 export async function getMachines() {
     const URL = endpoints.machines.root
     const response = await axiosInstance.get(URL)
-    return response.data
+    return response.data.data.list
 }
 
 /**

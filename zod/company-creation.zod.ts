@@ -40,7 +40,6 @@ export const newMachineSchema = z.object({
     ratePerHour: z.number(),
     setupRatePerHour: z.number(),
 
-    // optional fields
     maxToolLength: z.number().optional(),
     maxToolDiameter: z.number().optional(),
     maxTableLength: z.number().optional(),

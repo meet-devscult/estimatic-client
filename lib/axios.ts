@@ -45,7 +45,7 @@ export const endpoints = {
     detail: (id: string) => `${PRE_ROUTE}/users/${id}`,
   },
   machines: {
-    root: `${PRE_ROUTE}/machines`,
+    root: `${PRE_ROUTE}/machines/all`,
     detail: (id: string) => `${PRE_ROUTE}/machines/${id}`,
     machine_types: `${PRE_ROUTE}/machineTypes`,
     machine_categories: `${PRE_ROUTE}/machineCategories`,
