@@ -19,5 +19,5 @@ export async function getUsersByCompanyId(companyId: string) {
 export async function getUserById(id: string) {
     const URL = endpoints.users.root + `/${id}`
     const response = await axiosInstance.get(URL)
-    return response.data
+    return response.data.data
 }

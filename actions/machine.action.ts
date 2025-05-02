@@ -27,9 +27,9 @@ export async function getMachinesByCompanyId(companyId: string) {
  * @returns Machine
  */
 export async function getMachineById(id: string) {
-    const URL = endpoints.machines.root + `/${id}`
+    const URL = endpoints.machines.detail(id)
     const response = await axiosInstance.get(URL)
-    return response.data
+    return response.data.data
 }
 
 /**

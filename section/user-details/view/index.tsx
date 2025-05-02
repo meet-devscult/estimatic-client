@@ -2,12 +2,15 @@
 
 import UserDetailCard from "@/components/detail-cards/user-detail-card"
 import { DataTable } from "@/components/table-layout/data-table"
-import { useUserById, useUserPartsByCompanyId } from "@/hooks/use-user"
+import { usePartByCompanyId } from "@/hooks/use-part"
+import { useUserById } from "@/hooks/use-user"
 import { partTableColumn } from "@/section/company-details/parts-table/part-table-column"
 
 export default function UserDetailsViewSection({ userId, companyId }: { userId: string, companyId: string }) {
     const { data: user, isLoading: isUserLoading } = useUserById(userId)
-    const { data: parts, isLoading: isPartsLoading } = useUserPartsByCompanyId(userId, companyId)
+    {/* Temporary parts hook called for placeholder data */}
+    // const { data: parts, isLoading: isPartsLoading } = useUserPartsByCompanyId(userId, companyId)
+    const { data: parts, isLoading: isPartsLoading } = usePartByCompanyId(companyId)
     
     if (isUserLoading || isPartsLoading) return <div>Loading...</div>
     if (!user) return <div>User not found</div>

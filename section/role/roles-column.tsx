@@ -8,12 +8,12 @@ export const roleTableColumn: ColumnDef<IUser>[] = [
     {
       accessorKey: "name",
       header: "Name",
-      cell: ({ row }) => <div className="text-center" >{row.original.name}</div>,
+      cell: ({ row }) => <div className="text-center" >{row.original.user_id}</div>,
     },
     {
       accessorKey: "username",
       header: "Username",
-      cell: ({ row }) => <div className="text-center" >{row.original.username}</div>,
+      cell: ({ row }) => <div className="text-center" >{row.original.user_name}</div>,
     },
     {
       accessorKey: "status",

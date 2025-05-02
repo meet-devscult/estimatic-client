@@ -1,4 +1,4 @@
-import { getPartById, getParts, getPartsByCompanyId } from "@/actions/part.action";
+import { getPartById, getParts } from "@/actions/part.action";
 import { useQuery } from "@tanstack/react-query";
 
 export function useParts() {
@@ -13,7 +13,8 @@ export function useParts() {
 export function usePartByCompanyId(companyId: string) {
     const { data, isLoading } = useQuery({
         queryKey: ['parts', 'company', companyId],
-        queryFn: () => getPartsByCompanyId(companyId),
+        // queryFn: () => getPartsByCompanyId(companyId),
+        queryFn: () => getParts(),
     })
 
     return { data, isLoading }

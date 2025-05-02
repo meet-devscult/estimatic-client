@@ -8,35 +8,35 @@ export const partTableColumn: ColumnDef<IPart>[] = [
       header: "Name",
       cell: ({ row }) => <div >{row.original.name}</div>,
     },
-    {
-      accessorKey: "status",
-      header: "Status",
-      cell: ({ row }) => <div >{row.original.status}</div>,
-    },
+    // {
+    //   accessorKey: "status",
+    //   header: "Status",
+    //   cell: ({ row }) => <div >{row.original.status}</div>,
+    // },
     {
       accessorKey: "type",
       header: "Type",
-      cell: ({ row }) => <div >{row.original.type}</div>,
+      cell: ({ row }) => <div >{row.original.file_type}</div>,
     },
     {
       accessorKey: "material",
       header: "Material",
-      cell: ({ row }) => <div >{row.original.material}</div>,
+      cell: ({ row }) => <div >{row.original.material_category}</div>,
     },
     {
       accessorKey: "time",
       header: "Time",
-      cell: ({ row }) => <div >{row.original.time}</div>,
+      cell: ({ row }) => <div >-</div>,
     },
     {
       accessorKey: "cost",
       header: "Cost",
-      cell: ({ row }) => <div>{row.original.cost}</div>,
+      cell: ({ row }) => <div>{row.original.material_cost}</div>,
     },
     {
       accessorKey: "createdOn",
       header: "Created On",
-      cell: ({ row }) => <div>{row.original.createdOn}</div>,
+      cell: ({ row }) => <div>{row.original.created_at}</div>,
     },
     {
         accessorKey: "action",
