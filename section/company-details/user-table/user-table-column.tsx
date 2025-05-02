@@ -55,6 +55,9 @@ export const userTableColumn: ColumnDef<IUser>[] = [
             <Link href={`/company/${row.original.company_id}/user/${row.original.user_id}`}>
               Show Details
             </Link>
+            {/* <Link href={`/users/${row.original.user_id}`}>
+              Show Details
+            </Link> */}
         </div>,
     },
   ]

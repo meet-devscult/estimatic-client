@@ -15,15 +15,15 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
         },
         {
             label: "Plant",
-            value: machine.plant
+            value: machine.plant_name
         },
         {
             label: "Machine Type",
-            value: machine.machineType
+            value: machine.type
         },
         {
             label: "Machine",
-            value: machine.machineType
+            value: machine.category
         },
         {
             label: "Manufacturer",
@@ -31,7 +31,7 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
         },
         {
             label: "Spindle Max RPM",
-            value: machine.spindleMaxRPM
+            value: machine.max_rpm
         },
         {
             label: "Efficiency %",
@@ -39,57 +39,57 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
         },
         {
             label: "Power Consumption (KW/hour)",
-            value: machine.powerConsumption
+            value: machine.power_consumption
         }
     ]
 
     const section2 = [
-        {
-            label: "Status",
-            value: machine.status
-        },
+        // {
+        //     label: "Status",
+        //     value: machine.status
+        // },
         {
             label: "Allowance (in%)",
             value: machine.allowance
         },
         {
             label: "Setup Base Time",
-            value: machine.setupBaseTime
+            value: machine.setup_base_time
         },
         {
             label: "Machine Hourly Rate",
-            value: machine.machineHourlyRate
+            value: machine.machine_rate
         },
         {
             label: "Setup Hour Rate ",
-            value: machine.setupHourRate
+            value: machine.setup_hour_rate
         },
     ]
 
     const section3 = [
         {
             label: "Max. Tool Length",
-            value: machine.maxToolLength
+            value: machine.max_tool_length
         },
         {
             label: "Max Tool Dia",
-            value: machine.maxToolDiameter
+            value: machine.max_tool_diameter
         },
         {
             label: "Max Table Length ",
-            value: machine.maxTableLength
+            value: machine.max_table_length
         },
         {
             label: "Max table Breadth ",
-            value: machine.maxTableBreadth
+            value: machine.max_table_breadth
         },
         {
             label: "Max Workpiece Weight ",
-            value: machine.maxWorkpieceWeight
+            value: machine.max_workpiece_weight
         },
         {
             label: "Tool Change Time",
-            value: machine.toolChangeTime
+            value: machine.tool_change_time
         },
     ]
 

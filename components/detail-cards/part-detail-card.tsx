@@ -11,30 +11,30 @@ export default function PartDetailCard({ part }: PartDetailCardProps) {
     const section1 = [
         {
             label: "Name",
-            value: part.name
+            value: part.material_standard
         },
         {
             label: "Company",
-            value: part.companyId
+            value: part.material_category
         },
         {
             label: "No. of lots",
-            value: part.noOfLots
+            value: part.material_grade
         },
         {
             label: "Stock per lot",
-            value: part.stockPerLot
+            value: part.stock_qty_per_lot
         },
         {
             label: "Material Cost ",
-            value: part.materialCost
+            value: part.material_cost
         }
     ]
 
     const section2 = [
         {
             label: "Shape",
-            value: part.shape
+            value: part.material_shape
         },
         {
             label: "Diameter",
@@ -49,19 +49,19 @@ export default function PartDetailCard({ part }: PartDetailCardProps) {
     const section3 = [
         {
             label: "Scrap Cost",
-            value: part.scrapCost
+            value: part.scrap_cost
         },
         {
             label: "Gross Weight ",
-            value: part.grossWeight
+            value: part.gross_weight
         },
         {
             label: "Net Weight",
-            value: part.netWeight
+            value: part.net_weight
         },
         {
             label: "Tolerance %",
-            value: part.tolerancePercent
+            value: part.tolerance_standard
         },
     ]
 

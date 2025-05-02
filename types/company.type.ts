@@ -1,7 +1,6 @@
 export type UUID = string;
 
 export interface ICompany {
-  id: UUID;
   company_id: string;
   name: string;
   website: string;

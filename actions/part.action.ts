@@ -3,7 +3,7 @@ import axiosInstance, { endpoints } from "@/lib/axios"
 export async function getParts() {
     const URL = endpoints.parts.root
     const response = await axiosInstance.get(URL)
-    return response.data
+    return response.data.data.list
 }
 
 export async function getPartsByCompanyId(companyId: string) {
@@ -13,9 +13,9 @@ export async function getPartsByCompanyId(companyId: string) {
 }
 
 export async function getPartById(id: string) {
-    const URL = endpoints.parts.root + `/${id}`
+    const URL = endpoints.parts.detail(id)
     const response = await axiosInstance.get(URL)
-    return response.data
+    return response.data.data[0]
 }
 
 export async function getPartByUserIdAndCompanyId(userId: string, companyId: string) {

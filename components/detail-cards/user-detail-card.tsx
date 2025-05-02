@@ -11,7 +11,7 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
     const section1 = [
         {
             label: "Name",
-            value: user.name
+            value: user.user_name
         },
         {
             label: "Designation",
@@ -19,7 +19,7 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
         },
         {
             label: "Created On",
-            value: user.createdOn
+            value: user.created_at
         },
     ]
 
@@ -34,18 +34,18 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
         },
         {
             label: "Mobile Number",
-            value: user.mobileNumber
+            value: user.phone_number
         },
     ]
 
     const section3 = [
-        {
-            label: "Quotations",
-            value: user.quotations
-        },
+        // {
+        //     label: "Quotations",
+        //     value: user.quotations
+        // },
         {
             label: "Email ID",
-            value: user.emailId
+            value: user.email
         },
     ]
 

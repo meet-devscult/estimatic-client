@@ -4,6 +4,7 @@ const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
+    'Authorization': `${process.env.NEXT_PUBLIC_TOKEN}`,
   }
 });
 
@@ -62,7 +63,7 @@ export const endpoints = {
     detail: (id: string) => `${PRE_ROUTE}/transactions/${id}`,
   },
   parts: {
-    root: `${PRE_ROUTE}/parts`,
+    root: `${PRE_ROUTE}/parts/all`,
     detail: (id: string) => `${PRE_ROUTE}/parts/${id}`,
   },
   plants: {
