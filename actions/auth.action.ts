@@ -1,7 +1,5 @@
-"use server"
 
 import axiosInstance, { endpoints } from "@/lib/axios"
-import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
 interface LoginParams {
@@ -10,29 +8,20 @@ interface LoginParams {
 }
 
 export async function loginAction({ email, password }: LoginParams) {
-    const cookieStore = await cookies()
-
     const response = await axiosInstance.post(endpoints.auth.login, {
         email,
         password,
     })
 
     const token = response.data.data.token
+    document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=strict`;
     
-    cookieStore.set('auth-token', token, {
-        maxAge: 24 * 60 * 60, // 24 hours in seconds
-        path: '/',
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        httpOnly: true // Makes the cookie inaccessible to JavaScript
-    })
-
-    redirect('/')
+    window.location.href = '/';
 }
 
-export async function logout() {
-    const response = await fetch('/api/auth/logout', {
-        method: 'POST',
-    })
-    return response.json()
+export async function logoutAction() {
+    await axiosInstance.post(endpoints.auth.logout)
+    document.cookie = 'auth_token=; path=/; max-age=0; secure; samesite=strict';
+    
+    redirect('/auth')
 }

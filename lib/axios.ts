@@ -4,23 +4,45 @@ const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `${process.env.NEXT_PUBLIC_TOKEN}`,
   }
 });
 
 // ==============================
 
-// Request interceptor to add auth token
-axiosInstance.interceptors.request.use(async function (config) {
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-});
-
+axiosInstance.interceptors.request.use(
+  (config) => {
+    if (typeof window !== 'undefined') {
+      const cookies = document.cookie.split(';');
+      const tokenCookie = cookies.find(cookie => cookie.trim().startsWith('auth_token='));
+      const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+      
+      if (token) {
+        config.headers.Authorization = `${token}`;
+      }
+    }
+    
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 axiosInstance.interceptors.response.use(
   (res) => res,
-  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
+  (error) => {
+    if (typeof window !== 'undefined') {
+      const originalRequest = error.config;
+      
+      if (error.response?.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
+        
+        // Handle unauthorized error
+        document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        window.location.href = '/auth';
+      }
+    }
+
+    return Promise.reject((error.response && error.response.data) || 'Something went wrong')
+  }
 );
 
 export default axiosInstance;

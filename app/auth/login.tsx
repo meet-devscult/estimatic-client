@@ -8,15 +8,14 @@ import { Label } from '@/components/ui/label'
 import { HexagonIcon } from 'lucide-react'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 export default function LoginPage() {
-    const router = useRouter()
     
     const [isLoading, setIsLoading] = useState(false)
+    
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             email: '',
@@ -25,7 +24,6 @@ export default function LoginPage() {
     })
 
     const onSubmit = async (data: { email: string; password: string }) => {
-        
         try {
             setIsLoading(true)
             await loginAction(data)
