@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { CompanyCreationSchema, TCompanyCreationSchema } from "@/zod/company-creation.zod";
+import { CompanyCreationSchema, TCompanyCreationSchema } from "@/zod/company.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon, XIcon } from "lucide-react";
 import { useForm } from "react-hook-form";

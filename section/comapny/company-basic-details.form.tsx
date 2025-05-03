@@ -2,7 +2,7 @@ import CalendarInputBox from "@/components/form-fields-components/calender-input
 import DropdownBox from "@/components/form-fields-components/dropdown-box";
 import InputBox from "@/components/form-fields-components/input-box";
 import { Form } from "@/components/ui/form";
-import { TCompanyCreationSchema } from "@/zod/company-creation.zod";
+import { TCompanyCreationSchema } from "@/zod/company.zod";
 import { UseFormReturn } from "react-hook-form";
 
 interface CompanyBasicDetailsFormProps {

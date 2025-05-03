@@ -20,7 +20,7 @@ export default function UserTableSection({ company_id }: UserTableSectionProps) 
             <div>
                 <div className="flex justify-between items-center p-5 border-b border-dashed">
                     <h1 className="text-2xl font-bold">Users</h1>
-                    <NewUserDetailsForm />
+                    <NewUserDetailsForm company_id={company_id} />
                 </div>
             </div>
             <DataTable columns={userTableColumn} data={users.data.list} headerClassName="text-left" />

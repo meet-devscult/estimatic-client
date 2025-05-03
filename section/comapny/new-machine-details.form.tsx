@@ -3,8 +3,8 @@ import PopupForForm from "@/components/form-fields-components/form-popup-layout"
 import InputBox from "@/components/form-fields-components/input-box";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useMachineTypes } from "@/hooks/use-machine";
-import { newMachineSchema, TNewMachineSchema } from "@/zod/company-creation.zod";
+import { STATIC_MACHINE_CATEGORIES, STATIC_MACHINE_TYPES } from "@/lib/const.data";
+import { newMachineSchema, TNewMachineSchema } from "@/zod/machine.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon } from "lucide-react";
 import { useForm, UseFormReturn } from "react-hook-form";
@@ -67,9 +67,9 @@ interface NewMachineDetailsFormProps {
 
 export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormProps) {
 
-    const { data: machineTypes, isLoading: isMachineTypesLoading } = useMachineTypes()
+    // const { data: machineTypes, isLoading: isMachineTypesLoading } = useMachineTypes()
 
-    if (isMachineTypesLoading) return null
+    // if (isMachineTypesLoading) return null
 
     return (
         <Form {...form}>
@@ -79,9 +79,11 @@ export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormPro
                         <InputBox form={form} name="plantName" placeholder="Plant Name" />
                         <InputBox form={form} name="machineName" placeholder="Machine Name" />
                         <DropdownBox form={form} name="machineType" placeholder="Machine Type" options={
-                            machineTypes.map((machineType: {value: string, label: string}) => ({label: machineType.label, value: machineType.value}))
+                            STATIC_MACHINE_TYPES.map((machineType: {value: string, label: string}) => ({label: machineType.label, value: machineType.value}))
                         } className="w-full h-full" />
-                        <DropdownBox form={form} name="machineCategory" placeholder="Machine Category" options={[{label: "Option 1", value: "option_1"}, {label: "Option 2", value: "option_2"}]} className="w-full h-full" />
+                        <DropdownBox form={form} name="machineCategory" placeholder="Machine Category" options={
+                            STATIC_MACHINE_CATEGORIES.map((machineCategory: {value: string, label: string}) => ({label: machineCategory.label, value: machineCategory.value}))
+                        } className="w-full h-full" />
                         <InputBox form={form} name="machineManufacturer" placeholder="Machine Manufacturer" />
                         <InputBox form={form} name="spindleMaxRPM" placeholder="Spindle Max RPM" type="number" />
                         <InputBox form={form} name="efficiency" placeholder="Efficiency %" type="number" />

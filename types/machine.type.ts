@@ -53,4 +53,3 @@ export enum MachineCategory {
   CNC_BANDSAW_MACHINE = 'CNC Bandsaw Machine',
   CNC_COLD_SAW_MACHINE = 'CNC Cold Saw Machine',
 }
-

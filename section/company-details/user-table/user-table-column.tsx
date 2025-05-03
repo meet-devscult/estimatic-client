@@ -45,12 +45,14 @@ export const userTableColumn: ColumnDef<IUser>[] = [
         header: " ",
         cell: ({ row }) => <div className="flex items-center justify-end gap-2">
             <NewUserDetailsForm defaultValues={{
-              name: row.original.user_name,
+              user_id: row.original.user_id,
+              user_name: row.original.user_name,
               designation: row.original.designation,
-              phone: row.original.phone_number,
+              phone_number: row.original.phone_number,
               email: row.original.email,
               type: row.original.role,
               password: "",
+              company_id: row.original.company_id,
             }} />
             <Link href={`/company/${row.original.company_id}/user/${row.original.user_id}`}>
               Show Details
