@@ -3,6 +3,7 @@ export type UUID = string;
 export interface IPart {
   part_id: string,
   user_id: string,
+  status: 'active' | 'inactive',
   company_id: string,
   user_name: string,
   name: string,

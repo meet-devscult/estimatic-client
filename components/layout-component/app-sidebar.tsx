@@ -87,7 +87,12 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
-  const user = JSON.parse(document.cookie.split('; ').find(row => row.startsWith('user_data='))?.split('=')[1] || '{}');
+  // const user = JSON.parse(document.cookie.split('; ').find(row => row.startsWith('user_data='))?.split('=')[1] || '{}');
+  const user = {
+    user_name: "John Doe",
+    email: "john.doe@example.com",
+    image: "https://github.com/shadcn.png",
+  }
   
   return (
     <Sidebar

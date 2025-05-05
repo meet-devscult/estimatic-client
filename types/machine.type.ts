@@ -4,6 +4,7 @@ export interface IMachine {
   machine_id: string;
   company_id: string;
   company_name: string;
+  status: 'active' | 'inactive';
   user_id: string;
   user_name: string;
   plant_name: string;

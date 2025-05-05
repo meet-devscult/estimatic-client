@@ -16,8 +16,6 @@ export default function ComapnyViewSection() {
         <Loader2 className="w-10 h-10 animate-spin" />
     </div>
 
-    console.log(data)
-
   return <div>
     <div>
       <div className="flex justify-between items-center p-5 border-b border-dashed">

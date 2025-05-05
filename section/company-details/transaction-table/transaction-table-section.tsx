@@ -1,20 +1,19 @@
 import { DataTable } from "@/components/table-layout/data-table";
-import { useTransactionByCompanyId } from "@/hooks/use-transaction";
+import data from "@/db.json";
 import NewTransection from "@/section/transaction/transaction-form";
-import { Loader2 } from "lucide-react";
+import { ITransaction } from "@/types/transaction.type";
 import { transactionTableColumn } from "./transaction-table-column";
-
 interface TransactionTableSectionProps {
     company_id: string
 }
 
 export default function TransactionTableSection({ company_id }: TransactionTableSectionProps) {
 
-    const { data: transactions, isLoading: isTransactionsLoading } = useTransactionByCompanyId(company_id)
+    // const { data: transactions, isLoading: isTransactionsLoading } = useTransactionByCompanyId(company_id)
 
-    if (isTransactionsLoading) return <div className="flex justify-center items-center">
-        <Loader2 className="w-10 h-10 animate-spin" />
-    </div>
+    // if (isTransactionsLoading) return <div className="flex justify-center items-center">
+    //     <Loader2 className="w-10 h-10 animate-spin" />
+    // </div>
     return (
         <div>
             <div>
@@ -23,7 +22,7 @@ export default function TransactionTableSection({ company_id }: TransactionTable
                     <NewTransection />
                 </div>
             </div>
-            <DataTable columns={transactionTableColumn} data={transactions} headerClassName="text-left" />
+            <DataTable columns={transactionTableColumn} data={data.transactions as unknown as ITransaction[]} headerClassName="text-left" />
         </div>
     )
 }

@@ -2,18 +2,17 @@
 
 import { DataTable } from "@/components/table-layout/data-table"
 import { Button } from "@/components/ui/button"
-import { useUsers } from "@/hooks/use-user"
-import { Loader2, PlusIcon } from "lucide-react"
+import data from "@/db.json"
+import { IUser } from "@/types/user.type"
+import { PlusIcon } from "lucide-react"
 import { roleTableColumn } from "../roles-column"
 
 export default function RoleViewSection() {
-    const { data, isLoading } = useUsers()
+    // const { data, isLoading } = useUsers()
 
-    if (isLoading) return <div className="flex justify-center items-center h-screen">
-        <Loader2 className="w-10 h-10 animate-spin" />
-    </div>
-
-    console.log(data)
+    // if (isLoading) return <div className="flex justify-center items-center h-screen">
+    //     <Loader2 className="w-10 h-10 animate-spin" />
+    // </div>
 
   return <div>
     <div className="container">
@@ -25,6 +24,6 @@ export default function RoleViewSection() {
         </Button>
       </div>
     </div>
-    <DataTable columns={roleTableColumn} data={data} />
+    <DataTable columns={roleTableColumn} data={data.users as unknown as IUser[]} />
   </div>
 }

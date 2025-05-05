@@ -8,11 +8,11 @@ export const partTableColumn: ColumnDef<IPart>[] = [
       header: "Name",
       cell: ({ row }) => <div >{row.original.name}</div>,
     },
-    // {
-    //   accessorKey: "status",
-    //   header: "Status",
-    //   cell: ({ row }) => <div >{row.original.status}</div>,
-    // },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => <div >{row.original.status === 'active' ? 'Active' : 'Inactive'}</div>,
+    },
     {
       accessorKey: "type",
       header: "Type",

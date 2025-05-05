@@ -1,3 +1,4 @@
+import { Switch } from "@/components/ui/switch"
 import NewMachineDetails from "@/section/comapny/new-machine-details.form"
 import { IMachine } from "@/types/machine.type"
 import { ColumnDef } from "@tanstack/react-table"
@@ -9,16 +10,16 @@ export const machineTableColumn: ColumnDef<IMachine>[] = [
       header: "Name",
       cell: ({ row }) => <div >{row.original.name}</div>,
     },
-    // {
-    //   accessorKey: "status",
-    //   header: "Status",
-    //   cell: ({ row }) => (
-    //     <div className="flex items-center gap-2">
-    //       <span className="text-sm">{row.original.status === 'active' ? 'Active' : 'Inactive'}</span>
-    //       <Switch checked={row.original.status === 'active'} />
-    //     </div>
-    //   ),
-    // },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => (
+        <div className="flex items-center gap-2">
+          <span className="text-sm">{row.original.status === 'active' ? 'Active' : 'Inactive'}</span>
+          <Switch checked={row.original.status === 'active'} />
+        </div>
+      ),
+    },
     {
       accessorKey: "plant",
       header: "Plant",

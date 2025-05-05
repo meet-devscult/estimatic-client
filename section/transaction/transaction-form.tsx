@@ -58,7 +58,7 @@ export function TransactionForm({form, onSubmit}: TransactionFormProps) {
                         form={form} 
                         name="name" 
                         placeholder="Company Name" 
-                        options={data?.data.map((company: {companyName: string}) => ({label: company.companyName, value: company.companyName})) || []} 
+                        options={data.data.list?.map((company: {name: string}) => ({label: company.name, value: company.name})) || []} 
                         className="w-full h-full" 
                     />
                     <CalendarInputBox form={form} name="datePaid" placeholder="Paid Date" futureDatesOnly />
