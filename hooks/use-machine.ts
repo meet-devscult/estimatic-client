@@ -1,5 +1,6 @@
-import { getMachineById, getMachineCategories, getMachines, getMachineTypes } from "@/actions/machine.action";
-import { useQuery } from "@tanstack/react-query";
+import { createMachine, getMachineById, getMachineCategories, getMachines, getMachineTypes } from "@/actions/machine.action";
+import { TNewMachineSchema } from "@/zod/machine.zod";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 export function useMachines() {
     const { data, isLoading, error, isError, refetch, isFetching } = useQuery({
@@ -47,4 +48,20 @@ export function useMachineCategories() {
     })
 
     return { data, isLoading, error, isError, refetch, isFetching }
+}
+
+/**
+ * Create a new transaction
+ * @param {TTransactionFormType} data
+ * @returns {Promise<TTransaction>}
+ */
+export function useMachineMutation(queryClient: QueryClient, companyId: string) {
+const { mutate, isPending, error, isError } = useMutation({
+        mutationFn: async ({data, method}: {data: TNewMachineSchema, method: 'post' | 'put'}) => await createMachine(data, companyId, method),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['machines', 'company', companyId] })
+        }
+    })
+
+    return { mutate, isPending, error, isError }
 }

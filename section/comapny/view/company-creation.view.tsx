@@ -16,7 +16,9 @@ export default function CompanyCreationView() {
         defaultValues: {
             name: "",
             website: "",
-            companyType: "",
+            type: "",
+            quotations_limits: 0,
+            upto_validated_at: new Date(),
         },
     })
 

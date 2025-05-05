@@ -17,9 +17,9 @@ export default function CompanyBasicDetailsForm({form, onSubmit}: CompanyBasicDe
                 <div className="grid grid-cols-2 gap-4">
                     <InputBox form={form} name="name" placeholder="Company Name" />
                     <InputBox form={form} name="website" placeholder="Company Website (optional)" type="url" />
-                    <InputBox form={form} name="numberOfQuotes" placeholder="Number of Quotes" type="number" />
-                    <DropdownBox form={form} name="companyType" placeholder="Company Type" options={[{label: "Free", value: "free"}, {label: "Pro", value: "pro"}]} className="w-full h-full" />
-                    <CalendarInputBox form={form} name="validUntil" futureDatesOnly />
+                    <InputBox form={form} name="quotations_limits" placeholder="Number of Quotes" type="number" />
+                    <DropdownBox form={form} name="type" placeholder="Company Type" options={[{label: "Free", value: "free"}, {label: "Pro", value: "pro"}]} className="w-full h-full" />
+                    <CalendarInputBox form={form} name="upto_validated_at" futureDatesOnly />
                 </div>
             </form>
         </Form>

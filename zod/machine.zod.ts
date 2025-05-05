@@ -2,29 +2,29 @@ import { z } from "zod";
 
 export const newMachineSchema = z.object({
     // basic information
-    plantName: z.string(),
-    machineName: z.string(),
-    machineType: z.string(),
-    machineCategory: z.string(),
-    machineManufacturer: z.string(),
-    spindleMaxRPM: z.number(),
+    plant_name: z.string(),
+    name: z.string(),
+    type: z.string(),
+    category: z.string(),
+    manufacturer: z.string(),
+    max_rpm: z.number(),
     efficiency: z.number(),
-    powerConsumption: z.number(),
+    power_consumption: z.number(),
 
     // machine specifications
     allowance: z.number(),
-    setupBaseTime: z.number(),
+    setup_base_time: z.number(),
 
     // machine rates
-    ratePerHour: z.number(),
-    setupRatePerHour: z.number(),
+    machine_rate: z.number(),
+    setup_hour_rate: z.number(),
 
-    maxToolLength: z.number().optional(),
-    maxToolDiameter: z.number().optional(),
-    maxTableLength: z.number().optional(),
-    maxTableBreadth: z.number().optional(),
-    maxWorkpieceWeight: z.number().optional(),
-    toolChangeTime: z.number().optional(),
+    max_tool_length: z.number().optional(),
+    max_tool_diameter: z.number().optional(),
+    max_table_length: z.number().optional(),
+    max_table_breadth: z.number().optional(),
+    max_workpiece_weight: z.number().optional(),
+    tool_change_time: z.number().optional(),
 })
 
 export type TNewMachineSchema = z.infer<typeof newMachineSchema>;

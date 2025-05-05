@@ -1,0 +1,1927 @@
+{
+  "companies": [
+    {
+      "id": "1",
+      "companyName": "Barone LLC",
+      "status": "active",
+      "users": 4,
+      "quotationsStatus": "20/50 Used",
+      "type": "Paid",
+      "plants": 1,
+      "machines": 50,
+      "website": "www.baronellc.com",
+      "createdOn": "Apr 03, 2024,05:35 pm",
+      "validUpto": "Apr 03, 2025,05:35 pm"
+    },
+    {
+      "id": "2",
+      "companyName": "Rip Kohuna Ltd.",
+      "status": "active",
+      "users": 4,
+      "quotationsStatus": "15/30 Used",
+      "type": "Free",
+      "plants": 2,
+      "machines": 40,
+      "website": "www.ripkohuna.com",
+      "createdOn": "Jan 15, 2024,02:30 pm",
+      "validUpto": "Jan 15, 2025,02:30 pm"
+    },
+    {
+      "id": "3",
+      "companyName": "Efflex Enterprises Ltd.",
+      "status": "active",
+      "users": 4,
+      "quotationsStatus": "30/50 Used",
+      "type": "Free",
+      "plants": 1,
+      "machines": 100,
+      "website": "www.efflexent.com",
+      "createdOn": "Feb 22, 2024,10:15 am",
+      "validUpto": "Feb 22, 2025,10:15 am"
+    },
+    {
+      "id": "4",
+      "companyName": "Actex Co.",
+      "status": "active",
+      "users": 4,
+      "quotationsStatus": "40/50 Used",
+      "type": "Paid",
+      "plants": 2,
+      "machines": 80,
+      "website": "www.actexco.com",
+      "createdOn": "Mar 10, 2024,09:45 am",
+      "validUpto": "Mar 10, 2025,09:45 am"
+    },
+    {
+      "id": "5",
+      "companyName": "Alsteregy Ltd.",
+      "status": "active",
+      "users": 4,
+      "quotationsStatus": "10/20 Used",
+      "type": "Free",
+      "plants": 2,
+      "machines": 60,
+      "website": "www.alsteregy.com",
+      "createdOn": "Dec 05, 2023,11:20 am",
+      "validUpto": "Dec 05, 2024,11:20 am"
+    },
+    {
+      "id": "6",
+      "companyName": "TechnoFab Industries",
+      "status": "active",
+      "users": 6,
+      "quotationsStatus": "25/75 Used",
+      "type": "Paid",
+      "plants": 3,
+      "machines": 120,
+      "website": "www.technofab.com",
+      "createdOn": "Jan 30, 2024,03:15 pm",
+      "validUpto": "Jan 30, 2025,03:15 pm"
+    },
+    {
+      "id": "7",
+      "companyName": "Vertex Manufacturing",
+      "status": "active",
+      "users": 2,
+      "quotationsStatus": "5/10 Used",
+      "type": "Free",
+      "plants": 1,
+      "machines": 25,
+      "website": "www.vertexmfg.com",
+      "createdOn": "Feb 15, 2024,01:45 pm",
+      "validUpto": "Feb 15, 2025,01:45 pm"
+    },
+    {
+      "id": "8",
+      "companyName": "Global Systems Inc.",
+      "status": "inactive",
+      "users": 0,
+      "quotationsStatus": "0/50 Used",
+      "type": "Paid",
+      "plants": 0,
+      "machines": 0,
+      "website": "www.globalsys.com",
+      "createdOn": "Nov 12, 2023,04:30 pm",
+      "validUpto": "Nov 12, 2024,04:30 pm"
+    },
+    {
+      "id": "9",
+      "companyName": "Precision Works Co.",
+      "status": "active",
+      "users": 8,
+      "quotationsStatus": "48/50 Used",
+      "type": "Paid",
+      "plants": 4,
+      "machines": 200,
+      "website": "www.precisionworks.com",
+      "createdOn": "Dec 20, 2023,09:30 am",
+      "validUpto": "Dec 20, 2024,09:30 am"
+    },
+    {
+      "id": "10",
+      "companyName": "Nexus Solutions",
+      "status": "active",
+      "users": 3,
+      "quotationsStatus": "12/20 Used",
+      "type": "Free",
+      "plants": 1,
+      "machines": 35,
+      "website": "www.nexussol.com",
+      "createdOn": "Mar 05, 2024,02:00 pm",
+      "validUpto": "Mar 05, 2025,02:00 pm"
+    },
+    {
+      "id": "11",
+      "companyName": "Omega Engineering Ltd.",
+      "status": "active",
+      "users": 5,
+      "quotationsStatus": "30/100 Used",
+      "type": "Paid",
+      "plants": 2,
+      "machines": 90,
+      "website": "www.omegaeng.com",
+      "createdOn": "Jan 25, 2024,10:45 am",
+      "validUpto": "Jan 25, 2025,10:45 am"
+    },
+    {
+      "id": "12",
+      "companyName": "Fusion Technologies",
+      "status": "active",
+      "users": 3,
+      "quotationsStatus": "18/30 Used",
+      "type": "Free",
+      "plants": 1,
+      "machines": 45,
+      "website": "www.fusiontech.com",
+      "createdOn": "Feb 08, 2024,11:30 am",
+      "validUpto": "Feb 08, 2025,11:30 am"
+    },
+    {
+      "id": "13",
+      "companyName": "Quantum Dynamics",
+      "status": "inactive",
+      "users": 2,
+      "quotationsStatus": "10/30 Used",
+      "type": "Free",
+      "plants": 1,
+      "machines": 30,
+      "website": "www.quantumdyn.com",
+      "createdOn": "Nov 30, 2023,03:45 pm",
+      "validUpto": "Nov 30, 2024,03:45 pm"
+    },
+    {
+      "id": "14",
+      "companyName": "Atlas Heavy Industries",
+      "status": "active",
+      "users": 10,
+      "quotationsStatus": "80/150 Used",
+      "type": "Paid",
+      "plants": 5,
+      "machines": 250,
+      "website": "www.atlasheavy.com",
+      "createdOn": "Jan 05, 2024,09:15 am",
+      "validUpto": "Jan 05, 2025,09:15 am"
+    },
+    {
+      "id": "15",
+      "companyName": "Spark Innovations",
+      "status": "active",
+      "users": 4,
+      "quotationsStatus": "22/50 Used",
+      "type": "Free",
+      "plants": 2,
+      "machines": 65,
+      "website": "www.sparkinnovate.com",
+      "createdOn": "Mar 18, 2024,04:20 pm",
+      "validUpto": "Mar 18, 2025,04:20 pm"
+    },
+    {
+      "id": "16",
+      "companyName": "Pioneer Machining",
+      "status": "active",
+      "users": 7,
+      "quotationsStatus": "35/75 Used",
+      "type": "Paid",
+      "plants": 3,
+      "machines": 110,
+      "website": "www.pioneermach.com",
+      "createdOn": "Feb 12, 2024,10:00 am",
+      "validUpto": "Feb 12, 2025,10:00 am"
+    },
+    {
+      "id": "17",
+      "companyName": "Delta Precision Tools",
+      "status": "active",
+      "users": 6,
+      "quotationsStatus": "28/50 Used",
+      "type": "Paid",
+      "plants": 2,
+      "machines": 85,
+      "website": "www.deltaprecision.com",
+      "createdOn": "Jan 20, 2024,01:30 pm",
+      "validUpto": "Jan 20, 2025,01:30 pm"
+    },
+    {
+      "id": "18",
+      "companyName": "Unity Fabricators",
+      "status": "active",
+      "users": 3,
+      "quotationsStatus": "15/25 Used",
+      "type": "Free",
+      "plants": 1,
+      "machines": 40,
+      "website": "www.unityfab.com",
+      "createdOn": "Mar 25, 2024,11:45 am",
+      "validUpto": "Mar 25, 2025,11:45 am"
+    },
+    {
+      "id": "19",
+      "companyName": "Peak Engineering Solutions",
+      "status": "inactive",
+      "users": 0,
+      "quotationsStatus": "5/30 Used",
+      "type": "Free",
+      "plants": 0,
+      "machines": 0,
+      "website": "www.peakeng.com",
+      "createdOn": "Dec 10, 2023,09:20 am",
+      "validUpto": "Dec 10, 2024,09:20 am"
+    },
+    {
+      "id": "20",
+      "companyName": "Horizon Manufacturing Group",
+      "status": "active",
+      "users": 12,
+      "quotationsStatus": "65/100 Used",
+      "type": "Paid",
+      "plants": 4,
+      "machines": 175,
+      "website": "www.horizonmfg.com",
+      "createdOn": "Feb 05, 2024,03:30 pm",
+      "validUpto": "Feb 05, 2025,03:30 pm"
+    }
+  ],
+  "users": [
+    {
+      "user_id": "1",
+      "user_name": "James Hall",
+      "company_id": "1",
+      "company_name": "Barone LLC",
+      "designation": "CTO",
+      "phone_number": "+91 921 542 4726",
+      "email": "qamahoi@mail.ru",
+      "password": "hashed_password_1",
+      "role": "Admin",
+      "type": "admin",
+      "status": "active",
+      "created_at": 1712151300,
+      "is_deleted": false
+    },
+    {
+      "user_id": "2",
+      "user_name": "Jerry Helfer",
+      "company_id": "1",
+      "company_name": "Barone LLC",
+      "designation": "Plant Manager",
+      "phone_number": "+91 921 542 4726",
+      "email": "ustil@mail.ru",
+      "password": "hashed_password_2",
+      "role": "Non-Admin",
+      "type": "non-admin",
+      "status": "active",
+      "created_at": 1712151300,
+      "is_deleted": false
+    },
+    {
+      "user_id": "3",
+      "user_name": "David Erson",
+      "company_id": "1",
+      "company_name": "Barone LLC",
+      "designation": "Sales Manager",
+      "phone_number": "+91 921 542 4726",
+      "email": "seannand@mail.ru",
+      "password": "hashed_password_3",
+      "role": "Non-Admin",
+      "type": "non-admin",
+      "status": "active",
+      "created_at": 1712151300,
+      "is_deleted": false
+    },
+    {
+      "user_id": "4",
+      "user_name": "Sarah Johnson",
+      "company_id": "1",
+      "company_name": "Barone LLC",
+      "designation": "HR Manager",
+      "phone_number": "+91 921 542 4726",
+      "email": "sarahj@mail.ru",
+      "password": "hashed_password_4",
+      "role": "Non-Admin",
+      "type": "non-admin",
+      "status": "active",
+      "created_at": 1712151300,
+      "is_deleted": false
+    },
+    {
+      "user_id": "5",
+      "user_name": "Michael Chen",
+      "company_id": "2",
+      "company_name": "Rip Kohuna Ltd.",
+      "designation": "CTO",
+      "phone_number": "+91 987 654 3210",
+      "email": "mchen@mail.ru",
+      "password": "hashed_password_5",
+      "role": "Admin",
+      "type": "admin",
+      "status": "active",
+      "created_at": 1705311000,
+      "is_deleted": false
+    },
+    {
+      "user_id": "6",
+      "user_name": "Lisa Wong",
+      "company_id": "2",
+      "company_name": "Rip Kohuna Ltd.",
+      "designation": "Plant Manager",
+      "phone_number": "+91 876 543 2109",
+      "email": "lwong@mail.ru",
+      "password": "hashed_password_6",
+      "role": "Non-Admin",
+      "type": "non-admin",
+      "status": "active",
+      "created_at": 1705311000,
+      "is_deleted": false
+    },
+    {
+      "user_id": "7",
+      "user_name": "Robert Smith",
+      "company_id": "2",
+      "company_name": "Rip Kohuna Ltd.",
+      "designation": "Engineering Lead",
+      "phone_number": "+91 765 432 1098",
+      "email": "rsmith@mail.ru",
+      "password": "hashed_password_7",
+      "role": "Non-Admin",
+      "type": "non-admin",
+      "status": "active",
+      "created_at": 1705311000,
+      "is_deleted": false
+    },
+    {
+      "user_id": "8",
+      "user_name": "Emma Davis",
+      "company_id": "2",
+      "company_name": "Rip Kohuna Ltd.",
+      "designation": "Financial Manager",
+      "phone_number": "+91 654 321 0987",
+      "email": "edavis@mail.ru",
+      "password": "hashed_password_8",
+      "role": "Non-Admin",
+      "type": "non-admin",
+      "status": "active",
+      "created_at": 1705311000,
+      "is_deleted": false
+    },
+    {
+      "user_id": "9",
+      "user_name": "Alex Kumar",
+      "company_id": "3",
+      "company_name": "Efflex Enterprises Ltd.",
+      "designation": "CTO",
+      "phone_number": "+91 543 210 9876",
+      "email": "akumar@mail.ru",
+      "password": "hashed_password_9",
+      "role": "Admin",
+      "type": "admin",
+      "status": "active",
+      "created_at": 1708589700,
+      "is_deleted": false
+    },
+    {
+      "user_id": "10",
+      "user_name": "Priya Sharma",
+      "company_id": "3",
+      "company_name": "Efflex Enterprises Ltd.",
+      "designation": "Production Manager",
+      "phone_number": "+91 432 109 8765",
+      "email": "psharma@mail.ru",
+      "password": "hashed_password_10",
+      "role": "Non-Admin",
+      "type": "non-admin",
+      "status": "active",
+      "created_at": 1708589700,
+      "is_deleted": false
+    }
+  ],
+  "machines": [
+    {
+      "id": "1",
+      "companyId": 1,
+      "name": "Travisan X600",
+      "description": "2 Axis CNC",
+      "status": "active",
+      "plant": "Chakan",
+      "addedBy": "Vivek Mane",
+      "addedByRole": "Project Manager",
+      "avgSetupTime": "30 mins",
+      "hourlyCost": 1500,
+      "machineType": "drilling",
+      "machineCategory": "option_1",
+      "manufacturer": "Doosan",
+      "spindleMaxRPM": 200,
+      "efficiency": 80,
+      "powerConsumption": 80,
+      "powerConsumptionUnit": "KW/hour",
+      "allowance": 50,
+      "allowanceUnit": "in%",
+      "setupBaseTime": 10,
+      "setupBaseTimeUnit": "Mins",
+      "machineHourlyRate": 1000,
+      "machineHourlyRateUnit": "Rs",
+      "setupHourRate": 5000,
+      "setupHourRateUnit": "Rs",
+      "maxToolLength": 1000,
+      "maxToolLengthUnit": "in meters",
+      "maxToolDiameter": 1000,
+      "maxToolDiameterUnit": "in meters",
+      "maxTableLength": 1000,
+      "maxTableLengthUnit": "in meters",
+      "maxTableBreadth": 1000,
+      "maxTableBreadthUnit": "in meters",
+      "maxWorkpieceWeight": 1000,
+      "maxWorkpieceWeightUnit": "in meters",
+      "toolChangeTime": 20,
+      "toolChangeTimeUnit": "in mins"
+    },
+    {
+      "id": "2",
+      "companyId": 1,
+      "name": "Doosan6650",
+      "description": "3 Axis CNC",
+      "status": "active",
+      "plant": "Kharadi",
+      "addedBy": "Vivek Mane",
+      "addedByRole": "Supervisor",
+      "avgSetupTime": "30 mins",
+      "hourlyCost": 1500,
+      "machineType": "milling",
+      "machineCategory": "option_1",
+      "manufacturer": "Doosan",
+      "spindleMaxRPM": 5000,
+      "efficiency": 85,
+      "powerConsumption": 95,
+      "powerConsumptionUnit": "KW/hour",
+      "allowance": 40,
+      "allowanceUnit": "in%",
+      "setupBaseTime": 15,
+      "setupBaseTimeUnit": "Mins",
+      "machineHourlyRate": 1200,
+      "machineHourlyRateUnit": "Rs",
+      "setupHourRate": 5500,
+      "setupHourRateUnit": "Rs",
+      "maxToolLength": 800,
+      "maxToolLengthUnit": "in meters",
+      "maxToolDiameter": 900,
+      "maxToolDiameterUnit": "in meters",
+      "maxTableLength": 1200,
+      "maxTableLengthUnit": "in meters",
+      "maxTableBreadth": 900,
+      "maxTableBreadthUnit": "in meters",
+      "maxWorkpieceWeight": 1500,
+      "maxWorkpieceWeightUnit": "in meters",
+      "toolChangeTime": 25,
+      "toolChangeTimeUnit": "in mins"
+    },
+    {
+      "id": "3",
+      "companyId": 1,
+      "name": "Doosan HM125",
+      "description": "2 Axis VMC",
+      "status": "active",
+      "plant": "Chakan",
+      "addedBy": "Vivek Mane",
+      "addedByRole": "Project Manager",
+      "avgSetupTime": "30 mins",
+      "hourlyCost": 1500,
+      "machineType": "vertical_machining",
+      "machineCategory": "option_1",
+      "manufacturer": "Doosan",
+      "spindleMaxRPM": 8000,
+      "efficiency": 82,
+      "powerConsumption": 85,
+      "powerConsumptionUnit": "KW/hour",
+      "allowance": 45,
+      "allowanceUnit": "in%",
+      "setupBaseTime": 12,
+      "setupBaseTimeUnit": "Mins",
+      "machineHourlyRate": 1100,
+      "machineHourlyRateUnit": "Rs",
+      "setupHourRate": 5200,
+      "setupHourRateUnit": "Rs",
+      "maxToolLength": 900,
+      "maxToolLengthUnit": "in meters",
+      "maxToolDiameter": 850,
+      "maxToolDiameterUnit": "in meters",
+      "maxTableLength": 1100,
+      "maxTableLengthUnit": "in meters",
+      "maxTableBreadth": 950,
+      "maxTableBreadthUnit": "in meters",
+      "maxWorkpieceWeight": 1200,
+      "maxWorkpieceWeightUnit": "in meters",
+      "toolChangeTime": 22,
+      "toolChangeTimeUnit": "in mins"
+    },
+    {
+      "id": "4",
+      "companyId": 2,
+      "name": "Haas VF-2",
+      "description": "3 Axis VMC",
+      "status": "active",
+      "plant": "Plant A",
+      "addedBy": "Michael Chen",
+      "addedByRole": "CTO",
+      "avgSetupTime": "25 mins",
+      "hourlyCost": 1800,
+      "machineType": "vertical_machining",
+      "machineCategory": "option_1",
+      "manufacturer": "Haas",
+      "spindleMaxRPM": 12000,
+      "efficiency": 88,
+      "powerConsumption": 90,
+      "powerConsumptionUnit": "KW/hour",
+      "allowance": 35,
+      "allowanceUnit": "in%",
+      "setupBaseTime": 10,
+      "setupBaseTimeUnit": "Mins",
+      "machineHourlyRate": 1400,
+      "machineHourlyRateUnit": "Rs",
+      "setupHourRate": 6000,
+      "setupHourRateUnit": "Rs",
+      "maxToolLength": 750,
+      "maxToolLengthUnit": "in meters",
+      "maxToolDiameter": 800,
+      "maxToolDiameterUnit": "in meters",
+      "maxTableLength": 1300,
+      "maxTableLengthUnit": "in meters",
+      "maxTableBreadth": 1000,
+      "maxTableBreadthUnit": "in meters",
+      "maxWorkpieceWeight": 1300,
+      "maxWorkpieceWeightUnit": "in meters",
+      "toolChangeTime": 18,
+      "toolChangeTimeUnit": "in mins"
+    },
+    {
+      "id": "5",
+      "companyId": 2,
+      "name": "Mazak QT-200",
+      "description": "CNC Lathe",
+      "status": "active",
+      "plant": "Plant B",
+      "addedBy": "Lisa Wong",
+      "addedByRole": "Plant Manager",
+      "avgSetupTime": "35 mins",
+      "hourlyCost": 1600,
+      "machineType": "turning",
+      "machineCategory": "option_1",
+      "manufacturer": "Mazak",
+      "spindleMaxRPM": 4000,
+      "efficiency": 87,
+      "powerConsumption": 75,
+      "powerConsumptionUnit": "KW/hour",
+      "allowance": 30,
+      "allowanceUnit": "in%",
+      "setupBaseTime": 20,
+      "setupBaseTimeUnit": "Mins",
+      "machineHourlyRate": 1300,
+      "machineHourlyRateUnit": "Rs",
+      "setupHourRate": 5800,
+      "setupHourRateUnit": "Rs",
+      "maxToolLength": 600,
+      "maxToolLengthUnit": "in meters",
+      "maxToolDiameter": 500,
+      "maxToolDiameterUnit": "in meters",
+      "maxTableLength": 800,
+      "maxTableLengthUnit": "in meters",
+      "maxTableBreadth": 600,
+      "maxTableBreadthUnit": "in meters",
+      "maxWorkpieceWeight": 900,
+      "maxWorkpieceWeightUnit": "in meters",
+      "toolChangeTime": 15,
+      "toolChangeTimeUnit": "in mins"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "1",
+      "companyId": 1,
+      "name": "Barone LLC",
+      "datePaid": "12 Jan 2022, 4:00 PM",
+      "amount": 1000000,
+      "currency": "INR",
+      "validUntil": "12 Jan 2023, 4:00 PM",
+      "paidVia": "UPI",
+      "paidFor": "Monthly Startup Plan"
+    },
+    {
+      "id": "2",
+      "companyId": 1,
+      "name": "Barone LLC",
+      "datePaid": "12 Jan 2022, 4:00 PM",
+      "amount": 50000,
+      "currency": "INR",
+      "validUntil": "12 Jan 2023, 4:00 PM",
+      "paidVia": "Cash",
+      "paidFor": "Yearly Enterprise Plan"
+    },
+    {
+      "id": "3",
+      "companyId": 1,
+      "name": "Barone LLC",
+      "datePaid": "12 Jan 2022, 4:00 PM",
+      "amount": 50000,
+      "currency": "INR",
+      "validUntil": "12 Jan 2023, 4:00 PM",
+      "paidVia": "Cheque",
+      "paidFor": "Quarterly Growth Plan"
+    },
+    {
+      "id": "4",
+      "companyId": 2,
+      "name": "Rip Kohuna Ltd.",
+      "datePaid": "15 Feb 2022, 3:30 PM",
+      "amount": 750000,
+      "currency": "INR",
+      "validUntil": "15 Feb 2023, 3:30 PM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Yearly Standard Plan"
+    },
+    {
+      "id": "5",
+      "companyId": 3,
+      "name": "Efflex Enterprises Ltd.",
+      "datePaid": "22 Mar 2022, 2:15 PM",
+      "amount": 250000,
+      "currency": "INR",
+      "validUntil": "22 Jun 2022, 2:15 PM",
+      "paidVia": "UPI",
+      "paidFor": "Quarterly Basic Plan"
+    },
+    {
+      "id": "6",
+      "companyId": 4,
+      "name": "Actex Co.",
+      "datePaid": "10 Apr 2022, 10:45 AM",
+      "amount": 1250000,
+      "currency": "INR",
+      "validUntil": "10 Apr 2023, 10:45 AM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Annual Premium Plan"
+    },
+    {
+      "id": "7",
+      "companyId": 5,
+      "name": "Alsteregy Ltd.",
+      "datePaid": "05 May 2022, 1:30 PM",
+      "amount": 180000,
+      "currency": "INR",
+      "validUntil": "05 Aug 2022, 1:30 PM",
+      "paidVia": "UPI",
+      "paidFor": "Quarterly Standard Plan"
+    },
+    {
+      "id": "8",
+      "companyId": 6,
+      "name": "TechnoFab Industries",
+      "datePaid": "18 Jun 2022, 3:45 PM",
+      "amount": 2000000,
+      "currency": "INR",
+      "validUntil": "18 Jun 2023, 3:45 PM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Annual Enterprise Plan"
+    },
+    {
+      "id": "9",
+      "companyId": 7,
+      "name": "Vertex Manufacturing",
+      "datePaid": "22 Jul 2022, 11:20 AM",
+      "amount": 120000,
+      "currency": "INR",
+      "validUntil": "22 Oct 2022, 11:20 AM",
+      "paidVia": "Cheque",
+      "paidFor": "Quarterly Starter Plan"
+    },
+    {
+      "id": "10",
+      "companyId": 9,
+      "name": "Precision Works Co.",
+      "datePaid": "15 Aug 2022, 2:10 PM",
+      "amount": 1800000,
+      "currency": "INR",
+      "validUntil": "15 Aug 2023, 2:10 PM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Annual Advanced Plan"
+    },
+    {
+      "id": "11",
+      "companyId": 10,
+      "name": "Nexus Solutions",
+      "datePaid": "03 Sep 2022, 9:45 AM",
+      "amount": 90000,
+      "currency": "INR",
+      "validUntil": "03 Dec 2022, 9:45 AM",
+      "paidVia": "UPI",
+      "paidFor": "Quarterly Basic Plan"
+    },
+    {
+      "id": "12",
+      "companyId": 11,
+      "name": "Omega Engineering Ltd.",
+      "datePaid": "20 Oct 2022, 3:30 PM",
+      "amount": 1500000,
+      "currency": "INR",
+      "validUntil": "20 Oct 2023, 3:30 PM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Annual Professional Plan"
+    },
+    {
+      "id": "13",
+      "companyId": 12,
+      "name": "Fusion Technologies",
+      "datePaid": "08 Nov 2022, 11:15 AM",
+      "amount": 150000,
+      "currency": "INR",
+      "validUntil": "08 Feb 2023, 11:15 AM",
+      "paidVia": "UPI",
+      "paidFor": "Quarterly Standard Plan"
+    },
+    {
+      "id": "14",
+      "companyId": 14,
+      "name": "Atlas Heavy Industries",
+      "datePaid": "17 Dec 2022, 1:45 PM",
+      "amount": 2500000,
+      "currency": "INR",
+      "validUntil": "17 Dec 2023, 1:45 PM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Annual Enterprise Plus Plan"
+    },
+    {
+      "id": "15",
+      "companyId": 15,
+      "name": "Spark Innovations",
+      "datePaid": "09 Jan 2023, 10:20 AM",
+      "amount": 120000,
+      "currency": "INR",
+      "validUntil": "09 Apr 2023, 10:20 AM",
+      "paidVia": "UPI",
+      "paidFor": "Quarterly Starter Plan"
+    },
+    {
+      "id": "16",
+      "companyId": 16,
+      "name": "Pioneer Machining",
+      "datePaid": "25 Feb 2023, 4:10 PM",
+      "amount": 1750000,
+      "currency": "INR",
+      "validUntil": "25 Feb 2024, 4:10 PM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Annual Premium Plan"
+    },
+    {
+      "id": "17",
+      "companyId": 17,
+      "name": "Delta Precision Tools",
+      "datePaid": "14 Mar 2023, 11:30 AM",
+      "amount": 1650000,
+      "currency": "INR",
+      "validUntil": "14 Mar 2024, 11:30 AM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Annual Professional Plan"
+    },
+    {
+      "id": "18",
+      "companyId": 18,
+      "name": "Unity Fabricators",
+      "datePaid": "05 Apr 2023, 2:45 PM",
+      "amount": 110000,
+      "currency": "INR",
+      "validUntil": "05 Jul 2023, 2:45 PM",
+      "paidVia": "UPI",
+      "paidFor": "Quarterly Basic Plan"
+    },
+    {
+      "id": "19",
+      "companyId": 20,
+      "name": "Horizon Manufacturing Group",
+      "datePaid": "22 May 2023, 9:15 AM",
+      "amount": 2250000,
+      "currency": "INR",
+      "validUntil": "22 May 2024, 9:15 AM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Annual Enterprise Plan"
+    },
+    {
+      "id": "20",
+      "companyId": 1,
+      "name": "Barone LLC",
+      "datePaid": "30 Jun 2023, 3:50 PM",
+      "amount": 1100000,
+      "currency": "INR",
+      "validUntil": "30 Jun 2024, 3:50 PM",
+      "paidVia": "Bank Transfer",
+      "paidFor": "Annual Premium Plan Renewal"
+    },
+    {
+      "id": "1c38",
+      "name": "Rip Kohuna Ltd.",
+      "datePaid": 1745519400,
+      "amount": 42,
+      "validUntil": 1745778600,
+      "paidVia": "Bank Transfer",
+      "paidFor": "Pro"
+    }
+  ],
+  "parts": [
+    {
+      "id": "1",
+      "name": "Defense Plate",
+      "status": "Ongoing",
+      "type": "Drawing",
+      "material": "126 HB Carbon Steel",
+      "materialType": "Round Bar",
+      "time": 250,
+      "timeUnit": "Mins per piece",
+      "cost": 25,
+      "costUnit": "Rs per piece",
+      "createdOn": "12 Jan 2022, 4:00 PM",
+      "companyId": 1,
+      "userId": 2,
+      "shape": "Round Bar",
+      "diameter": 10,
+      "diameterUnit": "in cm",
+      "length": 20,
+      "lengthUnit": "in cm",
+      "scrapCost": "25rs/kg",
+      "grossWeight": 1000,
+      "grossWeightUnit": "in kg",
+      "netWeight": 1000,
+      "netWeightUnit": "in kg",
+      "noOfLots": 5,
+      "stockPerLot": 50,
+      "materialCost": 40,
+      "materialCostUnit": "Rs. (per kg)",
+      "tolerancePercent": 10
+    },
+    {
+      "id": "2",
+      "name": "Defense Plate",
+      "status": "Estimated",
+      "type": "CAD Model",
+      "material": "126 HB Carbon Steel",
+      "materialType": "Round Bar",
+      "time": 250,
+      "timeUnit": "Mins per piece",
+      "cost": 25,
+      "costUnit": "Rs per piece",
+      "createdOn": "12 Jan 2022, 4:00 PM",
+      "companyId": 1,
+      "userId": 1,
+      "shape": "Round Bar",
+      "diameter": 10,
+      "diameterUnit": "in cm",
+      "length": 20,
+      "lengthUnit": "in cm",
+      "scrapCost": "25rs/kg",
+      "grossWeight": 1000,
+      "grossWeightUnit": "in kg",
+      "netWeight": 1000,
+      "netWeightUnit": "in kg",
+      "noOfLots": 5,
+      "stockPerLot": 50,
+      "materialCost": 40,
+      "materialCostUnit": "Rs. (per kg)",
+      "tolerancePercent": 10
+    },
+    {
+      "id": "3",
+      "name": "Defense Plate",
+      "status": "Estimated",
+      "type": "Drawing",
+      "material": "126 HB Carbon Steel",
+      "materialType": "Round Bar",
+      "time": 250,
+      "timeUnit": "Mins per piece",
+      "cost": 25,
+      "costUnit": "Rs per piece",
+      "createdOn": "12 Jan 2022, 4:00 PM",
+      "companyId": 1,
+      "userId": 3,
+      "shape": "Round Bar",
+      "diameter": 10,
+      "diameterUnit": "in cm",
+      "length": 20,
+      "lengthUnit": "in cm",
+      "scrapCost": "25rs/kg",
+      "grossWeight": 1000,
+      "grossWeightUnit": "in kg",
+      "netWeight": 1000,
+      "netWeightUnit": "in kg",
+      "noOfLots": 5,
+      "stockPerLot": 50,
+      "materialCost": 40,
+      "materialCostUnit": "Rs. (per kg)",
+      "tolerancePercent": 10
+    },
+    {
+      "id": "4",
+      "name": "Mounting Bracket",
+      "status": "Completed",
+      "type": "Drawing",
+      "material": "304 Stainless Steel",
+      "materialType": "Sheet Metal",
+      "time": 180,
+      "timeUnit": "Mins per piece",
+      "cost": 40,
+      "costUnit": "Rs per piece",
+      "createdOn": "15 Jan 2022, 10:30 AM",
+      "companyId": 2,
+      "userId": 5,
+      "shape": "Sheet",
+      "thickness": 5,
+      "thicknessUnit": "in mm",
+      "width": 15,
+      "widthUnit": "in cm",
+      "length": 25,
+      "lengthUnit": "in cm",
+      "scrapCost": "30rs/kg",
+      "grossWeight": 500,
+      "grossWeightUnit": "in kg",
+      "netWeight": 450,
+      "netWeightUnit": "in kg",
+      "noOfLots": 3,
+      "stockPerLot": 40,
+      "materialCost": 60,
+      "materialCostUnit": "Rs. (per kg)",
+      "tolerancePercent": 8
+    },
+    {
+      "id": "5",
+      "name": "Gear Assembly",
+      "status": "Ongoing",
+      "type": "CAD Model",
+      "material": "4140 Alloy Steel",
+      "materialType": "Bar Stock",
+      "time": 350,
+      "timeUnit": "Mins per piece",
+      "cost": 85,
+      "costUnit": "Rs per piece",
+      "createdOn": "18 Jan 2022, 2:45 PM",
+      "companyId": 3,
+      "userId": 9,
+      "shape": "Round Bar",
+      "diameter": 15,
+      "diameterUnit": "in cm",
+      "length": 12,
+      "lengthUnit": "in cm",
+      "scrapCost": "35rs/kg",
+      "grossWeight": 800,
+      "grossWeightUnit": "in kg",
+      "netWeight": 750,
+      "netWeightUnit": "in kg",
+      "noOfLots": 4,
+      "stockPerLot": 30,
+      "materialCost": 75,
+      "materialCostUnit": "Rs. (per kg)",
+      "tolerancePercent": 5
+    },
+    {
+      "id": "6",
+      "name": "Hydraulic Cylinder",
+      "status": "Ongoing",
+      "type": "Drawing",
+      "material": "316 Stainless Steel",
+      "materialType": "Round Bar",
+      "time": 420,
+      "timeUnit": "Mins per piece",
+      "cost": 110,
+      "costUnit": "Rs per piece",
+      "createdOn": "22 Jan 2022, 9:15 AM",
+      "companyId": 4,
+      "userId": 13,
+      "shape": "Round Bar",
+      "diameter": 8,
+      "diameterUnit": "in cm",
+      "length": 30,
+      "lengthUnit": "in cm",
+      "scrapCost": "40rs/kg",
+      "grossWeight": 1200,
+      "grossWeightUnit": "in kg",
+      "netWeight": 1100,
+      "netWeightUnit": "in kg",
+      "noOfLots": 2,
+      "stockPerLot": 25,
+      "materialCost": 90,
+      "materialCostUnit": "Rs. (per kg)",
+      "tolerancePercent": 6
+    },
+    {
+      "id": "7",
+      "name": "Control Panel Housing",
+      "status": "Completed",
+      "type": "CAD Model",
+      "material": "Aluminum 6061",
+      "materialType": "Sheet Metal",
+      "time": 280,
+      "timeUnit": "Mins per piece",
+      "cost": 60,
+      "costUnit": "Rs per piece",
+      "createdOn": "05 Feb 2022, 11:30 AM",
+      "companyId": 5,
+      "userId": 17,
+      "shape": "Sheet",
+      "thickness": 3,
+      "thicknessUnit": "in mm",
+      "width": 40,
+      "widthUnit": "in cm",
+      "length": 60,
+      "lengthUnit": "in cm",
+      "scrapCost": "45rs/kg",
+      "grossWeight": 350,
+      "grossWeightUnit": "in kg",
+      "netWeight": 320,
+      "netWeightUnit": "in kg",
+      "noOfLots": 3,
+      "stockPerLot": 20,
+      "materialCost": 80,
+      "materialCostUnit": "Rs. (per kg)",
+      "tolerancePercent": 7
+    },
+    {
+      "id": "8",
+      "name": "Turbine Blade",
+      "status": "Estimated",
+      "type": "Drawing",
+      "material": "Inconel 718",
+      "materialType": "Bar Stock",
+      "time": 520,
+      "timeUnit": "Mins per piece",
+      "cost": 175,
+      "costUnit": "Rs per piece",
+      "createdOn": "10 Feb 2022, 1:45 PM",
+      "companyId": 6,
+      "userId": 1,
+      "shape": "Airfoil",
+      "thickness": 0.5,
+      "thicknessUnit": "in cm",
+      "width": 10,
+      "widthUnit": "in cm",
+      "length": 45,
+      "lengthUnit": "in cm",
+      "scrapCost": "120rs/kg",
+      "grossWeight": 250,
+      "grossWeightUnit": "in kg",
+      "netWeight": 200,
+      "netWeightUnit": "in kg",
+      "noOfLots": 2,
+      "stockPerLot": 15,
+      "materialCost": 350,
+      "materialCostUnit": "Rs. (per kg)",
+      "tolerancePercent": 3
+    }
+  ],
+  "plants": [
+    {
+      "id": "1",
+      "companyId": 1,
+      "name": "Chakan",
+      "location": "Pune, Maharashtra",
+      "area": "25000 sq.ft",
+      "machineCount": 25
+    },
+    {
+      "id": "2",
+      "companyId": 1,
+      "name": "Kharadi",
+      "location": "Pune, Maharashtra",
+      "area": "15000 sq.ft",
+      "machineCount": 25
+    },
+    {
+      "id": "3",
+      "companyId": 2,
+      "name": "Plant A",
+      "location": "Mumbai, Maharashtra",
+      "area": "20000 sq.ft",
+      "machineCount": 20
+    },
+    {
+      "id": "4",
+      "companyId": 2,
+      "name": "Plant B",
+      "location": "Mumbai, Maharashtra",
+      "area": "18000 sq.ft",
+      "machineCount": 20
+    },
+    {
+      "id": "5",
+      "companyId": 3,
+      "name": "Main Plant",
+      "location": "Bangalore, Karnataka",
+      "area": "30000 sq.ft",
+      "machineCount": 100
+    },
+    {
+      "id": "6",
+      "companyId": 4,
+      "name": "East Wing",
+      "location": "Chennai, Tamil Nadu",
+      "area": "22000 sq.ft",
+      "machineCount": 40
+    },
+    {
+      "id": "7",
+      "companyId": 4,
+      "name": "West Wing",
+      "location": "Chennai, Tamil Nadu",
+      "area": "22000 sq.ft",
+      "machineCount": 40
+    },
+    {
+      "id": "8",
+      "companyId": 5,
+      "name": "Plant 1",
+      "location": "Hyderabad, Telangana",
+      "area": "18000 sq.ft",
+      "machineCount": 30
+    },
+    {
+      "id": "9",
+      "companyId": 5,
+      "name": "Plant 2",
+      "location": "Hyderabad, Telangana",
+      "area": "16000 sq.ft",
+      "machineCount": 30
+    },
+    {
+      "id": "10",
+      "companyId": 6,
+      "name": "Main Facility",
+      "location": "Ahmedabad, Gujarat",
+      "area": "35000 sq.ft",
+      "machineCount": 60
+    },
+    {
+      "id": "11",
+      "companyId": 6,
+      "name": "Fabrication Plant",
+      "location": "Ahmedabad, Gujarat",
+      "area": "28000 sq.ft",
+      "machineCount": 40
+    },
+    {
+      "id": "12",
+      "companyId": 6,
+      "name": "Assembly Facility",
+      "location": "Vadodara, Gujarat",
+      "area": "18000 sq.ft",
+      "machineCount": 20
+    },
+    {
+      "id": "13",
+      "companyId": 7,
+      "name": "Main Shop",
+      "location": "Coimbatore, Tamil Nadu",
+      "area": "12000 sq.ft",
+      "machineCount": 25
+    },
+    {
+      "id": "14",
+      "companyId": 9,
+      "name": "Plant A",
+      "location": "Delhi, Delhi",
+      "area": "28000 sq.ft",
+      "machineCount": 50
+    },
+    {
+      "id": "15",
+      "companyId": 9,
+      "name": "Plant B",
+      "location": "Delhi, Delhi",
+      "area": "26000 sq.ft",
+      "machineCount": 50
+    },
+    {
+      "id": "16",
+      "companyId": 9,
+      "name": "Plant C",
+      "location": "Gurgaon, Haryana",
+      "area": "32000 sq.ft",
+      "machineCount": 50
+    },
+    {
+      "id": "17",
+      "companyId": 9,
+      "name": "Quality Control",
+      "location": "Gurgaon, Haryana",
+      "area": "15000 sq.ft",
+      "machineCount": 50
+    },
+    {
+      "id": "18",
+      "companyId": 10,
+      "name": "Main Facility",
+      "location": "Jaipur, Rajasthan",
+      "area": "15000 sq.ft",
+      "machineCount": 35
+    },
+    {
+      "id": "19",
+      "companyId": 11,
+      "name": "North Plant",
+      "location": "Ludhiana, Punjab",
+      "area": "24000 sq.ft",
+      "machineCount": 45
+    },
+    {
+      "id": "20",
+      "companyId": 11,
+      "name": "South Plant",
+      "location": "Ludhiana, Punjab",
+      "area": "22000 sq.ft",
+      "machineCount": 45
+    }
+  ],
+  "partTypes": [
+    {
+      "value": "drawing",
+      "label": "Drawing",
+      "id": "1138"
+    },
+    {
+      "value": "cad_model",
+      "label": "CAD Model",
+      "id": "47ff"
+    },
+    {
+      "value": "3d_model",
+      "label": "3D Model",
+      "id": "b8e5"
+    },
+    {
+      "value": "assembly",
+      "label": "Assembly",
+      "id": "bb2e"
+    },
+    {
+      "value": "prototype",
+      "label": "Prototype",
+      "id": "8009"
+    }
+  ],
+  "partStatuses": [
+    {
+      "value": "ongoing",
+      "label": "Ongoing",
+      "id": "6cc2"
+    },
+    {
+      "value": "estimated",
+      "label": "Estimated",
+      "id": "79fa"
+    },
+    {
+      "value": "completed",
+      "label": "Completed",
+      "id": "0d79"
+    },
+    {
+      "value": "on_hold",
+      "label": "On Hold",
+      "id": "4ab4"
+    },
+    {
+      "value": "cancelled",
+      "label": "Cancelled",
+      "id": "d928"
+    }
+  ],
+  "partShapes": [
+    {
+      "value": "round_bar",
+      "label": "Round Bar",
+      "id": "e41c"
+    },
+    {
+      "value": "sheet",
+      "label": "Sheet",
+      "id": "54d2"
+    },
+    {
+      "value": "cylindrical",
+      "label": "Cylindrical",
+      "id": "cbc9"
+    },
+    {
+      "value": "rectangular",
+      "label": "Rectangular",
+      "id": "7d69"
+    },
+    {
+      "value": "complex",
+      "label": "Complex",
+      "id": "1426"
+    },
+    {
+      "value": "airfoil",
+      "label": "Airfoil",
+      "id": "6c19"
+    },
+    {
+      "value": "impeller",
+      "label": "Impeller",
+      "id": "197c"
+    },
+    {
+      "value": "rod",
+      "label": "Rod",
+      "id": "69d0"
+    },
+    {
+      "value": "gear",
+      "label": "Gear",
+      "id": "89b4"
+    }
+  ],
+  "measurementUnitsForPart": {
+    "length": [
+      {
+        "value": "in_cm",
+        "label": "cm"
+      },
+      {
+        "value": "in_mm",
+        "label": "mm"
+      },
+      {
+        "value": "in_m",
+        "label": "m"
+      },
+      {
+        "value": "in_inches",
+        "label": "inches"
+      }
+    ],
+    "weight": [
+      {
+        "value": "in_kg",
+        "label": "kg"
+      },
+      {
+        "value": "in_g",
+        "label": "g"
+      },
+      {
+        "value": "in_lb",
+        "label": "lb"
+      }
+    ],
+    "cost": [
+      {
+        "value": "rs_per_piece",
+        "label": "Rs/piece"
+      },
+      {
+        "value": "rs_per_kg",
+        "label": "Rs/kg"
+      },
+      {
+        "value": "rs_per_unit",
+        "label": "Rs/unit"
+      }
+    ],
+    "time": [
+      {
+        "value": "mins_per_piece",
+        "label": "Mins/piece"
+      },
+      {
+        "value": "hours_per_piece",
+        "label": "Hours/piece"
+      },
+      {
+        "value": "days_per_piece",
+        "label": "Days/piece"
+      }
+    ]
+  },
+  "machineTypes": [
+    {
+      "value": "drilling",
+      "label": "Drilling",
+      "id": "01e8"
+    },
+    {
+      "value": "milling",
+      "label": "Milling",
+      "id": "303e"
+    },
+    {
+      "value": "turning",
+      "label": "Turning",
+      "id": "2de2"
+    },
+    {
+      "value": "grinding",
+      "label": "Grinding",
+      "id": "1d56"
+    },
+    {
+      "value": "vertical_machining",
+      "label": "Vertical Machining",
+      "id": "ea51"
+    },
+    {
+      "value": "horizontal_machining",
+      "label": "Horizontal Machining",
+      "id": "52e7"
+    },
+    {
+      "value": "edm",
+      "label": "EDM",
+      "id": "be78"
+    },
+    {
+      "value": "wire_edm",
+      "label": "Wire EDM",
+      "id": "ebb7"
+    },
+    {
+      "value": "laser_cutting",
+      "label": "Laser Cutting",
+      "id": "3d42"
+    },
+    {
+      "value": "plasma_cutting",
+      "label": "Plasma Cutting",
+      "id": "eb3d"
+    },
+    {
+      "value": "water_jet_cutting",
+      "label": "Water Jet Cutting",
+      "id": "9024"
+    },
+    {
+      "value": "3d_printing",
+      "label": "3D Printing",
+      "id": "f128"
+    }
+  ],
+  "machineManufacturers": [
+    {
+      "value": "doosan",
+      "label": "Doosan",
+      "id": "7dd5"
+    },
+    {
+      "value": "haas",
+      "label": "Haas",
+      "id": "c3fa"
+    },
+    {
+      "value": "mazak",
+      "label": "Mazak",
+      "id": "e491"
+    },
+    {
+      "value": "dmg_mori",
+      "label": "DMG Mori",
+      "id": "0ad4"
+    },
+    {
+      "value": "hurco",
+      "label": "Hurco",
+      "id": "168e"
+    },
+    {
+      "value": "okuma",
+      "label": "Okuma",
+      "id": "3d0e"
+    },
+    {
+      "value": "makino",
+      "label": "Makino",
+      "id": "2365"
+    },
+    {
+      "value": "hermle",
+      "label": "Hermle",
+      "id": "cc04"
+    },
+    {
+      "value": "sodick",
+      "label": "Sodick",
+      "id": "8b37"
+    },
+    {
+      "value": "fanuc",
+      "label": "Fanuc",
+      "id": "0c2e"
+    },
+    {
+      "value": "trumpf",
+      "label": "Trumpf",
+      "id": "8874"
+    },
+    {
+      "value": "hardinge",
+      "label": "Hardinge",
+      "id": "82e9"
+    },
+    {
+      "value": "mitsubishi",
+      "label": "Mitsubishi",
+      "id": "e4cd"
+    },
+    {
+      "value": "zeiss",
+      "label": "Zeiss",
+      "id": "c1e2"
+    }
+  ],
+  "machineStatuses": [
+    {
+      "value": "active",
+      "label": "Active",
+      "id": "9d66"
+    },
+    {
+      "value": "inactive",
+      "label": "Inactive",
+      "id": "d784"
+    },
+    {
+      "value": "maintenance",
+      "label": "Under Maintenance",
+      "id": "fe96"
+    },
+    {
+      "value": "repair",
+      "label": "Under Repair",
+      "id": "b000"
+    },
+    {
+      "value": "calibration",
+      "label": "Under Calibration",
+      "id": "f2f1"
+    }
+  ],
+  "measurementUnitsForMachine": {
+    "time": [
+      {
+        "value": "mins",
+        "label": "Minutes"
+      },
+      {
+        "value": "hrs",
+        "label": "Hours"
+      },
+      {
+        "value": "in_mins",
+        "label": "Minutes"
+      }
+    ],
+    "cost": [
+      {
+        "value": "rs",
+        "label": "Rupees"
+      },
+      {
+        "value": "usd",
+        "label": "US Dollars"
+      }
+    ],
+    "dimension": [
+      {
+        "value": "in_meters",
+        "label": "meters"
+      },
+      {
+        "value": "in_cm",
+        "label": "centimeters"
+      },
+      {
+        "value": "in_mm",
+        "label": "millimeters"
+      },
+      {
+        "value": "in_inches",
+        "label": "inches"
+      }
+    ],
+    "percentage": [
+      {
+        "value": "in_percent",
+        "label": "%"
+      },
+      {
+        "value": "percent",
+        "label": "percent"
+      }
+    ],
+    "power": [
+      {
+        "value": "kw_per_hour",
+        "label": "KW/h"
+      },
+      {
+        "value": "hp",
+        "label": "HP"
+      }
+    ]
+  },
+  "materials": [
+    {
+      "value": "126_hb_carbon_steel",
+      "label": "126 HB Carbon Steel",
+      "id": "be2d"
+    },
+    {
+      "value": "carbon_steel",
+      "label": "Carbon Steel",
+      "id": "c6da"
+    },
+    {
+      "value": "304_stainless_steel",
+      "label": "304 Stainless Steel",
+      "id": "b7ae"
+    },
+    {
+      "value": "316_stainless_steel",
+      "label": "316 Stainless Steel",
+      "id": "5763"
+    },
+    {
+      "value": "4140_alloy_steel",
+      "label": "4140 Alloy Steel",
+      "id": "2066"
+    },
+    {
+      "value": "4340_steel",
+      "label": "4340 Steel",
+      "id": "79be"
+    },
+    {
+      "value": "8620_steel",
+      "label": "8620 Steel",
+      "id": "c459"
+    },
+    {
+      "value": "1045_carbon_steel",
+      "label": "1045 Carbon Steel",
+      "id": "36b4"
+    },
+    {
+      "value": "tool_steel",
+      "label": "Tool Steel",
+      "id": "2709"
+    },
+    {
+      "value": "gray_cast_iron",
+      "label": "Gray Cast Iron",
+      "id": "8d18"
+    },
+    {
+      "value": "cast_iron",
+      "label": "Cast Iron",
+      "id": "2084"
+    },
+    {
+      "value": "aluminum_6061",
+      "label": "Aluminum 6061",
+      "id": "4f0c"
+    },
+    {
+      "value": "aluminum_7075",
+      "label": "Aluminum 7075",
+      "id": "4603"
+    },
+    {
+      "value": "2618_aluminum",
+      "label": "2618 Aluminum",
+      "id": "68a3"
+    },
+    {
+      "value": "titanium_grade_5",
+      "label": "Titanium Grade 5",
+      "id": "b22b"
+    },
+    {
+      "value": "inconel_718",
+      "label": "Inconel 718",
+      "id": "f576"
+    },
+    {
+      "value": "bronze_alloy",
+      "label": "Bronze Alloy",
+      "id": "f5e4"
+    },
+    {
+      "value": "brass",
+      "label": "Brass",
+      "id": "a416"
+    }
+  ],
+  "materialTypes": [
+    {
+      "value": "round_bar",
+      "label": "Round Bar",
+      "id": "59f4"
+    },
+    {
+      "value": "sheet_metal",
+      "label": "Sheet Metal",
+      "id": "2fab"
+    },
+    {
+      "value": "bar_stock",
+      "label": "Bar Stock",
+      "id": "9459"
+    },
+    {
+      "value": "casting",
+      "label": "Casting",
+      "id": "d863"
+    },
+    {
+      "value": "forging",
+      "label": "Forging",
+      "id": "bf62"
+    },
+    {
+      "value": "block",
+      "label": "Block",
+      "id": "e36f"
+    },
+    {
+      "value": "plate",
+      "label": "Plate",
+      "id": "dcb4"
+    },
+    {
+      "value": "tube",
+      "label": "Tube",
+      "id": "6e1e"
+    },
+    {
+      "value": "pipe",
+      "label": "Pipe",
+      "id": "80fa"
+    },
+    {
+      "value": "wire",
+      "label": "Wire",
+      "id": "0d2f"
+    }
+  ],
+  "materialGrades": {
+    "carbon_steel": [
+      {
+        "value": "1018",
+        "label": "1018 - Low Carbon"
+      },
+      {
+        "value": "1045",
+        "label": "1045 - Medium Carbon"
+      },
+      {
+        "value": "1095",
+        "label": "1095 - High Carbon"
+      },
+      {
+        "value": "126_hb",
+        "label": "126 HB - Hardness Grade"
+      }
+    ],
+    "stainless_steel": [
+      {
+        "value": "304",
+        "label": "304 - Austenitic"
+      },
+      {
+        "value": "316",
+        "label": "316 - Marine Grade"
+      },
+      {
+        "value": "416",
+        "label": "416 - Free Machining"
+      },
+      {
+        "value": "440c",
+        "label": "440C - High Carbon"
+      }
+    ],
+    "alloy_steel": [
+      {
+        "value": "4140",
+        "label": "4140 - Chromium-Molybdenum"
+      },
+      {
+        "value": "4340",
+        "label": "4340 - Nickel-Chromium-Molybdenum"
+      },
+      {
+        "value": "8620",
+        "label": "8620 - Nickel-Chromium-Molybdenum (Case Hardening)"
+      }
+    ],
+    "aluminum": [
+      {
+        "value": "6061",
+        "label": "6061 - Structural"
+      },
+      {
+        "value": "7075",
+        "label": "7075 - Aircraft Grade"
+      },
+      {
+        "value": "2618",
+        "label": "2618 - High Temperature"
+      },
+      {
+        "value": "5052",
+        "label": "5052 - Marine Grade"
+      }
+    ],
+    "titanium": [
+      {
+        "value": "grade_2",
+        "label": "Grade 2 - Commercially Pure"
+      },
+      {
+        "value": "grade_5",
+        "label": "Grade 5 (Ti-6Al-4V) - Aerospace"
+      }
+    ],
+    "cast_iron": [
+      {
+        "value": "gray",
+        "label": "Gray Cast Iron"
+      },
+      {
+        "value": "ductile",
+        "label": "Ductile Cast Iron"
+      },
+      {
+        "value": "white",
+        "label": "White Cast Iron"
+      }
+    ]
+  },
+  "heatTreatments": [
+    {
+      "value": "none",
+      "label": "None",
+      "id": "546c"
+    },
+    {
+      "value": "annealed",
+      "label": "Annealed",
+      "id": "a1f6"
+    },
+    {
+      "value": "normalized",
+      "label": "Normalized",
+      "id": "0660"
+    },
+    {
+      "value": "hardened",
+      "label": "Hardened",
+      "id": "1268"
+    },
+    {
+      "value": "quenched",
+      "label": "Quenched",
+      "id": "dd4b"
+    },
+    {
+      "value": "tempered",
+      "label": "Tempered",
+      "id": "3759"
+    },
+    {
+      "value": "case_hardened",
+      "label": "Case Hardened",
+      "id": "5ce9"
+    },
+    {
+      "value": "solution_heat_treated",
+      "label": "Solution Heat Treated",
+      "id": "41e4"
+    },
+    {
+      "value": "age_hardened",
+      "label": "Age Hardened",
+      "id": "5633"
+    }
+  ]
+}

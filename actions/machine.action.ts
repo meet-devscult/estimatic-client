@@ -1,4 +1,5 @@
 import axiosInstance, { endpoints } from "@/lib/axios"
+import { TNewMachineSchema } from "@/zod/machine.zod"
 
 /**
  * Get all machines
@@ -49,5 +50,16 @@ export async function getMachineTypes() {
 export async function getMachineCategories() {
     const URL = endpoints.machines.machine_categories
     const response = await axiosInstance.get(URL)
+    return response.data.data
+}
+
+/**
+ * Create a new machine
+ * @param machine Machine
+ * @returns Machine
+ */
+export async function createMachine(machine: TNewMachineSchema, companyId: string, method: 'post' | 'put') {
+    const URL = endpoints.machines.root
+    const response = await axiosInstance[method](URL, { ...machine, company_id: companyId })
     return response.data.data
 }
