@@ -1,4 +1,4 @@
-import { getMachineById, getMachines, getMachineTypes } from "@/actions/machine.action";
+import { getMachineById, getMachineCategories, getMachines, getMachineTypes } from "@/actions/machine.action";
 import { useQuery } from "@tanstack/react-query";
 
 export function useMachines() {
@@ -43,7 +43,7 @@ export function useMachineTypes() {
 export function useMachineCategories() {
     const { data, isLoading, error, isError, refetch, isFetching } = useQuery({
         queryKey: ['machine-categories'],
-        queryFn: () => getMachineTypes(),
+        queryFn: () => getMachineCategories(),
     })
 
     return { data, isLoading, error, isError, refetch, isFetching }

@@ -39,7 +39,7 @@ export async function getMachineById(id: string) {
 export async function getMachineTypes() {
     const URL = endpoints.machines.machine_types
     const response = await axiosInstance.get(URL)
-    return response.data
+    return response.data.data
 }
 
 /**
@@ -49,5 +49,5 @@ export async function getMachineTypes() {
 export async function getMachineCategories() {
     const URL = endpoints.machines.machine_categories
     const response = await axiosInstance.get(URL)
-    return response.data
+    return response.data.data
 }

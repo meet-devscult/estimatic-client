@@ -88,6 +88,7 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   const user = JSON.parse(document.cookie.split('; ').find(row => row.startsWith('user_data='))?.split('=')[1] || '{}');
+  
   return (
     <Sidebar
       className="top-(--header-height) h-[calc(100svh-var(--header-height))]! border-dashed"

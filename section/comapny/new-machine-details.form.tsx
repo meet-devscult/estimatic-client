@@ -3,7 +3,7 @@ import PopupForForm from "@/components/form-fields-components/form-popup-layout"
 import InputBox from "@/components/form-fields-components/input-box";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { STATIC_MACHINE_CATEGORIES, STATIC_MACHINE_TYPES } from "@/lib/const.data";
+import { useMachineCategories, useMachineTypes } from "@/hooks/use-machine";
 import { newMachineSchema, TNewMachineSchema } from "@/zod/machine.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon } from "lucide-react";
@@ -67,9 +67,10 @@ interface NewMachineDetailsFormProps {
 
 export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormProps) {
 
-    // const { data: machineTypes, isLoading: isMachineTypesLoading } = useMachineTypes()
+    const { data: machineTypes, isLoading: isMachineTypesLoading } = useMachineTypes()
+    const { data: machineCategories, isLoading: isMachineCategoriesLoading } = useMachineCategories()
 
-    // if (isMachineTypesLoading) return null
+    if (isMachineTypesLoading || isMachineCategoriesLoading) return null
 
     return (
         <Form {...form}>
@@ -79,10 +80,10 @@ export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormPro
                         <InputBox form={form} name="plantName" placeholder="Plant Name" />
                         <InputBox form={form} name="machineName" placeholder="Machine Name" />
                         <DropdownBox form={form} name="machineType" placeholder="Machine Type" options={
-                            STATIC_MACHINE_TYPES.map((machineType: {value: string, label: string}) => ({label: machineType.label, value: machineType.value}))
+                            machineTypes.map((machineType: string) => ({label: machineType, value: machineType}))
                         } className="w-full h-full" />
                         <DropdownBox form={form} name="machineCategory" placeholder="Machine Category" options={
-                            STATIC_MACHINE_CATEGORIES.map((machineCategory: {value: string, label: string}) => ({label: machineCategory.label, value: machineCategory.value}))
+                            machineCategories.map((machineCategory: string) => ({label: machineCategory, value: machineCategory}))
                         } className="w-full h-full" />
                         <InputBox form={form} name="machineManufacturer" placeholder="Machine Manufacturer" />
                         <InputBox form={form} name="spindleMaxRPM" placeholder="Spindle Max RPM" type="number" />
