@@ -5,7 +5,7 @@ export const CompanyCreationSchema = z.object({
     website: z.string().url().optional(),
     quotations_limits: z.number(),
     type: z.string(),
-    upto_validated_at: z.date(),
+    upto_validated_at: z.number(),
 })
 
 export type TCompanyCreationSchema = z.infer<typeof CompanyCreationSchema>;

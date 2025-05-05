@@ -14,9 +14,10 @@ interface NewMachineDetailsFormPopUpProps {
     setMachines?: (data: TNewMachineSchema) => void;
     defaultValues?: TNewMachineSchema;
     companyId?: string;
+    onSubmit?: (data: TNewMachineSchema) => void;
 }
 
-export default function NewMachineDetails({setMachines, defaultValues, companyId}: NewMachineDetailsFormPopUpProps) {
+export default function NewMachineDetails({setMachines, defaultValues, companyId, onSubmit}: NewMachineDetailsFormPopUpProps) {
     
     const queryClient = useQueryClient()
     const { mutate: createMachine, isPending: isCreatingMachine } = useMachineMutation(queryClient, companyId || "")
@@ -31,18 +32,6 @@ export default function NewMachineDetails({setMachines, defaultValues, companyId
             manufacturer: "",
         },
     })
-
-    function onMachineSubmit(data: TNewMachineSchema) {
-        if (machineForm.formState.isValid) {
-            if(setMachines) {
-                setMachines(data);
-                machineForm.reset();
-                // return;
-            }
-            console.log(data);
-            machineForm.reset();
-        }
-    }
     
     return (
         <PopupForForm
@@ -53,10 +42,25 @@ export default function NewMachineDetails({setMachines, defaultValues, companyId
                     {defaultValues ? <span className="hidden lg:inline">Edit Info</span> : <span className="hidden lg:inline">Add Machine</span>}
                 </Button>
             } 
-            form={<NewMachineDetailsForm form={machineForm} onSubmit={() => createMachine({data: machineForm.getValues(), method: defaultValues ? 'put' : 'post'})} />} 
+            form={<NewMachineDetailsForm form={machineForm} onSubmit={() => {
+                if(onSubmit) {
+                    onSubmit(machineForm.getValues());
+                    machineForm.reset();
+                }
+                else {
+                    createMachine({data: machineForm.getValues(), method: defaultValues ? 'put' : 'post'})
+                    machineForm.reset();
+                }
+            }} />} 
             submitFunction={() => {
-                createMachine({data: machineForm.getValues(), method: defaultValues ? 'put' : 'post'})
-                machineForm.reset();
+                if(onSubmit) {
+                    onSubmit(machineForm.getValues());
+                    machineForm.reset();
+                }
+                else {
+                    createMachine({data: machineForm.getValues(), method: defaultValues ? 'put' : 'post'})
+                    machineForm.reset();
+                }
             }}
             buttonText="Add Machine"
             formInstance={machineForm}
@@ -74,7 +78,7 @@ export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormPro
     const { data: machineTypes, isLoading: isMachineTypesLoading } = useMachineTypes()
     const { data: machineCategories, isLoading: isMachineCategoriesLoading } = useMachineCategories()
 
-    if (isMachineTypesLoading || isMachineCategoriesLoading) return null
+    // if (isMachineTypesLoading || isMachineCategoriesLoading) return null
 
     return (
         <Form {...form}>
@@ -83,12 +87,12 @@ export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormPro
                     <div className="grid grid-cols-2 gap-4">
                         <InputBox form={form} name="plant_name" placeholder="Plant Name" />
                         <InputBox form={form} name="name" placeholder="Machine Name" />
-                        <DropdownBox form={form} name="type" placeholder="Machine Type" options={
+                        {!isMachineTypesLoading && machineTypes && <DropdownBox form={form} name="type" placeholder="Machine Type" options={
                             machineTypes.map((machineType: string) => ({label: machineType, value: machineType}))
-                        } className="w-full h-full" />
-                        <DropdownBox form={form} name="category" placeholder="Machine Category" options={
+                        } className="w-full h-full" />}
+                        {!isMachineCategoriesLoading && machineCategories && <DropdownBox form={form} name="category" placeholder="Machine Category" options={
                             machineCategories.map((machineCategory: string) => ({label: machineCategory, value: machineCategory}))
-                        } className="w-full h-full" />
+                        } className="w-full h-full" />}
                         <InputBox form={form} name="manufacturer" placeholder="Machine Manufacturer" />
                         <InputBox form={form} name="max_rpm" placeholder="Spindle Max RPM" type="number" />
                         <InputBox form={form} name="efficiency" placeholder="Efficiency %" type="number" />

@@ -1,5 +1,5 @@
-import { getCompany, getCompanyById } from "@/actions/company.action";
-import { useQuery } from "@tanstack/react-query";
+import { createCompany, getCompany, getCompanyById } from "@/actions/company.action";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 /**
  * Get all companies
@@ -26,4 +26,16 @@ export function useCompanyById(id: string) {
     })
 
     return { data: data?.data, isLoading, error, isError, refetch, isFetching }
+}
+
+export function useCompanyMutation({queryClient}:{queryClient: QueryClient}) {
+
+    const { mutate, isPending, error, isError } = useMutation({
+        mutationFn: ({data, method}:{data: any, method: 'post' | 'put'}) => createCompany(data, method),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['company'] })
+        },
+    })
+
+    return { mutate, isPending, error, isError }
 }

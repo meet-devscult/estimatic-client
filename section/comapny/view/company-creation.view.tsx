@@ -1,9 +1,16 @@
 "use client"
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useCompanyMutation } from "@/hooks/use-company";
 import { CompanyCreationSchema, TCompanyCreationSchema } from "@/zod/company.zod";
+import { TNewMachineSchema } from "@/zod/machine.zod";
+import { TNewUserSchema } from "@/zod/user.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PlusIcon, XIcon } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { PlusIcon, Trash2, XIcon } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CompanyBasicDetailsForm from "../company-basic-details.form";
 import NewMachineDetails from "../new-machine-details.form";
@@ -11,19 +18,29 @@ import NewUserDetailsForm from "../new-user-details.form";
 
 export default function CompanyCreationView() {
 
+    const queryClient = useQueryClient()
+
     const form = useForm<TCompanyCreationSchema>({
         resolver: zodResolver(CompanyCreationSchema),
         defaultValues: {
             name: "",
             website: "",
             type: "",
-            quotations_limits: 0,
-            upto_validated_at: new Date(),
         },
     })
 
+    const { mutate, isPending, error, isError } = useCompanyMutation({queryClient})
+
+    const [users, setUsers] = useState<TNewUserSchema[]>([]);
+    const [machines, setMachines] = useState<TNewMachineSchema[]>([]);
+
     function onSubmit(data: TCompanyCreationSchema) {
-        console.log({data});
+        mutate({
+            data: {...data, users: users, machines: machines},
+            method: 'post'
+        })
+        isPending && console.log("Creating Company...")
+        isError && console.log(error)
     }
 
     return (
@@ -38,17 +55,45 @@ export default function CompanyCreationView() {
             <div className="p-5 border-b border-dashed space-y-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-bold">Add Users</h1>
-                    <NewUserDetailsForm />
+                    <NewUserDetailsForm onSubmit={(data) => setUsers([...users, data])} />
                 </div>
-                <p className="text-sm text-center text-muted-foreground">No User Added</p>
-
+                {users.length === 0 && <p className="text-sm text-center text-muted-foreground">No User Added</p>}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {users.map((user, index) => (
+                    <Card key={index}>
+                        <CardHeader className="relative">
+                            <CardTitle>{user.user_name}</CardTitle>
+                            <CardDescription>{user.email}</CardDescription>
+                            <div className="absolute top-0 right-6 flex gap-2">
+                            <Button variant="outline" size="icon" className="text-destructive" onClick={() => setUsers(users.filter((_, i) => i !== index))}><Trash2 /></Button>
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <Badge className="text-white">{user.type}</Badge>
+                            <Badge variant="outline">{user.designation}</Badge>
+                            <Badge variant="outline">{user.phone_number}</Badge>
+                        </CardContent>
+                    </Card>
+                ))}
+                </div>
             </div>
             <div className="p-5 border-b border-dashed space-y-5">
                 <div className="flex justify-between items-center">
                     <h1 className="text-xl font-bold">Add Machines</h1>
-                    <NewMachineDetails />
+                    <NewMachineDetails onSubmit={(data) => setMachines([...machines, data])} />
                 </div>
-                <p className="text-sm text-center text-muted-foreground">No Machine Added</p>
+                {machines.length === 0 && <p className="text-sm text-center text-muted-foreground">No Machine Added</p>}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {machines.map((machine, index) => (
+                        <Card key={index}>
+                            <CardHeader className="relative">
+                                <CardTitle>{machine.name}</CardTitle>
+                                <CardDescription>{machine.category}</CardDescription>
+                                <Button variant="outline" size="icon" className="text-destructive absolute top-0 right-6" onClick={() => setMachines(machines.filter((_, i) => i !== index))}><Trash2 /></Button>
+                            </CardHeader>
+                        </Card>
+                    ))}
+                </div>
             </div>
             <div className="p-5 border-b border-dashed flex justify-end items-center gap-4">
                 <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" onClick={() => {

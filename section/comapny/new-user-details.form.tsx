@@ -7,10 +7,10 @@ import { useUserMutation } from "@/hooks/use-user";
 import { NewUserSchema, TNewUserSchema } from "@/zod/user.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
-import { PlusIcon } from "lucide-react";
+import { PencilIcon, PlusIcon } from "lucide-react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
-export default function NewUserDetailsForm({defaultValues, company_id}: { defaultValues?: TNewUserSchema, company_id?: string }) {
+export default function NewUserDetailsForm({defaultValues, company_id, onSubmit, iconButton = false}: { defaultValues?: TNewUserSchema, company_id?: string, onSubmit?: (data: TNewUserSchema) => void, iconButton?: boolean }) {
 
     const queryClient = useQueryClient()
 
@@ -32,22 +32,34 @@ export default function NewUserDetailsForm({defaultValues, company_id}: { defaul
     return  <AddNewUserPopup
         title={defaultValues ? "Edit User" : "Add New User"}
         triggerText={
-            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
+            !iconButton ? <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
               {!defaultValues && <PlusIcon />}
               {defaultValues ? <span className="hidden lg:inline">Edit Info</span> : <span className="hidden lg:inline">Add User</span>}
+            </Button> : <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
+              {iconButton && defaultValues && <PencilIcon /> || <PlusIcon />}
             </Button>
         } 
         form={
             <UserDetailsForm
                 form={userForm}
                 onSubmit={async (data) => {
-                    await createUser({ data, method: defaultValues ? 'put' : 'post' })
-                    userForm.reset()
+                    if(onSubmit) {
+                        onSubmit(data)
+                        userForm.reset()
+                    } else {
+                        await createUser({ data, method: defaultValues ? 'put' : 'post' })
+                        userForm.reset()
+                    }
                 }}
             />}
             submitFunction={async () => {
-                await createUser({ data: userForm.getValues(), method: defaultValues ? 'put' : 'post' })
-                userForm.reset()
+                if(onSubmit) {
+                    onSubmit(userForm.getValues())
+                    userForm.reset()
+                } else {
+                    await createUser({ data: userForm.getValues(), method: defaultValues ? 'put' : 'post' })
+                    userForm.reset()
+                }
             }}
         buttonText="Add User"
         isLoading={isCreatingUser}

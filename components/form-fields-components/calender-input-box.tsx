@@ -94,7 +94,7 @@ export default function CalendarInputBox<T extends FieldValues>({
                                     selected={date}
                                     onSelect={(selectedDate) => {
                                         setDate(selectedDate);
-                                        field.onChange(selectedDate);
+                                        field.onChange(selectedDate ? dayjs(selectedDate).unix() : undefined);
                                     }}
                                     disabled={getDisabledDates()}
                                     fromDate={minDate}
