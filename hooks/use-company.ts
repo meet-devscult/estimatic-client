@@ -31,9 +31,37 @@ export function useCompanyById(id: string) {
 export function useCompanyMutation({queryClient}:{queryClient: QueryClient}) {
 
     const { mutate, isPending, error, isError } = useMutation({
+        onMutate: async ({data, method}:{data: any, method: 'post' | 'put'}) => {
+            await queryClient.cancelQueries({ queryKey: ['company'] })
+            const previousData = queryClient.getQueryData(['company'])
+
+            queryClient.setQueryData(['company'], (old: any) => {
+                console.log(data, method, old.data.data.list)
+                if(method === 'put'){
+                    return {
+                        ...old,
+                        data: {
+                            ...old.data,
+                            data: {
+                                ...old.data.data,
+                                list: old.data.data.list.map((company: any) => {
+                                    console.log(company.company_id, data.company_id)
+                                    return company.company_id === data.company_id ? {...company, status: data.status} : company
+                                })
+                            }
+                        }
+                    }
+                }
+            })
+
+            return { previousData }
+        },
         mutationFn: ({data, method}:{data: any, method: 'post' | 'put'}) => createCompany(data, method),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['company'] })
+        },
+        onError: (error, variables, context) => {
+            queryClient.setQueryData(['company'], context?.previousData)
         },
     })
 

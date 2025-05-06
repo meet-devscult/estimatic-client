@@ -1,5 +1,7 @@
 import { Switch } from "@/components/ui/switch"
+import { useCompanyMutation } from "@/hooks/use-company"
 import { ICompany } from "@/types/company.type"
+import { useQueryClient } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
 import { ChevronRight } from "lucide-react"
 import Link from "next/link"
@@ -18,15 +20,20 @@ export const companyColumn: ColumnDef<ICompany>[] = [
     {
       accessorKey: "active",
       header: "Status",
-      cell: ({ row }) => (
-        <div className="flex items-center justify-center">
+      cell: ({ row }) => {
+      const queryClient = useQueryClient()
+      const {mutate: updateCompanyStatus} = useCompanyMutation({queryClient})
+
+      return  <div className="flex items-center justify-center">
           <span className="mr-2 text-sm font-medium">{row.original.status === "active" ? "Active" : "Inactive"}</span>
           <Switch
             checked={row.original.status === "active"}
-            onCheckedChange={() => console.log(row.original)}
+            onCheckedChange={() => {
+              updateCompanyStatus({data: {company_id: row.original.company_id,status: row.original.status === "active" ? "inactive" : "active"}, method: "put"})
+            }}
           />
         </div>
-      ),
+      },
     },
     {
       accessorKey: "users",
