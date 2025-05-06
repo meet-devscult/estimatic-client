@@ -1,6 +1,8 @@
 import { Switch } from "@/components/ui/switch"
+import { useMachineMutation } from "@/hooks/use-machine"
 import NewMachineDetails from "@/section/comapny/new-machine-details.form"
 import { IMachine } from "@/types/machine.type"
+import { useQueryClient } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
 
@@ -13,12 +15,24 @@ export const machineTableColumn: ColumnDef<IMachine>[] = [
     {
       accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => (
-        <div className="flex items-center gap-2">
-          <span className="text-sm">{row.original.status === 'active' ? 'Active' : 'Inactive'}</span>
-          <Switch checked={row.original.status === 'active'} />
-        </div>
-      ),
+      cell: ({ row }) => {
+        const queryClient = useQueryClient()
+        const { mutate: updateMachine, isPending: isUpdatingMachine } = useMachineMutation(queryClient, row.original.company_id)
+        return (
+          <div className="flex items-center gap-2">
+            <span className="text-sm">{row.original.status === 'active' ? 'Active' : 'Inactive'}</span>
+            <Switch checked={row.original.status === 'active'} onCheckedChange={() => {
+              // updateMachine({
+              //   data: {
+              //     machine_id: row.original.machine_id,
+              //     status: row.original.status === 'active' ? 'inactive' : 'active'
+              //   },
+              //   method: 'put'
+              // })
+            }} />
+          </div>
+        )
+      },
     },
     {
       accessorKey: "plant",
@@ -45,17 +59,28 @@ export const machineTableColumn: ColumnDef<IMachine>[] = [
       header: " ",
       cell: ({ row }) => <div className="flex items-center justify-end gap-2">
         <NewMachineDetails defaultValues={{
-          ...row.original,
+          company_id: row.original.company_id,
+          machine_id: row.original.machine_id,
+              
+          // basic information
           plant_name: row.original.plant_name,
           name: row.original.name,
-          manufacturer: row.original.manufacturer,
-          machine_rate: row.original.machine_rate,
-          setup_hour_rate: row.original.setup_hour_rate,
           type: row.original.type,
           category: row.original.category,
+          manufacturer: row.original.manufacturer,
+          max_rpm: row.original.max_rpm,
+          efficiency: row.original.efficiency,
           power_consumption: row.original.power_consumption,
+          status: row.original.status,
+
+          // machine specifications
           allowance: row.original.allowance,
           setup_base_time: row.original.setup_base_time,
+
+          // machine rates
+          machine_rate: row.original.machine_rate,
+          setup_hour_rate: row.original.setup_hour_rate,
+
           max_tool_length: row.original.max_tool_length,
           max_tool_diameter: row.original.max_tool_diameter,
           max_table_length: row.original.max_table_length,

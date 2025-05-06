@@ -28,7 +28,7 @@ export const userTableColumn: ColumnDef<IUser>[] = [
     {
       accessorKey: "role",
       header: "Role",
-      cell: ({ row }) => <div >{row.original.role}</div>,
+      cell: ({ row }) => <div >{row.original.type}</div>,
     },
     {
       accessorKey: "status",

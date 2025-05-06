@@ -1,6 +1,9 @@
 import { z } from "zod";
 
 export const newMachineSchema = z.object({
+    company_id: z.string().nullable(),
+    machine_id: z.string().nullable(),
+        
     // basic information
     plant_name: z.string(),
     name: z.string(),
@@ -10,6 +13,7 @@ export const newMachineSchema = z.object({
     max_rpm: z.number(),
     efficiency: z.number(),
     power_consumption: z.number(),
+    status: z.string().optional(),
 
     // machine specifications
     allowance: z.number(),

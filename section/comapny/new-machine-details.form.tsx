@@ -25,6 +25,7 @@ export default function NewMachineDetails({setMachines, defaultValues, companyId
     const machineForm = useForm<TNewMachineSchema>({
         resolver: zodResolver(newMachineSchema),
         defaultValues: defaultValues ? defaultValues : {
+            company_id: companyId || "",
             plant_name: "",
             name: "",
             type: "",

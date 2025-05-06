@@ -20,7 +20,7 @@ export default function MatchineTableSection({ company_id }: MatchineTableSectio
             <div>
                 <div className="flex justify-between items-center p-5 border-b border-dashed">
                     <h1 className="text-2xl font-bold">Machines</h1>
-                    <NewMachineDetailsFormPopUp />
+                    <NewMachineDetailsFormPopUp companyId={company_id} />
                 </div>
             </div>
             <DataTable columns={machineTableColumn} data={machines} headerClassName="text-left" />
