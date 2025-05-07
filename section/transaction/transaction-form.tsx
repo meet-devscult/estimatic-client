@@ -12,12 +12,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { PlusIcon } from "lucide-react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
-export default function NewTransaction({defaultValues, companyId}: { defaultValues?: TTransactionFormType, companyId: string}) {
+export default function NewTransaction({defaultValues, companyId}: { defaultValues?: TTransactionFormType, companyId?: string}) {
 
     const form = useForm<TTransactionFormType>({defaultValues})
     const queryClient = useQueryClient()
   
-    const { mutate: createTransaction, isPending: isCreatingTransaction } = useMutateTransaction(queryClient, companyId)
+    const { mutate: createTransaction, isPending: isCreatingTransaction } = useMutateTransaction(queryClient, companyId || "")
     
     return <AddTransactionPopup title={defaultValues ? "Edit Transaction" : "Add New Transaction"} 
           triggerText={
