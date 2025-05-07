@@ -12,12 +12,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { PlusIcon } from "lucide-react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
-export default function NewTransaction({defaultValues}: { defaultValues?: TTransactionFormType}) {
+export default function NewTransaction({defaultValues, companyId}: { defaultValues?: TTransactionFormType, companyId: string}) {
 
     const form = useForm<TTransactionFormType>({defaultValues})
     const queryClient = useQueryClient()
   
-    const { mutate: createTransaction, isPending: isCreatingTransaction } = useMutateTransaction(queryClient)
+    const { mutate: createTransaction, isPending: isCreatingTransaction } = useMutateTransaction(queryClient, companyId)
     
     return <AddTransactionPopup title={defaultValues ? "Edit Transaction" : "Add New Transaction"} 
           triggerText={
@@ -30,12 +30,12 @@ export default function NewTransaction({defaultValues}: { defaultValues?: TTrans
             <TransactionForm
               form={form}
               onSubmit={() => {
-                createTransaction(form.getValues())
+                createTransaction({data: form.getValues(), method: defaultValues ? 'put' : 'post'})
                 form.reset()
               }}
             />}
             submitFunction={() => {
-              createTransaction(form.getValues())
+              createTransaction({data: form.getValues(), method: defaultValues ? 'put' : 'post'})
               form.reset()
             }}
           buttonText="Add Transaction"
@@ -58,18 +58,18 @@ export function TransactionForm({form, onSubmit}: TransactionFormProps) {
                 <div className="grid grid-cols-2 gap-4 px-5">
                     {isLoading ? <Skeleton className="w-full h-full" /> : <DropdownBox 
                         form={form} 
-                        name="name" 
+                        name="company_name" 
                         placeholder="Company Name" 
                         options={data.map((company: {name: string}) => ({label: company.name, value: company.name})) || []} 
                         className="w-full h-full" 
                     />}
-                    <CalendarInputBox form={form} name="datePaid" placeholder="Paid Date" futureDatesOnly />
+                    <CalendarInputBox form={form} name="paid_time" placeholder="Paid Date" futureDatesOnly />
                     <InputBox form={form} name="amount" placeholder="Amount Paid" type="number" />
-                    <CalendarInputBox form={form} name="validUntil" placeholder="Valid Until" futureDatesOnly />
-                    <InputBox form={form} name="paidVia" placeholder="Payment Mode" />
+                    <CalendarInputBox form={form} name="upto_validated_at" placeholder="Valid Until" futureDatesOnly />
+                    <InputBox form={form} name="payment_mode" placeholder="Payment Mode" />
                     {/* <DropdownBox form={form} name="paidVia" placeholder="Payment Mode" options={[{label: "UPI", value: "UPI"}, {label: "Bank Transfer", value: "Bank Transfer"}, {label: "Cheque", value: "Cheque"}, {label: "Cash", value: "Cash"}]} className="w-full h-full" /> */}
-                    <InputBox form={form} name="paidFor" placeholder="Paid For" />
-                    {/* <DropdownBox form={form} name="paidFor" placeholder="Paid For" options={[{label: "Free", value: "Free"}, {label: "Pro", value: "Pro"}]} className="w-full h-full" /> */}
+                    {/* <InputBox form={form} name="plan" placeholder="Paid For" /> */}
+                    <DropdownBox form={form} name="plan" placeholder="Paid For" options={[{label: "Monthly", value: "monthly"}, {label: "Quarterly", value: "quarterly"}, {label: "Yearly", value: "yearly"}]} className="w-full h-full" />
                 </div>
             </form>
         </Form>

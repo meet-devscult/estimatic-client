@@ -41,14 +41,20 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
             {/* <Button variant="outline" size="sm">
               Edit Info
             </Button> */}
-            <NewTransaction defaultValues={{
-                            name: row.original.company_name,
-                            datePaid: dayjs(row.original.paid_time).toDate(),
-                            amount: row.original.amount,
-                            validUntil: dayjs(row.original.upto_validated_at).toDate(),
-                            paidVia: row.original.payment_mode as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer',
-                            paidFor: row.original.plan as 'Free' | 'Pro',
-                        }} />
+            <NewTransaction 
+              defaultValues={{
+                company_id: row.original.company_id,
+                transaction_id: row.original.transaction_id,
+                company_name: row.original.company_name,
+                paid_time: dayjs(row.original.paid_time).unix(),
+                amount: row.original.amount,
+                upto_validated_at: dayjs(row.original.upto_validated_at).unix(),
+                payment_mode: row.original.payment_mode as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer',
+                plan: row.original.plan as 'Free' | 'Pro',
+                reason: row.original.reason || 'TEMP REASON',
+              }} 
+              companyId={row.original.company_id}
+            />
         </div>,
     },
   ]

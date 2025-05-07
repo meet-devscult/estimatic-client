@@ -20,7 +20,7 @@ export default function TransactionTableSection({ company_id }: TransactionTable
             <div>
                 <div className="flex justify-between items-center p-5 border-b border-dashed">
                     <h1 className="text-2xl font-bold">Transactions</h1>
-                    <NewTransection />
+                    <NewTransection companyId={company_id} />
                 </div>
             </div>
             <DataTable columns={transactionTableColumn} data={transactions} headerClassName="text-left" />

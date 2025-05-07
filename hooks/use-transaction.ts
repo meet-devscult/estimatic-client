@@ -1,4 +1,4 @@
-import { createTransaction, getTransactions, getTransactionsByCompanyId } from "@/actions/transaction.action";
+import { getTransactions, getTransactionsByCompanyId, mutateTransaction } from "@/actions/transaction.action";
 import { TTransactionFormType } from "@/zod/transactions.zod";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
@@ -34,11 +34,11 @@ export function useTransactionByCompanyId(companyId: string) {
  * @param {TTransactionFormType} data
  * @returns {Promise<TTransaction>}
  */
-export function useMutateTransaction(queryClient: QueryClient) {
+export function useMutateTransaction(queryClient: QueryClient, companyId: string) {
     const { mutate, isPending, error, isError } = useMutation({
-        mutationFn: async (data: TTransactionFormType) => await createTransaction(data),
+        mutationFn: async ({data, method}: {data: TTransactionFormType, method: 'post' | 'put'}) => await mutateTransaction(data, companyId, method),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['transactions'] })
+            queryClient.invalidateQueries({ queryKey: ['transactions', 'company', companyId] })
         }
     })
 

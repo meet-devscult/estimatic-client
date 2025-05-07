@@ -27,8 +27,8 @@ export async function getTransactionsByCompanyId(companyId: string) {
  * @param {TTransactionFormType} data
  * @returns {Promise<TTransaction>}
  */
-export async function createTransaction(data: TTransactionFormType) {
+export async function mutateTransaction(data: TTransactionFormType, companyId: string, method: 'post' | 'put') {
     const URL = endpoints.transactions.root
-    const response = await axiosInstance.post(URL, data)
-    return response.data
+    const response = await axiosInstance[method](URL, { ...data, reason: data.reason || 'TEMP REASON', company_id: companyId })
+    return response.data.data
 }
