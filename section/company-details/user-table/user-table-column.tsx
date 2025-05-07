@@ -1,6 +1,9 @@
 import { Switch } from "@/components/ui/switch"
+import { useToggleMutation } from "@/hooks/use-toggle"
+import { endpoints } from "@/lib/axios"
 import NewUserDetailsForm from "@/section/comapny/new-user-details.form"
 import { IUser } from "@/types/user.type"
+import { useQueryClient } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
 
@@ -33,12 +36,20 @@ export const userTableColumn: ColumnDef<IUser>[] = [
     {
       accessorKey: "status",
       header: "Status",
-      cell: ({ row }) => (
-        <div className="flex items-center gap-2">
-          <span className="text-sm">{row.original.status === 'active' ? 'Active' : 'Inactive'}</span>
-          <Switch checked={row.original.status === 'active'} />
-        </div>
-      ),
+      cell: ({ row }) => {
+        const queryClient = useQueryClient()
+        const { mutate, isPending, error, isError } = useToggleMutation({queryClient, queryKey: ["users","company", row.original.company_id]})
+        return (
+          <div className="flex items-center gap-2">
+            <span className="text-sm">{row.original.status === 'active' ? 'Active' : 'Inactive'}</span>
+            <Switch 
+              checked={row.original.status === 'active'} 
+              onCheckedChange={() => mutate({url: endpoints.users.root, data: {user_id: row.original.user_id, status: row.original.status === 'active' ? 'inactive' : 'active'}})} 
+              disabled={isPending}
+            />
+          </div>
+        )
+      },
     },
     {
         accessorKey: "action",
@@ -50,7 +61,7 @@ export const userTableColumn: ColumnDef<IUser>[] = [
               designation: row.original.designation,
               phone_number: row.original.phone_number,
               email: row.original.email,
-              type: row.original.role,
+              type: row.original.type,
               password: "",
               company_id: row.original.company_id,
             }} />

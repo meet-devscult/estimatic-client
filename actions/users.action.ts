@@ -14,7 +14,7 @@ export async function getUsersByCompanyId(companyId: string) {
             company_id: companyId
         }
     })
-    return response.data
+    return response.data.data.list
 }
 
 export async function getUserById(id: string) {

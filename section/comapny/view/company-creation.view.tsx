@@ -1,22 +1,23 @@
 "use client"
 
-import { createCompany } from "@/actions/company.action";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useCompanyMutation } from "@/hooks/use-company";
 import { CompanyCreationSchema, TCompanyCreationSchema } from "@/zod/company.zod";
 import { TNewMachineSchema } from "@/zod/machine.zod";
 import { TNewUserSchema } from "@/zod/user.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { Loader2, PlusIcon, Trash2, XIcon } from "lucide-react";
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CompanyBasicDetailsForm from "../company-basic-details.form";
 import NewMachineDetails from "../new-machine-details.form";
 import NewUserDetailsForm from "../new-user-details.form";
 
 export default function CompanyCreationView() {
-    const [isProcess, setProcess] = useTransition()
+    const queryClient = useQueryClient()
 
     const form = useForm<TCompanyCreationSchema>({
         resolver: zodResolver(CompanyCreationSchema),
@@ -27,15 +28,14 @@ export default function CompanyCreationView() {
         },
     })
 
-    // const { mutate, isPending, error, isError } = useCompanyMutation({queryClient})
+
+    const { mutate, isPending } = useCompanyMutation({queryClient})
 
     const [users, setUsers] = useState<TNewUserSchema[]>([]);
     const [machines, setMachines] = useState<TNewMachineSchema[]>([]);
 
-    function onSubmit(data: TCompanyCreationSchema) {
-        setProcess(async () => {
-            await createCompany({...data, users: users, machines: machines},'post')
-        })
+    async function onSubmit(data: TCompanyCreationSchema) {
+        await mutate({data: {...data, users: users, machines: machines}, method: 'post'})
     }
 
     return (
@@ -98,11 +98,11 @@ export default function CompanyCreationView() {
                     <span className="hidden lg:inline">Cancel</span>
                 </Button>
 
-                <Button size="lg" className="border-dashed hover:cursor-pointer dark:text-white" disabled={isProcess} onClick={() => {
+                <Button size="lg" className="border-dashed hover:cursor-pointer dark:text-white" disabled={isPending} onClick={() => {
                     form.handleSubmit(onSubmit)();
                 }}>
-                    {isProcess ? <Loader2 className="animate-spin" /> : <PlusIcon />}
-                    <span className="hidden lg:inline">{isProcess ? "Adding..." : "Add Company"}</span>
+                    {isPending ? <Loader2 className="animate-spin" /> : <PlusIcon />}
+                    <span className="hidden lg:inline">{isPending ? "Adding..." : "Add Company"}</span>
                 </Button>
             </div>
         </div>

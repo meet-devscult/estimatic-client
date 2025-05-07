@@ -1,5 +1,6 @@
 import { Switch } from "@/components/ui/switch"
-import { useMachineMutation } from "@/hooks/use-machine"
+import { useToggleMutation } from "@/hooks/use-toggle"
+import { endpoints } from "@/lib/axios"
 import NewMachineDetails from "@/section/comapny/new-machine-details.form"
 import { IMachine } from "@/types/machine.type"
 import { useQueryClient } from "@tanstack/react-query"
@@ -17,19 +18,17 @@ export const machineTableColumn: ColumnDef<IMachine>[] = [
       header: "Status",
       cell: ({ row }) => {
         const queryClient = useQueryClient()
-        const { mutate: updateMachine, isPending: isUpdatingMachine } = useMachineMutation(queryClient, row.original.company_id)
+        const { mutate, isPending, error, isError } = useToggleMutation({queryClient, queryKey: ["machines","company", row.original.company_id]})
         return (
           <div className="flex items-center gap-2">
             <span className="text-sm">{row.original.status === 'active' ? 'Active' : 'Inactive'}</span>
-            <Switch checked={row.original.status === 'active'} onCheckedChange={() => {
-              // updateMachine({
-              //   data: {
-              //     machine_id: row.original.machine_id,
-              //     status: row.original.status === 'active' ? 'inactive' : 'active'
-              //   },
-              //   method: 'put'
-              // })
-            }} />
+            <Switch 
+              checked={row.original.status === 'active'} 
+              onCheckedChange={() => {
+                mutate({url: endpoints.machines.root, data: {machine_id: row.original.machine_id, status: row.original.status === 'active' ? 'inactive' : 'active'}})
+              }} 
+              disabled={isPending} 
+            />
           </div>
         )
       },
