@@ -37,8 +37,7 @@ export default function CompanyCreationView() {
     const [machines, setMachines] = useState<TNewMachineSchema[]>([]);
 
     async function onSubmit(data: TCompanyCreationSchema) {
-        // await mutate({data: {...data, users: users, machines: machines}, method: 'post'})
-        console.log(data, users, machines)
+        await mutate({data: {...data, users: users, machines: machines}, method: 'post'})
         form.reset();
         setUsers([]);
         setMachines([]);
@@ -105,7 +104,11 @@ export default function CompanyCreationView() {
                     <span className="hidden lg:inline">Cancel</span>
                 </Button>
 
-                <Button size="lg" className="border-dashed hover:cursor-pointer dark:text-white" disabled={isPending} onClick={() => {
+                <Button 
+                size="lg" 
+                className="border-dashed hover:cursor-pointer dark:text-white" 
+                disabled={isPending} 
+                onClick={() => {
                     form.handleSubmit(onSubmit)();
                 }}>
                     {isPending ? <Loader2 className="animate-spin" /> : <PlusIcon />}

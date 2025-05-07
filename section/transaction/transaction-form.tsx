@@ -7,14 +7,23 @@ import { Form } from "@/components/ui/form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCompany } from "@/hooks/use-company";
 import { useMutateTransaction } from "@/hooks/use-transaction";
-import { TTransactionFormType } from "@/zod/transactions.zod";
+import { transactionSchema, TTransactionFormType } from "@/zod/transactions.zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { PlusIcon } from "lucide-react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
 export default function NewTransaction({defaultValues, companyId}: { defaultValues?: TTransactionFormType, companyId?: string}) {
 
-    const form = useForm<TTransactionFormType>({defaultValues})
+    const form = useForm<TTransactionFormType>({
+      resolver: zodResolver(transactionSchema),
+      defaultValues: defaultValues || {
+        company_id: companyId || undefined,
+        company_name: "",
+      }
+    })
+
+
     const queryClient = useQueryClient()
   
     const { mutate: createTransaction, isPending: isCreatingTransaction } = useMutateTransaction(queryClient, companyId || "")
@@ -52,6 +61,12 @@ export function TransactionForm({form, onSubmit}: TransactionFormProps) {
 
     const { data, isLoading } = useCompany()
 
+    const PAYMENT_PLANS = [
+        {label: "Monthly", value: "monthly"},
+        {label: "Quarterly", value: "quarterly"},
+        {label: "Yearly", value: "yearly"}
+    ]
+
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -69,7 +84,7 @@ export function TransactionForm({form, onSubmit}: TransactionFormProps) {
                     <InputBox form={form} name="payment_mode" placeholder="Payment Mode" />
                     {/* <DropdownBox form={form} name="paidVia" placeholder="Payment Mode" options={[{label: "UPI", value: "UPI"}, {label: "Bank Transfer", value: "Bank Transfer"}, {label: "Cheque", value: "Cheque"}, {label: "Cash", value: "Cash"}]} className="w-full h-full" /> */}
                     {/* <InputBox form={form} name="plan" placeholder="Paid For" /> */}
-                    <DropdownBox form={form} name="plan" placeholder="Paid For" options={[{label: "Monthly", value: "monthly"}, {label: "Quarterly", value: "quarterly"}, {label: "Yearly", value: "yearly"}]} className="w-full h-full" />
+                    <DropdownBox form={form} name="plan" placeholder="Paid For" options={PAYMENT_PLANS} className="w-full h-full" />
                 </div>
             </form>
         </Form>
