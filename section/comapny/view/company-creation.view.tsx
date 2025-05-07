@@ -10,6 +10,7 @@ import { TNewUserSchema } from "@/zod/user.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader2, PlusIcon, Trash2, XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CompanyBasicDetailsForm from "../company-basic-details.form";
@@ -17,6 +18,7 @@ import NewMachineDetails from "../new-machine-details.form";
 import NewUserDetailsForm from "../new-user-details.form";
 
 export default function CompanyCreationView() {
+    const router = useRouter()
     const queryClient = useQueryClient()
 
     const form = useForm<TCompanyCreationSchema>({
@@ -97,6 +99,7 @@ export default function CompanyCreationView() {
             <div className="p-5 border-b border-dashed flex justify-end items-center gap-4">
                 <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" onClick={() => {
                     form.reset();
+                    router.replace("/company")
                 }}>
                     <XIcon />
                     <span className="hidden lg:inline">Cancel</span>

@@ -3,6 +3,7 @@ import PopupForForm from "@/components/form-fields-components/form-popup-layout"
 import InputBox from "@/components/form-fields-components/input-box";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useMachineCategories, useMachineMutation, useMachineTypes } from "@/hooks/use-machine";
 import { newMachineSchema, TNewMachineSchema } from "@/zod/machine.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -88,10 +89,10 @@ export function NewMachineDetailsForm({form, onSubmit}: NewMachineDetailsFormPro
                     <div className="grid grid-cols-2 gap-4">
                         <InputBox form={form} name="plant_name" placeholder="Plant Name" />
                         <InputBox form={form} name="name" placeholder="Machine Name" />
-                        {!isMachineTypesLoading && machineTypes && <DropdownBox form={form} name="type" placeholder="Machine Type" options={
+                        {isMachineTypesLoading ? <Skeleton className="w-full h-14" /> : <DropdownBox form={form} name="type" placeholder="Machine Type" options={
                             machineTypes.map((machineType: string) => ({label: machineType, value: machineType}))
                         } className="w-full h-full" />}
-                        {!isMachineCategoriesLoading && machineCategories && <DropdownBox form={form} name="category" placeholder="Machine Category" options={
+                        {isMachineCategoriesLoading ? <Skeleton className="w-full h-14" /> : <DropdownBox form={form} name="category" placeholder="Machine Category" options={
                             machineCategories.map((machineCategory: string) => ({label: machineCategory, value: machineCategory}))
                         } className="w-full h-full" />}
                         <InputBox form={form} name="manufacturer" placeholder="Machine Manufacturer" />
