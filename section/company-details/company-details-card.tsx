@@ -17,7 +17,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
         <Loader2 className="w-10 h-10 animate-spin" />
     </div>
 
-    const { name, website, updated_at, type, status, upto_validated_at, quotations_limits, users_count, machines_count } = data.data as ICompany;
+    const { name, website, created_at, type, status, upto_validated_at, quotations_limits, users_count, machines_count } = data.data as ICompany;
 
     const company_details_grid: Record<string, string>[] = [
         {
@@ -30,7 +30,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
         },
         {
             title: "Created On",
-            value: dayjs.unix(updated_at).format("DD/MM/YYYY")
+            value: dayjs.unix(created_at).format("DD/MM/YYYY")
         },  
         {
             title: "Type",

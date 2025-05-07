@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils"
+import NewMachineDetails from "@/section/comapny/new-machine-details.form"
 import { IMachine } from "@/types/machine.type"
-import { PencilIcon } from "lucide-react"
-import { Button } from "../ui/button"
 
 interface MachineDetailCardProps {
     machine: IMachine
@@ -97,11 +96,36 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
         <div>
         <div className="flex justify-between items-center p-5 border-b border-dashed">
             <h1 className="text-2xl font-bold">Machine Details</h1>
+            <NewMachineDetails defaultValues={{
+                company_id: machine.company_id,
+                machine_id: machine.machine_id,
+                    
+                // basic information
+                plant_name: machine.plant_name,
+                name: machine.name,
+                type: machine.type,
+                category: machine.category,
+                manufacturer: machine.manufacturer,
+                max_rpm: machine.max_rpm,
+                efficiency: machine.efficiency,
+                power_consumption: machine.power_consumption,
+                status: machine.status,
 
-            <Button variant="outline" size="lg" className="border-dashed cursor-pointer">
-                <PencilIcon />
-                <span className="hidden lg:inline">Edit Info</span>
-            </Button>
+                // machine specifications
+                allowance: machine.allowance,
+                setup_base_time: machine.setup_base_time,
+
+                // machine rates
+                machine_rate: machine.machine_rate,
+                setup_hour_rate: machine.setup_hour_rate,
+
+                max_tool_length: machine.max_tool_length,
+                max_tool_diameter: machine.max_tool_diameter,
+                max_table_length: machine.max_table_length,
+                max_table_breadth: machine.max_table_breadth,
+                max_workpiece_weight: machine.max_workpiece_weight,
+                tool_change_time: machine.tool_change_time,
+                }} />
         </div>
         <div className="grid grid-cols-3 border-b border-dashed divide-x divide-dashed">
             <div className="divide-y divide-dashed">

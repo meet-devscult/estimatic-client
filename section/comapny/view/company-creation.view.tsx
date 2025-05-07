@@ -35,7 +35,11 @@ export default function CompanyCreationView() {
     const [machines, setMachines] = useState<TNewMachineSchema[]>([]);
 
     async function onSubmit(data: TCompanyCreationSchema) {
-        await mutate({data: {...data, users: users, machines: machines}, method: 'post'})
+        // await mutate({data: {...data, users: users, machines: machines}, method: 'post'})
+        console.log(data, users, machines)
+        form.reset();
+        setUsers([]);
+        setMachines([]);
     }
 
     return (

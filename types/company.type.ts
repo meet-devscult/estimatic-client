@@ -13,4 +13,5 @@ export interface ICompany {
   machines_count: number;
   is_deleted: boolean;
   updated_at: number;
+  created_at: number;
 }
