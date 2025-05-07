@@ -65,11 +65,11 @@ export default function LoginPage() {
                                 <Label htmlFor="password" className="text-title text-sm">
                                     Password
                                 </Label>
-                                <Button asChild variant="link" size="sm">
+                                {/* <Button asChild variant="link" size="sm">
                                     <Link href="#" className="link intent-info variant-ghost text-sm">
                                         Forgot your Password ?
                                     </Link>
-                                </Button>
+                                </Button> */}
                             </div>
                             <Input 
                                 type="password" 
@@ -86,7 +86,7 @@ export default function LoginPage() {
                         </Button>
                     </div>
 
-                    <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+                    {/* <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
                         <hr className="border-dashed" />
                         <span className="text-muted-foreground text-xs">Or continue With</span>
                         <hr className="border-dashed" />
@@ -111,17 +111,17 @@ export default function LoginPage() {
                             </svg>
                             <span>Microsoft</span>
                         </Button>
-                    </div>
+                    </div> */}
                 </div>
 
-                <div className="p-3">
+                {/* <div className="p-3">
                     <p className="text-accent-foreground text-center text-sm">
                         Don&apos;t have an account ?
                         <Button asChild variant="link" className="px-2">
                             <Link href="#">Create account</Link>
                         </Button>
                     </p>
-                </div>
+                </div> */}
             </form>
         </section>
     )
