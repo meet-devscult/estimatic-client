@@ -41,11 +41,22 @@ export default function CalendarInputBox<T extends FieldValues>({
     const [date, setDate] = useState<Date | undefined>(() => {
         return formValue ? new Date(formValue) : undefined;
     });
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        if (formValue) {
-            setDate(new Date(formValue));
+        if (!formValue) {
+            setDate(undefined);
+            return;
         }
+        // Handle both string timestamps and number timestamps
+        const timestamp = typeof formValue === 'string' ? parseInt(formValue) : formValue;
+        if (dayjs.unix(timestamp).isValid()) {
+            setDate(dayjs.unix(timestamp).toDate());
+        }
+
+        console.log(timestamp)
+        console.log(date)
+        console.log(dayjs(date).format("DD/MM/YYYY"))
     }, [formValue]);
 
     const getDisabledDates = () => {
@@ -65,7 +76,7 @@ export default function CalendarInputBox<T extends FieldValues>({
             render={({ field }) => (
                 <FormItem>
                     <FormControl>
-                        <Popover>
+                        <Popover open={open} onOpenChange={setOpen}>
                             <PopoverTrigger asChild>
                                 <Button
                                     id={id}
@@ -95,6 +106,7 @@ export default function CalendarInputBox<T extends FieldValues>({
                                     onSelect={(selectedDate) => {
                                         setDate(selectedDate);
                                         field.onChange(selectedDate ? dayjs(selectedDate).unix() : undefined);
+                                        setOpen(false);
                                     }}
                                     disabled={getDisabledDates()}
                                     fromDate={minDate}
