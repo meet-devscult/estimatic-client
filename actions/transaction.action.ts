@@ -1,5 +1,5 @@
 import axiosInstance, { endpoints } from "@/lib/axios"
-import { TCreateTransaction } from "@/types/transaction.type"
+import { TTransactionFormType } from "@/zod/transactions.zod"
 
 /**
  * Get all transactions
@@ -8,7 +8,7 @@ import { TCreateTransaction } from "@/types/transaction.type"
 export async function getTransactions() {
     const URL = endpoints.transactions.root
     const response = await axiosInstance.get(URL)
-    return response.data
+    return response.data.data.list
 }
 
 /**
@@ -17,9 +17,9 @@ export async function getTransactions() {
  * @returns {Promise<TTransaction[]>}
  */
 export async function getTransactionsByCompanyId(companyId: string) {
-    const URL = endpoints.transactions.root + `?companyId=${companyId}`
-    const response = await axiosInstance.get(URL)
-    return response.data
+    const URL = endpoints.transactions.root
+    const response = await axiosInstance.get(URL, { params: { company_id: companyId } })
+    return response.data.data.list
 }
 
 /**
@@ -27,7 +27,7 @@ export async function getTransactionsByCompanyId(companyId: string) {
  * @param {TTransactionFormType} data
  * @returns {Promise<TTransaction>}
  */
-export async function createTransaction(data: TCreateTransaction) {
+export async function createTransaction(data: TTransactionFormType) {
     const URL = endpoints.transactions.root
     const response = await axiosInstance.post(URL, data)
     return response.data

@@ -7,12 +7,12 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
     {
       accessorKey: "name",
       header: "Name",
-      cell: ({ row }) => <div >{row.original.name}</div>,
+      cell: ({ row }) => <div >{row.original.company_name}</div>,
     },
     {
       accessorKey: "datePaid",
       header: "Date Paid",
-      cell: ({ row }) => <div >{dayjs.unix(row.original.datePaid).format("DD/MM/YYYY")}</div>,
+      cell: ({ row }) => <div >{dayjs.unix(row.original.paid_time).format("DD/MM/YYYY")}</div>,
     },
     {
       accessorKey: "amount",
@@ -22,17 +22,17 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
     {
       accessorKey: "validUntil",
       header: "Valid Until",
-      cell: ({ row }) => <div >{dayjs.unix(row.original.validUntil).format("DD/MM/YYYY")}</div>,
+      cell: ({ row }) => <div >{dayjs.unix(row.original.upto_validated_at).format("DD/MM/YYYY")}</div>,
     },
     {
       accessorKey: "paidVia",
       header: "Paid Via",
-      cell: ({ row }) => <div >{row.original.paidVia}</div>,
+      cell: ({ row }) => <div >{row.original.payment_mode}</div>,
     }, 
     {
       accessorKey: "paidFor",
       header: "Paid For",
-      cell: ({ row }) => <div >{row.original.paidFor}</div>,
+      cell: ({ row }) => <div >{row.original.plan}</div>,
     }, 
     {
         accessorKey: "action",
@@ -42,12 +42,12 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
               Edit Info
             </Button> */}
             <NewTransaction defaultValues={{
-                            name: row.original.name,
-                            datePaid: dayjs(row.original.datePaid).toDate(),
+                            name: row.original.company_name,
+                            datePaid: dayjs(row.original.paid_time).toDate(),
                             amount: row.original.amount,
-                            validUntil: dayjs(row.original.validUntil).toDate(),
-                            paidVia: row.original.paidVia as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer',
-                            paidFor: row.original.paidFor as 'Free' | 'Pro',
+                            validUntil: dayjs(row.original.upto_validated_at).toDate(),
+                            paidVia: row.original.payment_mode as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer',
+                            paidFor: row.original.plan as 'Free' | 'Pro',
                         }} />
         </div>,
     },

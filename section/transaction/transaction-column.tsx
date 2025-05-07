@@ -6,14 +6,14 @@ import NewTransaction from "./transaction-form"
 
 export const transactionTableColumn: ColumnDef<ITransaction>[] = [
     {
-      accessorKey: "name",
+      accessorKey: "company_name",
       header: "Name",
-      cell: ({ row }) => <div className="text-center" >{row.original.name}</div>,
+      cell: ({ row }) => <div className="text-center" >{row.original.company_name}</div>,
     },
     {
-      accessorKey: "datePaid",
+      accessorKey: "paid_time",
       header: "Date Paid",
-      cell: ({ row }) => <div className="text-center" >{dayjs.unix(row.original.datePaid).format("DD/MM/YYYY")}</div>,
+      cell: ({ row }) => <div className="text-center" >{dayjs.unix(row.original.paid_time).format("DD/MM/YYYY")}</div>,
     },
     {
       accessorKey: "amount",
@@ -21,19 +21,19 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
       cell: ({ row }) => <div className="text-center" >{row.original.amount}</div>,
     },
     {
-      accessorKey: "validUntil",
+      accessorKey: "upto_validated_at",
       header: "Valid Until",
-      cell: ({ row }) => <div className="text-center" >{dayjs.unix(row.original.validUntil).format("DD/MM/YYYY")}</div>,
+      cell: ({ row }) => <div className="text-center" >{dayjs.unix(row.original.upto_validated_at).format("DD/MM/YYYY")}</div>,
     },
     {
-      accessorKey: "paidVia",
+      accessorKey: "payment_mode",
       header: "Paid Via",
-      cell: ({ row }) => <div className="text-center capitalize" >{row.original.paidVia}</div>,
+      cell: ({ row }) => <div className="text-center capitalize" >{row.original.payment_mode}</div>,
     }, 
     {
-      accessorKey: "paidFor",
-      header: "Paid For",
-      cell: ({ row }) => <div className="text-center" >{row.original.paidFor}</div>,
+      accessorKey: "plan",
+      header: "Plan",
+      cell: ({ row }) => <div className="text-center" >{row.original.plan}</div>,
     }, 
     {
         accessorKey: "action",
@@ -43,12 +43,12 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
               Edit Info
             </Button> */}
             <NewTransaction defaultValues={{
-                name: row.original.name,
-                datePaid: dayjs(row.original.datePaid).toDate(),
+                name: row.original.company_name,
+                datePaid: dayjs(row.original.paid_time).toDate(),
                 amount: row.original.amount,
-                validUntil: dayjs(row.original.validUntil).toDate(),
-                paidVia: row.original.paidVia as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer',
-                paidFor: row.original.paidFor as 'Free' | 'Pro',
+                validUntil: dayjs(row.original.upto_validated_at).toDate(),
+                paidVia: row.original.payment_mode as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer',
+                paidFor: row.original.plan as 'Free' | 'Pro',
             }} />
         </div>,
     },

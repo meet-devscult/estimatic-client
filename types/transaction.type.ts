@@ -1,18 +1,16 @@
 export type UUID = string;
 
 export interface ITransaction {
-  id: UUID;
-  companyId: UUID;
-  name: string;
-  amount: number;
-  currency: string;
-  datePaid: number; // Epoch
-  validUntil: number; // Epoch
-  paidVia: 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer';
-  paidFor: 'Free' | 'Pro';
-  paymentMethod?: string;
+  transaction_id : string,
+  company_id : string,
+  company_name : string,
+  paid_time: number,
+  upto_validated_at: number,
+  amount: number,
+  payment_mode : string,
+  plan : string,
+  reason : string,
+  is_deleted: boolean,
 }
 
-
-export type TCreateTransaction = Omit<ITransaction, 'id' | 'companyId' | 'currency'>
   

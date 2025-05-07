@@ -1,7 +1,6 @@
 import { createTransaction, getTransactions, getTransactionsByCompanyId } from "@/actions/transaction.action";
 import { TTransactionFormType } from "@/zod/transactions.zod";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import dayjs from "dayjs";
 
 /**
  * Get all transactions
@@ -35,9 +34,9 @@ export function useTransactionByCompanyId(companyId: string) {
  * @param {TTransactionFormType} data
  * @returns {Promise<TTransaction>}
  */
-export function useCreateTransaction(queryClient: QueryClient) {
+export function useMutateTransaction(queryClient: QueryClient) {
     const { mutate, isPending, error, isError } = useMutation({
-        mutationFn: async (data: TTransactionFormType) => await createTransaction({...data, datePaid: dayjs(data.datePaid).unix(), validUntil: dayjs(data.validUntil).unix(), paidVia: data.paidVia as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer'}),
+        mutationFn: async (data: TTransactionFormType) => await createTransaction(data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['transactions'] })
         }
