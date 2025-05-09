@@ -2,7 +2,7 @@ import CalendarInputBox from "@/components/form-fields-components/calender-input
 import DropdownBox from "@/components/form-fields-components/dropdown-box";
 import AddTransactionPopup from "@/components/form-fields-components/form-popup-layout";
 import InputBox from "@/components/form-fields-components/input-box";
-import TextareaBox from "@/components/form-fields-components/textarea";
+import TextareaBox from "@/components/form-fields-components/textarea-box";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Skeleton } from "@/components/ui/skeleton";

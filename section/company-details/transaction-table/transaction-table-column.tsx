@@ -37,15 +37,12 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
     {
       accessorKey: "reason",
       header: "Reason",
-      cell: ({ row }) => <div className="max-w-[200px] line-clamp-2 whitespace-pre-wrap" >{row.original.reason}</div>,
+      cell: ({ row }) => <div className="w-fit">{row.original.reason}</div>
     },
     {
         accessorKey: "action",
         header: " ",
         cell: ({ row }) => <div className="flex items-center justify-end gap-2">
-            {/* <Button variant="outline" size="sm">
-              Edit Info
-            </Button> */}
             <NewTransaction 
               defaultValues={{
                 company_id: row.original.company_id,
