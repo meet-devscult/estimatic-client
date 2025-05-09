@@ -33,7 +33,12 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
       accessorKey: "paidFor",
       header: "Paid For",
       cell: ({ row }) => <div >{row.original.plan}</div>,
-    }, 
+    },
+    {
+      accessorKey: "reason",
+      header: "Reason",
+      cell: ({ row }) => <div className="max-w-[200px] line-clamp-2 whitespace-pre-wrap" >{row.original.reason}</div>,
+    },
     {
         accessorKey: "action",
         header: " ",

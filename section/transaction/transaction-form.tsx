@@ -2,6 +2,7 @@ import CalendarInputBox from "@/components/form-fields-components/calender-input
 import DropdownBox from "@/components/form-fields-components/dropdown-box";
 import AddTransactionPopup from "@/components/form-fields-components/form-popup-layout";
 import InputBox from "@/components/form-fields-components/input-box";
+import TextareaBox from "@/components/form-fields-components/textarea";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -85,6 +86,9 @@ export function TransactionForm({form, onSubmit}: TransactionFormProps) {
                     {/* <DropdownBox form={form} name="paidVia" placeholder="Payment Mode" options={[{label: "UPI", value: "UPI"}, {label: "Bank Transfer", value: "Bank Transfer"}, {label: "Cheque", value: "Cheque"}, {label: "Cash", value: "Cash"}]} className="w-full h-full" /> */}
                     {/* <InputBox form={form} name="plan" placeholder="Paid For" /> */}
                     <DropdownBox form={form} name="plan" placeholder="Paid For" options={PAYMENT_PLANS} className="w-full h-full" />
+                </div>
+                <div className="grid grid-cols-1 px-5 pt-4">
+                  <TextareaBox form={form} name="reason" placeholder="Reason" />
                 </div>
             </form>
         </Form>
