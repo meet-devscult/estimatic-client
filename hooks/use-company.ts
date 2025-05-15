@@ -5,10 +5,11 @@ import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
  * Get all companies
  * @returns {Promise<TCompany[]>}
  */
-export function useCompany() {
+export function useCompany({search, status, type}:{search?: string, status?: string, type?: string}) {
+    
     const { data, isLoading, error, isError, refetch, isFetching } = useQuery({
         queryKey: ['company'],
-        queryFn: () => getCompany(),
+        queryFn: () => getCompany({search, status, type}),
     })
 
     return { data: data, isLoading, error, isError, refetch, isFetching }

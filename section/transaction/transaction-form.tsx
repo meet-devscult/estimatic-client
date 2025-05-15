@@ -60,7 +60,7 @@ interface TransactionFormProps {
 
 export function TransactionForm({form, onSubmit}: TransactionFormProps) {
 
-    const { data, isLoading } = useCompany()
+    const { data, isLoading } = useCompany({})
 
     const PAYMENT_PLANS = [
         {label: "Monthly", value: "monthly"},

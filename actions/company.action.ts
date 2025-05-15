@@ -1,8 +1,13 @@
 import axiosInstance, { endpoints } from '@/lib/axios';
 
-export async function getCompany() {
+export async function getCompany(filters: {search?: string, status?: string, type?: string}) {
+    const finalFilters = {
+        status: filters.status ? filters.status.toLowerCase() : undefined,
+        type: filters.type ? filters.type.toLowerCase() : undefined,
+        search: filters.search ? filters.search : undefined,
+    }
     const URL = endpoints.companies.root;
-    const response = await axiosInstance.get(URL)
+    const response = await axiosInstance.get(URL, { params: finalFilters })
     return response.data.data.list
 }
 
