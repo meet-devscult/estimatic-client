@@ -1,6 +1,7 @@
-import { ChevronDownIcon } from "lucide-react";
+import { CalendarIcon, ChevronDownIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,8 +9,10 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import dayjs from "dayjs";
 import { useState } from "react";
 import { Input } from "./ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface FilterPannelProps {
     filterValues: any
@@ -17,11 +20,16 @@ interface FilterPannelProps {
     onFilterValuesChange: (filterValues: any) => void;
 
     searchbarClassName?: string;
-
+    
     placeholderForSearchInput?: string;
+    placeholderForStartDateFilter?: string;
+    placeholderForEndDateFilter?: string;
+
     isStatusFilter?: boolean;
     isTypeFilter?: boolean;
     isSearchInput?: boolean;
+    isStartDateFilter?: boolean;
+    isEndDateFilter?: boolean;
 }
 
 export default function FilterPannel({ 
@@ -32,7 +40,11 @@ export default function FilterPannel({
     searchbarClassName,
     isStatusFilter = false, 
     isTypeFilter = false,
-    isSearchInput = false
+    isSearchInput = false,
+    isStartDateFilter = false,
+    isEndDateFilter = false,
+    placeholderForStartDateFilter,
+    placeholderForEndDateFilter
 }: FilterPannelProps) {
 
     const [filter, setFilter] = useState(filterValues)
@@ -58,6 +70,18 @@ export default function FilterPannel({
                         type: newFilter.type
                     })
                 }} />}
+                {isStartDateFilter && <DateFilter filterValues={filter.start_date || null} onFilterValuesChange={(newFilter) => {
+                    setFilter({
+                        ...filter,
+                        start_date: newFilter.date
+                    });
+                }} placeholder={placeholderForStartDateFilter || "Pick a date"} />}
+                {isEndDateFilter && <DateFilter filterValues={filter.end_date || null} onFilterValuesChange={(newFilter) => {
+                    setFilter({
+                        ...filter,
+                        end_date: newFilter.date
+                    });
+                }} placeholder={placeholderForEndDateFilter || "Pick a date"} />}
             </div>
             <div className="flex gap-2">
             <Button
@@ -81,7 +105,7 @@ export default function FilterPannel({
     )
 }
 
-export const SearchFilter = ({placeholder, filterValues, onFilterValuesChange, className }: { placeholder: string,  filterValues: string, onFilterValuesChange: (filterValues: { search: string }) => void, className?: string }) =>  {
+export const SearchFilter = ({placeholder, filterValues, onFilterValuesChange, className }: { placeholder: string,  filterValues: string, onFilterValuesChange: (filterValues: { search: string }) => void, className?: string }) =>  {
     return (
         <Input 
             id="search"
@@ -135,5 +159,85 @@ export const TypeFilter = ({ filterValues, onFilterValuesChange }: { filterValue
                 <DropdownMenuItem onClick={() => onFilterValuesChange?.({ type: "paid" })}>Paid</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
+    )
+}
+
+export const PaidViewFilter = ({ filterValues, onFilterValuesChange }: { filterValues: string, onFilterValuesChange: (filterValues: { paid_view: string }) => void }) => {
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="border-dashed w-[150px] capitalize">
+                    {filterValues || "Paid View"}
+                    <ChevronDownIcon
+                        className="-me-1 opacity-60"
+                        size={16}
+                        aria-hidden="true"
+                    />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="min-w-(--radix-dropdown-menu-trigger-width)">
+                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ paid_view: "upi" })}>UPI</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ paid_view: "bank_transfer" })}>Bank Transfer</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ paid_view: "cheque" })}>Cheque</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ paid_view: "cash" })}>Cash</DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+}
+
+export const DateFilter = ({ 
+    filterValues, 
+    onFilterValuesChange, 
+    placeholder, 
+    className 
+}: { 
+    filterValues: number | null, 
+    onFilterValuesChange: (filterValues: { date: number | null }) => void, 
+    placeholder: string, 
+    className?: string 
+}) => {
+    const [open, setOpen] = useState(false)
+
+    const handleDateSelect = (date: Date | undefined) => {
+        if (date) {
+            onFilterValuesChange({ date: dayjs(date).unix() });
+        } else {
+            onFilterValuesChange({ date: null });
+        }
+        setOpen(false);
+    }
+
+    return (
+        <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+                <Button
+                    variant={"outline"}
+                    className={cn(
+                        "group bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] h-14 border-dashed",
+                        !filterValues && "text-muted-foreground",
+                        className
+                    )}
+                >
+                    <span
+                        className={cn("truncate", !filterValues && "text-muted-foreground")}
+                    >
+                        {filterValues ? dayjs.unix(filterValues).format("DD/MM/YYYY") : placeholder || "Pick a date"}
+                    </span>
+                    <CalendarIcon
+                        size={16}
+                        className="text-muted-foreground/80 group-hover:text-foreground shrink-0 transition-colors"
+                        aria-hidden="true"
+                    />
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-2" align="start">
+                <Calendar
+                    mode="single"
+                    selected={filterValues ? dayjs.unix(filterValues).toDate() : undefined}
+                    onSelect={handleDateSelect}
+                    initialFocus
+                />
+            </PopoverContent>
+        </Popover>
     )
 }
