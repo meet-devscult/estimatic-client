@@ -20,31 +20,37 @@ interface FilterPannelProps {
     onFilterValuesChange: (filterValues: any) => void;
 
     searchbarClassName?: string;
+    paidTimeClassName?: string;
+    uptoValidatedAtClassName?: string;
     
     placeholderForSearchInput?: string;
-    placeholderForStartDateFilter?: string;
-    placeholderForEndDateFilter?: string;
-
+    placeholderForPaidTimeFilter?: string;
+    placeholderForUptoValidatedAtFilter?: string;
+    
+    isSearchInput?: boolean;
     isStatusFilter?: boolean;
     isTypeFilter?: boolean;
-    isSearchInput?: boolean;
-    isStartDateFilter?: boolean;
-    isEndDateFilter?: boolean;
+    isPaymentModeFilter?: boolean;
+    isPaidTimeFilter?: boolean;
+    isUptoValidatedAtFilter?: boolean;
 }
 
 export default function FilterPannel({ 
     filterValues,
-    onFilterValuesChange,
     defaultFilterValues,
-    placeholderForSearchInput,
+    onFilterValuesChange,
     searchbarClassName,
+    paidTimeClassName,
+    uptoValidatedAtClassName,
+    placeholderForSearchInput,
+    placeholderForPaidTimeFilter,
+    placeholderForUptoValidatedAtFilter,
     isStatusFilter = false, 
     isTypeFilter = false,
     isSearchInput = false,
-    isStartDateFilter = false,
-    isEndDateFilter = false,
-    placeholderForStartDateFilter,
-    placeholderForEndDateFilter
+    isPaymentModeFilter = false,
+    isPaidTimeFilter = false,
+    isUptoValidatedAtFilter = false
 }: FilterPannelProps) {
 
     const [filter, setFilter] = useState(filterValues)
@@ -70,18 +76,24 @@ export default function FilterPannel({
                         type: newFilter.type
                     })
                 }} />}
-                {isStartDateFilter && <DateFilter filterValues={filter.start_date || null} onFilterValuesChange={(newFilter) => {
+                {isPaymentModeFilter && <PaymentModeFilter filterValues={filter.payment_mode || ""} onFilterValuesChange={(newFilter) => {
                     setFilter({
                         ...filter,
-                        start_date: newFilter.date
-                    });
-                }} placeholder={placeholderForStartDateFilter || "Pick a date"} />}
-                {isEndDateFilter && <DateFilter filterValues={filter.end_date || null} onFilterValuesChange={(newFilter) => {
+                        payment_mode: newFilter.payment_mode
+                    })
+                }} />}
+                {isPaidTimeFilter && <DateFilter filterValues={filter.paid_time || null} onFilterValuesChange={(newFilter) => {
                     setFilter({
                         ...filter,
-                        end_date: newFilter.date
+                        paid_time: newFilter.date
                     });
-                }} placeholder={placeholderForEndDateFilter || "Pick a date"} />}
+                }} placeholder={placeholderForPaidTimeFilter || "Pick a date"} className={paidTimeClassName} />}
+                {isUptoValidatedAtFilter && <DateFilter filterValues={filter.upto_validated_at || null} onFilterValuesChange={(newFilter) => {
+                    setFilter({
+                        ...filter,
+                        upto_validated_at: newFilter.date
+                    });
+                }} placeholder={placeholderForUptoValidatedAtFilter || "Pick a date"} className={uptoValidatedAtClassName}/>}
             </div>
             <div className="flex gap-2">
             <Button
@@ -162,12 +174,12 @@ export const TypeFilter = ({ filterValues, onFilterValuesChange }: { filterValue
     )
 }
 
-export const PaidViewFilter = ({ filterValues, onFilterValuesChange }: { filterValues: string, onFilterValuesChange: (filterValues: { paid_view: string }) => void }) => {
+export const PaymentModeFilter = ({ filterValues, onFilterValuesChange }: { filterValues: string, onFilterValuesChange: (filterValues: { payment_mode: string }) => void }) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="border-dashed w-[150px] capitalize">
-                    {filterValues || "Paid View"}
+                    {filterValues || "Paid Via"}
                     <ChevronDownIcon
                         className="-me-1 opacity-60"
                         size={16}
@@ -176,10 +188,10 @@ export const PaidViewFilter = ({ filterValues, onFilterValuesChange }: { filterV
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="min-w-(--radix-dropdown-menu-trigger-width)">
-                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ paid_view: "upi" })}>UPI</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ paid_view: "bank_transfer" })}>Bank Transfer</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ paid_view: "cheque" })}>Cheque</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ paid_view: "cash" })}>Cash</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ payment_mode: "upi" })}>UPI</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ payment_mode: "bank_transfer" })}>Bank Transfer</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ payment_mode: "cheque" })}>Cheque</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onFilterValuesChange?.({ payment_mode: "cash" })}>Cash</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )
@@ -213,7 +225,7 @@ export const DateFilter = ({
                 <Button
                     variant={"outline"}
                     className={cn(
-                        "group bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] h-14 border-dashed",
+                        "group bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] h-9 border-dashed",
                         !filterValues && "text-muted-foreground",
                         className
                     )}

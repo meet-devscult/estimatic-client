@@ -5,9 +5,15 @@ import { TTransactionFormType } from "@/zod/transactions.zod"
  * Get all transactions
  * @returns {Promise<TTransaction[]>}
  */
-export async function getTransactions() {
+export async function getTransactions(filters: { search?: string, payment_mode?: string, paid_time?: string, upto_validated_at?: string }) {
+    const finalFilters = {
+        company_name: filters.search ? filters.search : undefined,
+        payment_mode: filters.payment_mode ? filters.payment_mode.toLowerCase() : undefined,
+        paid_time: filters.paid_time ? filters.paid_time : undefined,
+        upto_validated_at: filters.upto_validated_at ? filters.upto_validated_at : undefined,
+    }
     const URL = endpoints.transactions.root
-    const response = await axiosInstance.get(URL)
+    const response = await axiosInstance.get(URL, { params: finalFilters })
     return response.data.data.list
 }
 
