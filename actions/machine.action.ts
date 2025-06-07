@@ -16,11 +16,17 @@ export async function getMachines() {
  * @param companyId Company id
  * @returns Machines
  */
-export async function getMachinesByCompanyId(companyId: string) {
+export async function getMachinesByCompanyId(companyId: string, filters: { search?: string, status?: string, plant_name?: string }) {
+    const finalFilters = {
+        search: filters.search ? filters.search : undefined,
+        status: filters.status ? filters.status.toLowerCase() : undefined,
+        plant_name: filters.plant_name ? filters.plant_name : undefined,
+    }
     const URL = endpoints.machines.root
     const response = await axiosInstance.get(URL, {
         params: {
-            company_id: companyId
+            company_id: companyId,
+            ...finalFilters,
         }
     })
     return response.data.data.list

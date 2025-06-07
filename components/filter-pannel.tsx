@@ -22,10 +22,12 @@ interface FilterPannelProps {
     searchbarClassName?: string;
     paidTimeClassName?: string;
     uptoValidatedAtClassName?: string;
+    plantClassName?: string;
     
     placeholderForSearchInput?: string;
     placeholderForPaidTimeFilter?: string;
     placeholderForUptoValidatedAtFilter?: string;
+    placeholderForPlantNameInput?: string;
     
     isSearchInput?: boolean;
     isStatusFilter?: boolean;
@@ -33,6 +35,7 @@ interface FilterPannelProps {
     isPaymentModeFilter?: boolean;
     isPaidTimeFilter?: boolean;
     isUptoValidatedAtFilter?: boolean;
+    isPlantNameInput?: boolean;
 }
 
 export default function FilterPannel({ 
@@ -42,15 +45,18 @@ export default function FilterPannel({
     searchbarClassName,
     paidTimeClassName,
     uptoValidatedAtClassName,
+    plantClassName,
     placeholderForSearchInput,
     placeholderForPaidTimeFilter,
     placeholderForUptoValidatedAtFilter,
+    placeholderForPlantNameInput,
     isStatusFilter = false, 
     isTypeFilter = false,
     isSearchInput = false,
     isPaymentModeFilter = false,
     isPaidTimeFilter = false,
-    isUptoValidatedAtFilter = false
+    isUptoValidatedAtFilter = false,
+    isPlantNameInput = false
 }: FilterPannelProps) {
 
     const [filter, setFilter] = useState(filterValues)
@@ -62,6 +68,12 @@ export default function FilterPannel({
                     setFilter({
                         ...filter,
                         search: newFilter.search
+                    })
+                }} className={searchbarClassName} />}
+                {isPlantNameInput && <SearchFilter placeholder={placeholderForPlantNameInput || "Search Plant Name"} filterValues={filter.plant_name || ""} onFilterValuesChange={(newFilter) => {
+                    setFilter({
+                        ...filter,
+                        plant_name: newFilter.search
                     })
                 }} className={searchbarClassName} />}
                 {isStatusFilter && <StatusFilter filterValues={filter.status || ""} onFilterValuesChange={(newFilter) => {
@@ -222,7 +234,7 @@ export const DateFilter = ({
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <Button
+                <Button disabled
                     variant={"outline"}
                     className={cn(
                         "group bg-background hover:bg-background border-input w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px] h-9 border-dashed",
