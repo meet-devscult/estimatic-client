@@ -64,6 +64,6 @@ export default function TransactionViewSection() {
     {(isFetching && isApplyingFilters) ? <div className="flex justify-center items-center mt-10">
       <Loader2 className="w-10 h-10 animate-spin" /> 
       <span className="ml-2">Applying Filters...</span>
-    </div> : <DataTable columns={transactionTableColumn} data={data || []}  />}
+    </div> : <DataTable columns={transactionTableColumn} data={data || []} />}
   </div>
 }
