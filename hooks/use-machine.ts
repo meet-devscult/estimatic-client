@@ -11,13 +11,13 @@ export function useMachines() {
     return { data, isLoading, error, isError, refetch, isFetching }
 }
 
-export function useMachineByCompanyId(companyId: string) {
-    const { data, isLoading } = useQuery({
+export function useMachineByCompanyId({companyId, search, status, plant_name}: {companyId: string, search?: string, status?: string, plant_name?: string}) {
+    const { data, isLoading, refetch, isFetching } = useQuery({
         queryKey: ['machines', 'company', companyId],
-        queryFn: () => getMachinesByCompanyId(companyId),
+        queryFn: () => getMachinesByCompanyId(companyId, { search, status, plant_name }),
     })
 
-    return { data, isLoading }
+    return { data, isLoading, refetch, isFetching }
 }
 
 export function useMachineById(id: string) {

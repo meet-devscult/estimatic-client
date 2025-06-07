@@ -6,13 +6,13 @@ import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
  * Get all transactions
  * @returns {Promise<TTransaction[]>}
  */
-export function useTransactions() {
-    const { data, isLoading, refetch, isRefetching } = useQuery({
+export function useTransactions({search, payment_mode, paid_time, upto_validated_at} : {search?: string, payment_mode?: string, paid_time?: string, upto_validated_at?: string}) {
+    const { data, isLoading, refetch, isFetching } = useQuery({
         queryKey: ['transactions'],
-        queryFn: () => getTransactions(),
+        queryFn: () => getTransactions({search, payment_mode, paid_time, upto_validated_at}),
     })
 
-    return { data, isLoading, refetch, isRefetching }
+    return { data, isLoading, refetch, isFetching }
 }
 
 /**
@@ -20,13 +20,13 @@ export function useTransactions() {
  * @param {string} companyId
  * @returns {Promise<TTransaction[]>}
  */
-export function useTransactionByCompanyId(companyId: string) {
-    const { data, isLoading } = useQuery({
+export function useTransactionByCompanyId({companyId, search, payment_mode, paid_time, upto_validated_at}: {companyId: string, search?: string, payment_mode?: string, paid_time?: string, upto_validated_at?: string}) {
+    const { data, isLoading, refetch, isFetching } = useQuery({
         queryKey: ['transactions', 'company', companyId],
-        queryFn: () => getTransactionsByCompanyId(companyId),
+        queryFn: () => getTransactionsByCompanyId(companyId, { search, payment_mode, paid_time, upto_validated_at }),
     })
 
-    return { data, isLoading }
+    return { data, isLoading, refetch, isFetching }
 }
 
 /**
