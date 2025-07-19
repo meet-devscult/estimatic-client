@@ -25,6 +25,6 @@ export async function getUserById(id: string) {
 
 export async function mutateUser(data: TNewUserSchema, method: 'post' | 'put') {
     const URL = endpoints.users.root
-    const response = await axiosInstance[method](URL, data)
+    const response = await axiosInstance[method](URL, {...data, currency: 'INR'}) // TODO: availanle currency list USD, EUR and INR
     return response.data
 }
