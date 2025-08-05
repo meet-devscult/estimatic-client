@@ -61,7 +61,7 @@ export default function NewUserDetailsForm({defaultValues, company_id, onSubmit,
                     userForm.reset()
                 }
             }}
-        buttonText="Add User"
+        buttonText={defaultValues ? "Update User" : "Add User"}
         isLoading={isCreatingUser}
         loadingText="Adding User..."
         formInstance={userForm}

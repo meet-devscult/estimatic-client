@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useQueryClient } from "@tanstack/react-query"
 import dayjs from "dayjs"
 import { Loader2, PencilIcon } from "lucide-react"
+import React from "react"
 import { useForm } from "react-hook-form"
 
 interface CompanyDetailsCardProps {
@@ -21,24 +22,38 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
     const { data, isLoading } = useCompanyById(id)
     const { mutate: updateCompany, isPending: isUpdatingCompany } = useCompanyMutation({ queryClient })
 
+    // Form setup with default values - initialize with empty values first
+    const companyForm = useForm<TCompanyCreationSchema>({
+        resolver: zodResolver(CompanyCreationSchema),
+        defaultValues: {
+            name: "",
+            website: "",
+            quotations_limits: 0,
+            type: "",
+            upto_validated_at: 0,
+        },
+    })
+
+    // Update form values when data loads
+    React.useEffect(() => {
+        if (data?.data) {
+            const companyData = data.data as ICompany;
+            companyForm.reset({
+                name: companyData.name,
+                website: companyData.website || "",
+                quotations_limits: companyData.quotations_limits,
+                type: companyData.type,
+                upto_validated_at: companyData.upto_validated_at,
+            });
+        }
+    }, [data, companyForm]);
+
     if (isLoading) return <div className="flex justify-center items-center">
         <Loader2 className="w-10 h-10 animate-spin" />
     </div>
 
     const companyData = data.data as ICompany;
     const { name, website, created_at, type, status, upto_validated_at, quotations_limits, users_count, machines_count } = companyData;
-
-    // Form setup with default values from company data
-    const companyForm = useForm<TCompanyCreationSchema>({
-        resolver: zodResolver(CompanyCreationSchema),
-        defaultValues: {
-            name: name,
-            website: website || "",
-            quotations_limits: quotations_limits,
-            type: type,
-            upto_validated_at: upto_validated_at,
-        },
-    })
 
     const company_details_grid: Record<string, string>[] = [
         {

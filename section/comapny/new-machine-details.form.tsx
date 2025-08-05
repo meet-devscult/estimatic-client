@@ -93,7 +93,7 @@ export default function NewMachineDetails({
 					machineForm.reset();
 				}
 			}}
-			buttonText="Add Machine"
+			buttonText={defaultValues ? "Update Machine" : "Add Machine"}
 			formInstance={machineForm}
 		/>
 	);

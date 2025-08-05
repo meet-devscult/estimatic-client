@@ -75,7 +75,7 @@ export default function NewTransaction({
 				});
 				form.reset();
 			}}
-			buttonText="Add Transaction"
+			buttonText={defaultValues ? "Update Transaction" : "Add Transaction"}
 			formInstance={form}
 		/>
 	);
