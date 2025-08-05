@@ -40,6 +40,7 @@ export interface IPart {
   web_height: number,
   coil_weight: number,
   created_at: number,
+  estimation_status: boolean,
   is_deleted: boolean,
   recommended_operations?: {
     operation_id: string,

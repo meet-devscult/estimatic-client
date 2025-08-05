@@ -337,7 +337,7 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 						<DownloadCloud />
 						<span className="hidden lg:inline">Download Operations</span>
 					</Button>
-					<Button 
+					{partData.estimation_status && <Button 
 						onClick={handleDownloadPDF} 
 						variant="outline" 
 						size="lg" 
@@ -348,7 +348,7 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 						<span className="hidden lg:inline">
 							{isGeneratingPDF ? 'Generating...' : 'Download Quotation'}
 						</span>
-					</Button>
+					</Button>}
 				</div>
 			</div>
 			<div className="grid grid-cols-3 border-b border-dashed divide-x divide-dashed">
