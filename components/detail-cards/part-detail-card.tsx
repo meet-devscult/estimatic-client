@@ -1,8 +1,11 @@
 import { aiQuotationGeneration } from "@/actions/ai.actions";
+import { IOperation } from "@/types/operations.type";
 import { IPart } from "@/types/part.type";
+import { ColumnDef } from '@tanstack/react-table';
 import { DownloadCloud } from "lucide-react";
 import { useState } from "react";
 import { downloadQuotationPDF } from "../parts-quotation-pdf";
+import { DataTable } from "../table-layout/data-table";
 import { Button } from "../ui/button";
 
 interface PartDetailCardProps {
@@ -157,6 +160,62 @@ export const getMaterialShapeFields = (shape: string) => {
 			];
 	}
 };
+
+// Define operation columns
+export const OperationColumn: ColumnDef<IOperation>[] = [
+	{
+		accessorKey: 'srno',
+		header: 'Sr No.',
+		cell: ({ row }) => <div className="text-center">{row.index + 1}</div>,
+	},
+	{
+		accessorKey: 'machineName',
+		header: 'Machine Name',
+		cell: ({ row }) => (
+			<div className="text-center">{row.original.machine_name}</div>
+		),
+	},
+	{
+		accessorKey: 'operation',
+		header: 'Operation',
+		cell: ({ row }) => (
+			<div className="text-center">{row.original.operation}</div>
+		),
+	},
+	{
+		accessorKey: 'inputs',
+		header: 'Description',
+		cell: ({ row }) => (
+			<div className="text-center whitespace-normal">{row.original.inputs}</div>
+		),
+	},
+	{
+		accessorKey: 'time',
+		header: () => (
+			<div className="text-center">
+				Time
+				<br />
+				(per piece in mins)
+			</div>
+		),
+		cell: ({ row }) => (
+			<div className="text-center">{row.original.time_per_piece_min}</div>
+		),
+	},
+	{
+		accessorKey: 'cost',
+		header: () => (
+			<div className="text-center">
+				Cost
+				<br />
+				(per piece in rs)
+			</div>
+		),
+		cell: ({ row }) => (
+			<div className="text-center">{row.original.cost_per_piece}</div>
+		),
+	},
+];
 
 export default function PartDetailCard({ partData }: PartDetailCardProps) {
 	const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
@@ -316,6 +375,19 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 							<p>{item.value || '-'}</p>
 						</div>
 					))}
+				</div>
+			</div>
+			
+			{/* Operations Table */}
+			<div className="mt-5">
+				<div className="p-5 border-b border-dashed">
+					<h2 className="text-xl font-bold">Recommended Operations</h2>
+				</div>
+				<div className="mt-5">
+					<DataTable
+						columns={OperationColumn}
+						data={partData.recommended_operations || []}
+					/>
 				</div>
 			</div>
 		</div>

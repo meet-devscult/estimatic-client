@@ -43,7 +43,9 @@ export interface IPart {
   is_deleted: boolean,
   recommended_operations?: {
     operation_id: string,
-    operation_name: string,
+    machine_name: string,
+    operation: string,
+    inputs: string,
     time_per_piece_min: number,
     cost_per_piece: number,
   }[]
