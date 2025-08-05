@@ -23,6 +23,7 @@ export function usePartByCompanyId(companyId: string) {
 export function usePartById(id: string) {
     const { data, isLoading } = useQuery({
         queryKey: ['parts', id],
+        enabled: !!id,
         queryFn: () => getPartById(id),
     })
 
