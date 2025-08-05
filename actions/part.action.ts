@@ -23,3 +23,14 @@ export async function getPartByUserIdAndCompanyId(userId: string, companyId: str
     const response = await axiosInstance.get(URL)
     return response.data
 }
+
+export async function getSignedUrl(file_id: string, file_type: "glb" | "step") {
+	const URL = endpoints.parts.signed_url;
+    const params = {
+        ...(file_type === "glb" && { glb_key: file_id }),
+        ...(file_type === "step" && { step_key: file_id }),
+    }
+
+	const response = await axiosInstance.post(URL, params);
+	return response.data.data;
+}

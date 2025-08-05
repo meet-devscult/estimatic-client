@@ -87,6 +87,7 @@ export const endpoints = {
   parts: {
     root: `${PRE_ROUTE}/parts`,
     detail: (id: string) => `${PRE_ROUTE}/parts/${id}`,
+    signed_url: `${PRE_ROUTE}/file-upload/signed-url`,
   },
   plants: {
     root: `${PRE_ROUTE}/plants`,

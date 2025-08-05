@@ -1,4 +1,5 @@
 import { aiQuotationGeneration } from "@/actions/ai.actions";
+import { getSignedUrl } from "@/actions/part.action";
 import { IOperation } from "@/types/operations.type";
 import { IPart } from "@/types/part.type";
 import { ColumnDef } from '@tanstack/react-table';
@@ -219,6 +220,7 @@ export const OperationColumn: ColumnDef<IOperation>[] = [
 
 export default function PartDetailCard({ partData }: PartDetailCardProps) {
 	const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+	const [isDownloadingPartFile, setIsDownloadingPartFile] = useState(false);
 
 	const handleDownloadPDF = async () => {
 		setIsGeneratingPDF(true);
@@ -257,6 +259,31 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 			// You can add toast notification here if you have one
 		} finally {
 			setIsGeneratingPDF(false);
+		}
+	};
+
+	const handleDownloadPartFile = async () => {
+		setIsDownloadingPartFile(true);
+		try {
+			// Validate step_key exists
+			const stepKey = (partData as any).step_key;
+			if (!stepKey || typeof stepKey !== 'string') {
+				throw new Error('Step file key not found');
+			}
+
+			// Get signed URL for step file
+			const signedUrlResponse = await getSignedUrl(stepKey, "step");
+
+			// Open the signed URL in a new tab to download the file
+			if (signedUrlResponse && signedUrlResponse.step_file_sign_url) {
+				window.open(signedUrlResponse.step_file_sign_url, '_blank', 'noopener,noreferrer');
+			} else {
+				throw new Error('Failed to get download URL');
+			}
+		} catch (error) {
+			console.error('Failed to download part file:', error);
+		} finally {
+			setIsDownloadingPartFile(false);
 		}
 	};
 	
@@ -329,14 +356,22 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 			<div className="flex justify-between items-center p-5 border-b border-dashed">
 				<h1 className="text-2xl font-bold">Part Details</h1>
 				<div className="flex gap-2">
-					<Button variant="outline" size="lg" className="border-dashed cursor-pointer">
+					<Button 
+						onClick={handleDownloadPartFile}
+						variant="outline" 
+						size="lg" 
+						className="border-dashed cursor-pointer"
+						disabled={isDownloadingPartFile}
+					>
 						<DownloadCloud />
-						<span className="hidden lg:inline">Download Part File</span>
+						<span className="hidden lg:inline">
+							{isDownloadingPartFile ? 'Downloading...' : 'Download Part File'}
+						</span>
 					</Button>
-					<Button variant="outline" size="lg" className="border-dashed cursor-pointer">
+					{/* <Button variant="outline" size="lg" className="border-dashed cursor-pointer">
 						<DownloadCloud />
 						<span className="hidden lg:inline">Download Operations</span>
-					</Button>
+					</Button> */}
 					{partData.estimation_status && <Button 
 						onClick={handleDownloadPDF} 
 						variant="outline" 
