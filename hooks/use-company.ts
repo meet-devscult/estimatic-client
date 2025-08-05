@@ -35,6 +35,7 @@ export function useCompany({
 export function useCompanyById(id: string) {
 	const { data, isLoading, error, isError, refetch, isFetching } = useQuery({
 		queryKey: ['company', id],
+		enabled: !!id,
 		queryFn: () => getCompanyById(id),
 	});
 

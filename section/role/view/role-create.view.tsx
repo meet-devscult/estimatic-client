@@ -112,8 +112,8 @@ export default function RoleCreateView() {
                     </div>
 
                     {/* Assign Access Section */}
-                    <div className="p-5 border-b border-dashed space-y-5">
-                        <div className="flex justify-between items-center">
+                    <div className="border-b border-dashed space-y-5">
+                        <div className="flex justify-between items-center px-5 pt-5">
                             <h2 className="text-xl font-bold">Assign Access</h2>
                             <FormField
                                 control={form.control}
@@ -135,7 +135,7 @@ export default function RoleCreateView() {
                         </div>
 
                         {/* Access Permissions Table */}
-                        <div className="border border-dashed rounded-lg overflow-hidden">
+                        <div className="border border-dashed overflow-hidden">
                             <div className="grid grid-cols-4 bg-muted/50">
                                 <div className="p-4 font-medium border-r border-dashed">Access Role</div>
                                 <div className="p-4 font-medium text-center">Full Access</div>
