@@ -18,11 +18,11 @@ export const partTableColumn: ColumnDef<IPart>[] = [
     //     </div>
     //   ),
     // },
-    {
-      accessorKey: "type",
-      header: "Type",
-      cell: ({ row }) => <div className="text-center">{row.original.file_type}</div>,
-    },
+    // {
+    //   accessorKey: "type",
+    //   header: "Type",
+    //   cell: ({ row }) => <div className="text-center">{row.original.file_type}</div>,
+    // },
     {
       accessorKey: "material",
       header: "Material",
@@ -34,20 +34,27 @@ export const partTableColumn: ColumnDef<IPart>[] = [
     {
       accessorKey: "time",
       header: "Time",
-      cell: ({ row }) => <div className="text-center">
-        {/* <p className="text-sm">{row.original.time}</p> */}
-        <p className="text-sm">-</p>
-        <p className="text-xs text-muted-foreground">Mins per piece</p>
-        {/* <p className="text-xs text-muted-foreground">{row.original.timeUnit}</p> */}
-      </div>,
+      cell: ({ row }) => (
+        <div className="text-center">
+          {row.original.recommended_operations?.length
+            ? row.original.recommended_operations
+                .reduce(
+                  (acc: number, curr: any) => acc + curr.time_per_piece_min,
+                  0
+                )
+                .toFixed(2)
+            : '-'}
+        </div>
+      ),
     },
     {
       accessorKey: "cost",
       header: "Cost",
-      cell: ({ row }) => <div className="text-center">
-        <p className="text-sm">{row.original.material_cost}</p>
-        <p className="text-xs text-muted-foreground">Rs./piece</p>
-      </div>,
+      cell: ({ row }) => (
+        <div className="text-center">
+          {row.original.total_cost ? row.original.total_cost.toFixed(2) : '-'}
+        </div>
+      ),
     }, 
     {
       accessorKey: "createdOn",

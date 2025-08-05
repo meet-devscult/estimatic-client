@@ -41,4 +41,11 @@ export interface IPart {
   coil_weight: number,
   created_at: number,
   is_deleted: boolean,
+  recommended_operations?: {
+    operation_id: string,
+    operation_name: string,
+    time_per_piece_min: number,
+    cost_per_piece: number,
+  }[]
+  total_cost?: number,
 }
