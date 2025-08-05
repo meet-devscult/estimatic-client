@@ -1,8 +1,12 @@
+import { aiQuotationGeneration } from "@/actions/ai.actions";
+import { IPart } from "@/types/part.type";
 import { DownloadCloud } from "lucide-react";
+import { useState } from "react";
+import { downloadQuotationPDF } from "../parts-quotation-pdf";
 import { Button } from "../ui/button";
 
 interface PartDetailCardProps {
-    partData: any
+    partData: IPart
 }
 
 // Define field configurations for each material shape
@@ -155,6 +159,48 @@ export const getMaterialShapeFields = (shape: string) => {
 };
 
 export default function PartDetailCard({ partData }: PartDetailCardProps) {
+	const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+
+	const handleDownloadPDF = async () => {
+		setIsGeneratingPDF(true);
+		try {
+			// Validate part_id exists and is a string
+			if (!partData.part_id || typeof partData.part_id !== 'string') {
+				throw new Error('Invalid part ID');
+			}
+
+			// First call AI quotation generation
+			const aiResponse = await aiQuotationGeneration({ part_id: partData.part_id });
+			
+			// Extract the required data from aiResponse.data
+			const quotationData = {
+				part_name: aiResponse.data.part_name,
+				material: aiResponse.data.material,
+				tolerance: aiResponse.data.tolerance,
+				raw_material_cost: aiResponse.data.raw_material_cost,
+				raw_material_quantity: aiResponse.data.raw_material_quantity,
+				machining_cost: aiResponse.data.machining_cost,
+				machining_quantity: aiResponse.data.machining_quantity,
+				profit_percent: aiResponse.data.profit_percent,
+				profit_amount: aiResponse.data.profit_amount,
+				scrap_cost: aiResponse.data.scrap_cost,
+				scrap_quantity: aiResponse.data.scrap_quantity,
+				total_cost_per_piece: aiResponse.data.total_cost_per_piece,
+				total_quantity: aiResponse.data.total_quantity,
+				total_cost_all: aiResponse.data.total_cost_all,
+				currency: aiResponse.data.currency,
+			};
+			
+			// Generate and download PDF with AI-generated data
+			await downloadQuotationPDF(quotationData, partData.created_at);
+		} catch (error) {
+			console.error('Failed to download PDF:', error);
+			// You can add toast notification here if you have one
+		} finally {
+			setIsGeneratingPDF(false);
+		}
+	};
+	
 	// Add safety check for undefined partData
 	if (!partData) {
 		return (
@@ -200,7 +246,7 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 		},
 		...shapeFields.map(field => ({
 			label: field.placeholder,
-			value: partData[field.name]
+			value: (partData as any)[field.name]
 		}))
 	];
 
@@ -210,8 +256,8 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 			value: partData.scrap_cost
 		},
 		{
-			label: "Raw material weight (in Kg)",
-			value: partData.raw_material_weight
+			label: "Gross Weight (in Kg)",
+			value: partData.gross_weight
 		},
 		{
 			label: "Tolerance Standard",
@@ -232,9 +278,17 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 						<DownloadCloud />
 						<span className="hidden lg:inline">Download Operations</span>
 					</Button>
-					<Button variant="outline" size="lg" className="border-dashed cursor-pointer">
+					<Button 
+						onClick={handleDownloadPDF} 
+						variant="outline" 
+						size="lg" 
+						className="border-dashed cursor-pointer"
+						disabled={isGeneratingPDF}
+					>
 						<DownloadCloud />
-						<span className="hidden lg:inline">Download Quotation</span>
+						<span className="hidden lg:inline">
+							{isGeneratingPDF ? 'Generating...' : 'Download Quotation'}
+						</span>
 					</Button>
 				</div>
 			</div>

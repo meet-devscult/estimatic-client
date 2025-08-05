@@ -92,4 +92,8 @@ export const endpoints = {
     root: `${PRE_ROUTE}/plants`,
     detail: (id: string) => `${PRE_ROUTE}/plants/${id}`,
   },
+  ai: {
+		recommendations: `${PRE_ROUTE}/parts/machine-recommendations`,
+		quotation: `${PRE_ROUTE}/parts/quote-generation`,
+	},
 }
