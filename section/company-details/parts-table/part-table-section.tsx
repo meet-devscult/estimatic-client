@@ -11,6 +11,8 @@ export default function PartTableSection({ company_id }: PartTableSectionProps) 
 
     const { data: parts, isLoading: isPartsLoading } = usePartByCompanyId(company_id)
 
+    console.log(parts)
+
     if (isPartsLoading) return <div className="flex justify-center items-center">
         <Loader2 className="w-10 h-10 animate-spin" />
     </div>
@@ -21,7 +23,7 @@ export default function PartTableSection({ company_id }: PartTableSectionProps) 
                     <h1 className="text-2xl font-bold">Parts</h1>
                 </div>
             </div>
-            <DataTable columns={partTableColumn} data={parts} headerClassName="text-center" />
+            <DataTable columns={partTableColumn} data={parts.data.list} headerClassName="text-center" />
         </div>
     )
 }

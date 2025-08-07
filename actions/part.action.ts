@@ -7,7 +7,13 @@ export async function getParts() {
 }
 
 export async function getPartsByCompanyId(companyId: string) {
-    const URL = endpoints.parts.root + `?companyId=${companyId}`
+    const URL = endpoints.parts.root + `?company_id=${companyId}`
+    const response = await axiosInstance.get(URL)
+    return response.data
+}
+
+export async function getPartsByUserId(userId: string) {
+    const URL = endpoints.parts.root + `?user_id=${userId}`
     const response = await axiosInstance.get(URL)
     return response.data
 }
@@ -19,7 +25,7 @@ export async function getPartById(id: string) {
 }
 
 export async function getPartByUserIdAndCompanyId(userId: string, companyId: string) {
-    const URL = endpoints.parts.root + `?userId=${userId}&companyId=${companyId}`
+    const URL = endpoints.parts.root + `?user_id=${userId}&company_id=${companyId}`
     const response = await axiosInstance.get(URL)
     return response.data
 }
