@@ -9,14 +9,12 @@ export const newMachineSchema = z.object({
     name: z.string(),
     type: z.string(),
     category: z.string(),
-    manufacturer: z.string(),
-    max_rpm: z.number(),
-    efficiency: z.number(),
-    power_consumption: z.number(),
-    status: z.string().optional(),
+    machine_inputs: z.string().optional(),
+	manufacturer: z.string(),
+	max_rpm: z.number(),
+	efficiency: z.number(),
 
     // machine specifications
-    allowance: z.number(),
     setup_base_time: z.number(),
 
     // machine rates

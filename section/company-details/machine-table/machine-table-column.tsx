@@ -66,14 +66,12 @@ export const machineTableColumn: ColumnDef<IMachine>[] = [
           name: row.original.name,
           type: row.original.type,
           category: row.original.category,
+          machine_inputs: row.original.machine_inputs,
           manufacturer: row.original.manufacturer,
           max_rpm: row.original.max_rpm,
           efficiency: row.original.efficiency,
-          power_consumption: row.original.power_consumption,
-          status: row.original.status,
 
           // machine specifications
-          allowance: row.original.allowance,
           setup_base_time: row.original.setup_base_time,
 
           // machine rates

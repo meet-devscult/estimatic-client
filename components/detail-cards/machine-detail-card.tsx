@@ -24,6 +24,10 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
 			value: machine.category,
 		},
 		{
+			label: 'Machine Inputs',
+			value: machine.machine_inputs,
+		},
+		{
 			label: 'Manufacturer',
 			value: machine.manufacturer,
 		},
@@ -35,21 +39,9 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
 			label: 'Efficiency %',
 			value: machine.efficiency,
 		},
-		{
-			label: 'Power Consumption (KW/hour)',
-			value: machine.power_consumption,
-		},
 	];
 
 	const section2 = [
-		// {
-		//     label: "Status",
-		//     value: machine.status
-		// },
-		{
-			label: 'Allowance (in%)',
-			value: machine.allowance,
-		},
 		{
 			label: 'Setup Base Time',
 			value: machine.setup_base_time,
@@ -105,14 +97,12 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
 						name: machine.name,
 						type: machine.type,
 						category: machine.category,
+						machine_inputs: machine.machine_inputs,
 						manufacturer: machine.manufacturer,
 						max_rpm: machine.max_rpm,
 						efficiency: machine.efficiency,
-						power_consumption: machine.power_consumption,
-						status: machine.status,
 
 						// machine specifications
-						allowance: machine.allowance,
 						setup_base_time: machine.setup_base_time,
 
 						// machine rates

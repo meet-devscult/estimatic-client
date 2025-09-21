@@ -21,6 +21,7 @@ interface DropdownBoxProps<T extends FieldValues> {
         value: string;
     }[];
     groupLabel?: string;
+    disabled?: boolean;
 }
 
 export default function DropdownBox<T extends FieldValues>({ 
@@ -29,7 +30,8 @@ export default function DropdownBox<T extends FieldValues>({
     placeholder = "Select an option",
     className,
     options,
-    groupLabel
+    groupLabel,
+    disabled = false
 }: DropdownBoxProps<T>) {
     return (
         <FormField
@@ -38,7 +40,7 @@ export default function DropdownBox<T extends FieldValues>({
             render={({ field }) => (
                 <FormItem>
                     <FormControl>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled}>
                             <SelectTrigger size="lg" className={cn("border-dashed", className)}>
                                 <SelectValue placeholder={placeholder} />
                             </SelectTrigger>

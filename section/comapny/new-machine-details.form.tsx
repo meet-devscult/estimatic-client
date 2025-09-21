@@ -8,12 +8,10 @@ import PopupForForm from '@/components/form-fields-components/form-popup-layout'
 import InputBox from '@/components/form-fields-components/input-box';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { Skeleton } from '@/components/ui/skeleton';
 import {
-	useMachineCategories,
-	useMachineMutation,
-	useMachineTypes,
+	useMachineMutation
 } from '@/hooks/use-machine';
+import { MachineFamily } from '@/lib/const.data';
 import { TNewMachineSchema, newMachineSchema } from '@/zod/machine.zod';
 
 interface NewMachineDetailsFormPopUpProps {
@@ -108,10 +106,34 @@ export function NewMachineDetailsForm({
 	form,
 	onSubmit,
 }: NewMachineDetailsFormProps) {
-	const { data: machineTypes, isLoading: isMachineTypesLoading } =
-		useMachineTypes();
-	const { data: machineCategories, isLoading: isMachineCategoriesLoading } =
-		useMachineCategories();
+	// Watch form values for cascading selection
+	const watchedType = form.watch('type');
+	const watchedCategory = form.watch('category');
+
+	// Get machine type options from MachineFamily keys
+	const machineTypeOptions = Object.keys(MachineFamily).map((machineType) => ({
+		label: machineType,
+		value: machineType,
+	}));
+
+	// Get subtype options based on selected machine type
+	const subTypeOptions = watchedType
+		? MachineFamily[watchedType]?.map((item: any) => ({
+				label: item.sub_type,
+				value: item.sub_type,
+			})) || []
+		: [];
+
+	// Get input options based on selected subtype
+	const inputOptions =
+		watchedCategory && watchedType
+			? MachineFamily[watchedType]
+					?.find((item: any) => item.sub_type === watchedCategory)
+					?.inputs?.map((input: string) => ({
+						label: input,
+						value: input,
+					})) || []
+			: [];
 
 	// if (isMachineTypesLoading || isMachineCategoriesLoading) return null
 
@@ -122,34 +144,30 @@ export function NewMachineDetailsForm({
 					<div className="grid grid-cols-2 gap-4">
 						<InputBox form={form} name="plant_name" placeholder="Plant Name" />
 						<InputBox form={form} name="name" placeholder="Machine Name" />
-						{isMachineTypesLoading ? (
-							<Skeleton className="h-14 w-full" />
-						) : (
-							<DropdownBox
+						<DropdownBox
 								form={form}
 								name="type"
 								placeholder="Machine Type"
-								options={machineTypes.map((machineType: string) => ({
-									label: machineType,
-									value: machineType,
-								}))}
+								options={machineTypeOptions}
 								className="h-full w-full"
 							/>
-						)}
-						{isMachineCategoriesLoading ? (
-							<Skeleton className="h-14 w-full" />
-						) : (
 							<DropdownBox
 								form={form}
 								name="category"
-								placeholder="Machine Category"
-								options={machineCategories.map((machineCategory: string) => ({
-									label: machineCategory,
-									value: machineCategory,
-								}))}
+								placeholder="Machine Subtype"
+								options={subTypeOptions}
 								className="h-full w-full"
+								disabled={!watchedType}
 							/>
-						)}
+
+							<DropdownBox
+								form={form}
+								name="machine_inputs"
+								placeholder="Machine Inputs"
+								options={inputOptions}
+								className="h-full w-full"
+								disabled={!watchedCategory}
+							/>
 						<InputBox
 							form={form}
 							name="manufacturer"
@@ -167,23 +185,11 @@ export function NewMachineDetailsForm({
 							placeholder="Efficiency %"
 							type="number"
 						/>
-						<InputBox
-							form={form}
-							name="power_consumption"
-							placeholder="Power Consumption (KW/hour)"
-							type="number"
-						/>
 					</div>
 				</div>
 				<div className="space-y-5 border-b border-dashed px-5 py-5">
 					<h1 className="text-lg">Machine Specifications</h1>
 					<div className="grid grid-cols-2 gap-4 border-dashed">
-						<InputBox
-							form={form}
-							name="allowance"
-							placeholder="Allowance (in %)"
-							type="number"
-						/>
 						<InputBox
 							form={form}
 							name="setup_base_time"
@@ -215,25 +221,25 @@ export function NewMachineDetailsForm({
 						<InputBox
 							form={form}
 							name="max_tool_length"
-							placeholder="Max Tool Length (in meter)"
+							placeholder="Max Tool Length (in mm)"
 							type="number"
 						/>
 						<InputBox
 							form={form}
 							name="max_tool_diameter"
-							placeholder="Max Tool Diameter (in meter)"
+							placeholder="Max Tool Diameter (in mm)"
 							type="number"
 						/>
 						<InputBox
 							form={form}
 							name="max_table_length"
-							placeholder="Max Table Length (in meter)"
+							placeholder="Max Table Length (in mm)"
 							type="number"
 						/>
 						<InputBox
 							form={form}
 							name="max_table_breadth"
-							placeholder="Max Table Breadth (in meter)"
+							placeholder="Max Table Breadth (in mm)"
 							type="number"
 						/>
 						<InputBox
@@ -245,7 +251,7 @@ export function NewMachineDetailsForm({
 						<InputBox
 							form={form}
 							name="tool_change_time"
-							placeholder="Tool Change Time (in mins) (optional)"
+							placeholder="Tool Change Time (in mins)"
 							type="number"
 						/>
 					</div>

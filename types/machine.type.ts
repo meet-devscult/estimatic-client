@@ -14,8 +14,7 @@ export interface IMachine {
 	manufacturer: string;
 	max_rpm: number;
 	efficiency: number;
-	power_consumption: number;
-	allowance: number;
+	machine_inputs: string;
 	setup_base_time: number;
 	machine_rate: number;
 	setup_hour_rate: number;
