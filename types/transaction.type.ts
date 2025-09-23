@@ -1,12 +1,16 @@
+export type UUID = string;
+
 export interface ITransaction {
-    id: number;
-    companyId: number;
-    name: string;
-    datePaid: string;
-    amount: number;
-    currency: string;
-    validUntil: string;
-    paidVia: 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer';
-    paidFor: string;
-  }
+  transaction_id : string,
+  company_id : string,
+  company_name : string,
+  paid_time: number,
+  upto_validated_at: number,
+  amount: number,
+  payment_mode : string,
+  plan : string,
+  reason : string,
+  is_deleted: boolean,
+}
+
   

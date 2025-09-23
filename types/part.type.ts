@@ -1,36 +1,54 @@
+export type UUID = string;
+
 export interface IPart {
-  id: number;
-  name: string;
-  status: 'Ongoing' | 'Estimated' | 'Completed';
-  type: 'Drawing' | 'CAD Model';
-  material: string;
-  materialType: string;
-  time: number;
-  timeUnit: string;
-  cost: number;
-  costUnit: string;
-  createdOn: string;
-  companyId: number;
-  userId: number; // ID of the user assigned to this part
-  shape: string;
-  diameter?: number;
-  diameterUnit?: string;
-  length?: number;
-  lengthUnit?: string;
-  width?: number;
-  widthUnit?: string;
-  thickness?: number;
-  thicknessUnit?: string;
-  height?: number;
-  heightUnit?: string;
-  scrapCost: string;
-  grossWeight: number;
-  grossWeightUnit: string;
-  netWeight: number;
-  netWeightUnit: string;
-  noOfLots: number;
-  stockPerLot: number;
-  materialCost: number;
-  materialCostUnit: string;
-  tolerancePercent: number;
+  part_id: string,
+  user_id: string,
+  status: 'active' | 'inactive',
+  company_id: string,
+  user_name: string,
+  name: string,
+  unit_system: string,
+  customer_name: string,
+  file_type: string,
+  file_url: string,
+  material_standard: string,
+  material_category: string,
+  material_grade: string,
+  material_shape: string,
+  material_cost: number,
+  stock_qty_per_lot: number,
+  lots_count: number,
+  scrap_cost: number,
+  gross_weight: number,
+  net_weight: number,
+  profit: number,
+  tolerance_standard: string,
+  length: number,
+  breadth: number,
+  width: number,
+  diameter: number,
+  outer_diameter: number,
+  thickness: number,
+  wall_thickness: number,
+  web_thickness: number,
+  flange_thickness: number,
+  side: number,
+  flat_to_flat_distance: number,
+  leg_1: number,
+  leg_2: number,
+  flange_width: number,
+  web_height: number,
+  coil_weight: number,
+  created_at: number,
+  estimation_status: boolean,
+  is_deleted: boolean,
+  recommended_operations?: {
+    operation_id: string,
+    machine_name: string,
+    operation: string,
+    inputs: string,
+    time_per_piece_min: number,
+    cost_per_piece: number,
+  }[]
+  total_cost?: number,
 }

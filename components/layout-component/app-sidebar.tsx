@@ -28,11 +28,6 @@ import {
 import Link from "next/link"
 
 const data = {
-  user: {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
@@ -91,6 +86,14 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
+  // const user = JSON.parse(document.cookie.split('; ').find(row => row.startsWith('user_data='))?.split('=')[1] || '{}');
+  const user = {
+    user_name: "John Doe",
+    email: "john.doe@example.com",
+    image: "https://github.com/shadcn.png",
+  }
+  
   return (
     <Sidebar
       className="top-(--header-height) h-[calc(100svh-var(--header-height))]! border-dashed"
@@ -118,7 +121,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   )

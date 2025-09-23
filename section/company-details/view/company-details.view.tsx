@@ -1,6 +1,8 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
 import CompanyDetailsCard from "../company-details-card"
 import MatchineTableSection from "../machine-table/machine-table-section"
 import PartTableSection from "../parts-table/part-table-section"
@@ -12,6 +14,18 @@ interface CompanyDetailsViewSectionProps {
 }
 
 export default function CompanyDetailsViewSection({ id }: CompanyDetailsViewSectionProps) {
+    const searchParams = useSearchParams()
+    const urlTab = searchParams.get('tab')
+    
+    // Use local state for normal tab interactions
+    const [activeTab, setActiveTab] = useState('users')
+    
+    // Only update from URL on mount or when URL tab changes (for breadcrumb navigation)
+    useEffect(() => {
+        if (urlTab && ['users', 'machines', 'transactions', 'parts'].includes(urlTab)) {
+            setActiveTab(urlTab)
+        }
+    }, [urlTab])
 
     const tabs_list: { label: string, value: string, component: React.ReactNode }[] = [
         {
@@ -39,7 +53,7 @@ export default function CompanyDetailsViewSection({ id }: CompanyDetailsViewSect
     return <div>
         <CompanyDetailsCard id={id} />
         <div>
-        <Tabs defaultValue="users" className="items-center gap-0">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="items-center gap-0">
             <div className="w-full border-b border-dashed">
       <TabsList className="text-foreground h-14 gap-2 rounded-none bg-transparent p-0">
         {tabs_list.map((tab) => (

@@ -8,5 +8,5 @@ export default function PartDetailsViewSection({ id }: { id: string }) {
     if (isLoading) return <div>Loading...</div>
     if (!part) return <div>Part not found</div>
     
-    return <PartDetailCard part={part} />
+    return <PartDetailCard partData={part} />
 }

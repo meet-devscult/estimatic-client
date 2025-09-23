@@ -4,7 +4,6 @@ import MachineDetailCard from "@/components/detail-cards/machine-detail-card"
 import { useMachineById } from "@/hooks/use-machine"
 
 export default function MachineDetailsViewSection({ id }: { id: string }) {
-    console.log(id)
     const { data: machine, isLoading } = useMachineById(id)
     
     if (isLoading) return <div>Loading...</div>

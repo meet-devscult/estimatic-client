@@ -8,12 +8,12 @@ export const roleTableColumn: ColumnDef<IUser>[] = [
     {
       accessorKey: "name",
       header: "Name",
-      cell: ({ row }) => <div className="text-center" >{row.original.name}</div>,
+      cell: ({ row }) => <div className="text-center" >{row.original.user_id}</div>,
     },
     {
       accessorKey: "username",
       header: "Username",
-      cell: ({ row }) => <div className="text-center" >{row.original.username}</div>,
+      cell: ({ row }) => <div className="text-center" >{row.original.user_name}</div>,
     },
     {
       accessorKey: "status",
@@ -28,13 +28,13 @@ export const roleTableColumn: ColumnDef<IUser>[] = [
     {
         accessorKey: "action",
         header: " ",
-        cell: () => <div className="flex items-center justify-end gap-2">
+        cell: ({ row }) => <div className="flex items-center justify-end gap-2">
             <Button variant="outline" size="sm">
               Edit Info
             </Button>
-            <Link  href={`#`} className="flex items-center text-sm ">
-          Show Details <ChevronRight className="ml-1 h-4 w-4" />
-        </Link>
+            <Link href={`/role/${row.original.user_id}`} className="flex items-center text-sm hover:text-primary">
+                Show Details <ChevronRight className="ml-1 h-4 w-4" />
+            </Link>
         </div>,
     },
   ]

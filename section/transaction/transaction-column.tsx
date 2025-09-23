@@ -1,17 +1,19 @@
-import { Button } from "@/components/ui/button"
 import { ITransaction } from "@/types/transaction.type"
 import { ColumnDef } from "@tanstack/react-table"
+import dayjs from "dayjs"
+import NewTransaction from "./transaction-form"
+
 
 export const transactionTableColumn: ColumnDef<ITransaction>[] = [
     {
-      accessorKey: "name",
+      accessorKey: "company_name",
       header: "Name",
-      cell: ({ row }) => <div className="text-center" >{row.original.name}</div>,
+      cell: ({ row }) => <div className="text-center" >{row.original.company_name}</div>,
     },
     {
-      accessorKey: "datePaid",
+      accessorKey: "paid_time",
       header: "Date Paid",
-      cell: ({ row }) => <div className="text-center" >{row.original.datePaid}</div>,
+      cell: ({ row }) => <div className="text-center" >{dayjs.unix(row.original.paid_time).format("DD/MM/YYYY")}</div>,
     },
     {
       accessorKey: "amount",
@@ -19,27 +21,41 @@ export const transactionTableColumn: ColumnDef<ITransaction>[] = [
       cell: ({ row }) => <div className="text-center" >{row.original.amount}</div>,
     },
     {
-      accessorKey: "validUntil",
+      accessorKey: "upto_validated_at",
       header: "Valid Until",
-      cell: ({ row }) => <div className="text-center" >{row.original.validUntil}</div>,
+      cell: ({ row }) => <div className="text-center" >{dayjs.unix(row.original.upto_validated_at).format("DD/MM/YYYY")}</div>,
     },
     {
-      accessorKey: "paidVia",
+      accessorKey: "payment_mode",
       header: "Paid Via",
-      cell: ({ row }) => <div className="text-center" >{row.original.paidVia}</div>,
+      cell: ({ row }) => <div className="text-center capitalize" >{row.original.payment_mode}</div>,
     }, 
     {
-      accessorKey: "paidFor",
-      header: "Paid For",
-      cell: ({ row }) => <div className="text-center" >{row.original.paidFor}</div>,
+      accessorKey: "plan",
+      header: "Plan",
+      cell: ({ row }) => <div className="text-center" >{row.original.plan}</div>,
     }, 
     {
         accessorKey: "action",
         header: " ",
-        cell: () => <div className="flex items-center justify-end gap-2">
-            <Button variant="outline" size="sm">
+        cell: ({ row }) => <div className="flex items-center justify-end gap-2">
+            {/* <Button variant="outline" size="sm">
               Edit Info
-            </Button>
+            </Button> */}
+            <NewTransaction 
+              defaultValues={{
+                company_id: row.original.company_id,
+                transaction_id: row.original.transaction_id,
+                company_name: row.original.company_name,
+                paid_time: row.original.paid_time,
+                amount: row.original.amount,
+                upto_validated_at: row.original.upto_validated_at,
+                payment_mode: row.original.payment_mode as 'UPI' | 'Cash' | 'Cheque' | 'Bank Transfer',
+                plan: row.original.plan as 'Free' | 'Pro',
+                reason: row.original.reason || 'TEMP REASON',
+              }} 
+              companyId={row.original.company_id}
+            />
         </div>,
     },
   ]

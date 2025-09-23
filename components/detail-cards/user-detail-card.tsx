@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
+import NewUserDetailsForm from "@/section/comapny/new-user-details.form"
 import { IUser } from "@/types/user.type"
-import { PencilIcon, SquareAsteriskIcon } from "lucide-react"
 import { Button } from "../ui/button"
 
 interface UserDetailCardProps {
@@ -11,7 +11,7 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
     const section1 = [
         {
             label: "Name",
-            value: user.name
+            value: user.user_name
         },
         {
             label: "Designation",
@@ -19,7 +19,7 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
         },
         {
             label: "Created On",
-            value: user.createdOn
+            value: user.created_at
         },
     ]
 
@@ -34,18 +34,18 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
         },
         {
             label: "Mobile Number",
-            value: user.mobileNumber
+            value: user.phone_number
         },
     ]
 
     const section3 = [
-        {
-            label: "Quotations",
-            value: user.quotations
-        },
+        // {
+        //     label: "Quotations",
+        //     value: user.quotations
+        // },
         {
             label: "Email ID",
-            value: user.emailId
+            value: user.email
         },
     ]
 
@@ -54,12 +54,22 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
         <div className="flex justify-between items-center p-5 border-b border-dashed">
             <h1 className="text-2xl font-bold">User Details</h1>
             <div className="flex gap-2">
-            <Button variant="outline" size="lg" className="border-dashed cursor-pointer">
+            {/* <Button variant="outline" size="lg" className="border-dashed cursor-pointer">
                 <PencilIcon />
                 <span className="hidden lg:inline">Edit Info</span>
-            </Button>
+            </Button> */}
+            <NewUserDetailsForm defaultValues={{
+              user_id: user.user_id,
+              user_name: user.user_name,
+              designation: user.designation,
+              phone_number: user.phone_number,
+              email: user.email,
+              type: user.type,
+              password: "",
+              company_id: user.company_id,
+            }} />
             <Button variant="outline" size="lg" className="border-dashed cursor-pointer">
-                <SquareAsteriskIcon />
+                {/* <SquareAsteriskIcon /> */}
                 <span className="hidden lg:inline">Change Password</span>
             </Button>
             </div>
