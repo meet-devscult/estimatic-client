@@ -16,147 +16,15 @@ interface PartDetailCardProps {
 // Define field configurations for each material shape
 export const getMaterialShapeFields = (shape: string) => {
 	switch (shape) {
-		case 'Round Bar':
+		case 'Cylindrical Block':
 			return [
+				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
 				{ name: 'diameter', placeholder: 'Diameter (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Flat Bar':
-			return [
-				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
-				{ name: 'thickness', placeholder: 'Thickness (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Sheet Metal':
-			return [
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
-				{ name: 'thickness', placeholder: 'Thickness (in mm)', type: 'number' },
-			];
-		case 'Pipe':
-			return [
-				{
-					name: 'outer_diameter',
-					placeholder: 'Outer Diameter (in mm)',
-					type: 'number',
-				},
-				{
-					name: 'wall_thickness',
-					placeholder: 'Wall Thickness (in mm)',
-					type: 'number',
-				},
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Square Bar':
-			return [
-				{ name: 'side', placeholder: 'Side (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Hex Bar':
-			return [
-				{
-					name: 'flat_to_flat_distance',
-					placeholder: 'Flat-to-Flat Distance (in mm)',
-					type: 'number',
-				},
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Angle':
-			return [
-				{ name: 'leg_1', placeholder: 'Leg 1 (in mm)', type: 'number' },
-				{ name: 'leg_2', placeholder: 'Leg 2 (in mm)', type: 'number' },
-				{ name: 'thickness', placeholder: 'Thickness (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Channel':
-			return [
-				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
-				{ name: 'web_height', placeholder: 'Height (in mm)', type: 'number' },
-				{ name: 'thickness', placeholder: 'Thickness (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'I-Beam':
-			return [
-				{
-					name: 'flange_width',
-					placeholder: 'Flange Width (in mm)',
-					type: 'number',
-				},
-				{
-					name: 'web_height',
-					placeholder: 'Web Height (in mm)',
-					type: 'number',
-				},
-				{
-					name: 'web_thickness',
-					placeholder: 'Web Thickness (in mm)',
-					type: 'number',
-				},
-				{
-					name: 'flange_thickness',
-					placeholder: 'Flange Thickness (in mm)',
-					type: 'number',
-				},
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Plate':
-			return [
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
-				{ name: 'thickness', placeholder: 'Thickness (in mm)', type: 'number' },
-			];
-		case 'Coil':
-			return [
-				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
-				{ name: 'thickness', placeholder: 'Thickness (in mm)', type: 'number' },
-				{
-					name: 'coil_weight',
-					placeholder: 'Coil Weight or Length',
-					type: 'number',
-				},
-			];
-		case 'Wire':
-			return [
-				{ name: 'diameter', placeholder: 'Diameter (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Billet':
-			return [
-				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
-				{ name: 'web_height', placeholder: 'Height (in mm)', type: 'number' },
-				{
-					name: 'length',
-					placeholder: 'Length (or Diameter, Length if round)',
-					type: 'number',
-				},
-			];
-		case 'Ingot':
-			return [
-				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
-				{ name: 'web_height', placeholder: 'Height (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Rod':
-			return [
-				{ name: 'diameter', placeholder: 'Diameter (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Strip':
-			return [
-				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
-				{ name: 'thickness', placeholder: 'Thickness (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-			];
-		case 'Foil':
-			return [
-				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
-				{ name: 'thickness', placeholder: 'Thickness (in mm)', type: 'number' },
-				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
 			];
 		default:
 			return [
 				{ name: 'length', placeholder: 'Length (in mm)', type: 'number' },
-				{ name: 'breadth', placeholder: 'Breadth (in mm)', type: 'number' },
+				{ name: 'height', placeholder: 'Height (in mm)', type: 'number' },
 				{ name: 'width', placeholder: 'Width (in mm)', type: 'number' },
 			];
 	}
@@ -302,10 +170,6 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 	// Define the data sections for the grid layout
 	const section1 = [
 		{
-			label: "Material Std",
-			value: partData.material_standard
-		},
-		{
 			label: "Material Category",
 			value: partData.material_category
 		},
@@ -342,8 +206,8 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 			value: partData.scrap_cost
 		},
 		{
-			label: "Gross Weight (in Kg)",
-			value: partData.gross_weight
+			label: "Raw material weight (in Kg)",
+			value: partData.raw_material_weight
 		},
 		{
 			label: "Tolerance Standard",
