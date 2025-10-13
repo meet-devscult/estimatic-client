@@ -1,6 +1,8 @@
+import { deleteUser } from "@/actions/users.action"
 import { cn } from "@/lib/utils"
 import NewUserDetailsForm from "@/section/comapny/new-user-details.form"
 import { IUser } from "@/types/user.type"
+import { Trash2 } from "lucide-react"
 import { Button } from "../ui/button"
 
 interface UserDetailCardProps {
@@ -71,6 +73,13 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
             <Button variant="outline" size="lg" className="border-dashed cursor-pointer">
                 {/* <SquareAsteriskIcon /> */}
                 <span className="hidden lg:inline">Change Password</span>
+            </Button>
+            <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
+            onClick={async () => {
+                await deleteUser(user.user_id)
+            }}>
+                <Trash2 />
+                <span className="hidden lg:inline">Delete User</span>
             </Button>
             </div>
         </div>

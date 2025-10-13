@@ -28,3 +28,9 @@ export async function mutateUser(data: TNewUserSchema, method: 'post' | 'put') {
     const response = await axiosInstance[method](URL, {...data, currency: 'INR'}) // TODO: availanle currency list USD, EUR and INR
     return response.data
 }
+
+export async function deleteUser(user_id: string) {
+    const URL = endpoints.users.delete
+    const response = await axiosInstance.put(URL, { user_id })
+    return response.data
+}

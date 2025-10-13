@@ -22,3 +22,9 @@ export async function mutateCompany(data: any, method: 'post' | 'put') {
     const response = await axiosInstance[method](URL, data)
     return response
 }
+
+export async function deleteCompany(company_id: string) {
+    const URL = endpoints.companies.delete;
+    const response = await axiosInstance.put(URL, { company_id })
+    return response
+}
