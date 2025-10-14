@@ -9,15 +9,20 @@ import { CompanyCreationSchema, TCompanyCreationSchema } from "@/zod/company.zod
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useQueryClient } from "@tanstack/react-query"
 import dayjs from "dayjs"
-import { Loader2, PencilIcon, Trash2 } from "lucide-react"
-import React from "react"
+import { Loader2, LoaderCircle, PencilIcon, Trash2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import React, { useTransition } from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 interface CompanyDetailsCardProps {
     id: string
 }
 
 export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
+
+    const router = useRouter()
+    const [isDeleting, startTransition] = useTransition()
 
     const queryClient = useQueryClient()
     const { data, isLoading } = useCompanyById(id)
@@ -95,6 +100,18 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
         },
     ]
 
+    const handleDelete = () => {
+        startTransition(async () => {
+            try {
+                await deleteCompany(id)
+                toast.success("Company deleted successfully")
+                router.back()
+            } catch (error) {
+                console.error("Failed to delete company:", error)
+            }
+        })
+    }
+
     return (
         <div>
         <div className="flex justify-between items-center p-5 border-b border-dashed">
@@ -139,11 +156,19 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
                 formInstance={companyForm}
             />
             <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
-            onClick={async () => {
-                await deleteCompany(id)
-            }}>
-                <Trash2 />
-                <span className="hidden lg:inline">Delete Company</span>
+            onClick={handleDelete}
+            disabled={isDeleting}>
+            {isDeleting ? (
+                <div className="flex gap-1 items-center">
+                    <LoaderCircle className="animate-spin" />
+                    <p className="hidden lg:inline">Deleting...</p>
+                </div>
+                ) : (
+                <div className="flex gap-1 items-center">
+                    <Trash2 />
+                    <p className="hidden lg:inline">Delete Company</p>
+                </div>
+            )}
             </Button>
             </div>
         </div>

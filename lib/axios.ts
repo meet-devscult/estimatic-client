@@ -69,7 +69,7 @@ export const endpoints = {
   companies: {
     root: `${PRE_ROUTE}/companies`,
     detail: (id: string) => `${PRE_ROUTE}/companies/${id}`,
-    delete: `${PRE_ROUTE}/companies/delete/`
+    delete: `${PRE_ROUTE}/companies/delete`
   },
   users: {
     root: `${PRE_ROUTE}/users`,
