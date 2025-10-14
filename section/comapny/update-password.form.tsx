@@ -5,7 +5,6 @@ import { Form, FormControl, FormDescription, FormField, FormItem } from "@/compo
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import { Eye, EyeOff, Pencil } from "lucide-react";
 import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
@@ -27,8 +26,6 @@ interface ChangePasswordFormProps {
 }
 
 export default function ChangePasswordForm({user_id}: ChangePasswordFormProps) {
-
-    const queryClient = useQueryClient()
     const [isLoading, setIsLoading] = useState(false)
     
     const changePasswordForm = useForm<TChangePasswordSchema>({
@@ -76,11 +73,11 @@ export default function ChangePasswordForm({user_id}: ChangePasswordFormProps) {
         />
 }
 
-interface NewUserDetailsFormProps {
+interface PasswordFormProps {
     form: UseFormReturn<TChangePasswordSchema>;
     onSubmit: (data: TChangePasswordSchema) => void;
 }
-export function PasswordForm({form, onSubmit}: NewUserDetailsFormProps) {
+export function PasswordForm({form, onSubmit}: PasswordFormProps) {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 

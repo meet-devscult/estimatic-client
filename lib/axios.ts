@@ -95,6 +95,7 @@ export const endpoints = {
   plants: {
     root: `${PRE_ROUTE}/plants`,
     detail: (id: string) => `${PRE_ROUTE}/plants/${id}`,
+    delete: `${PRE_ROUTE}/plants/delete`,
   },
   ai: {
 		recommendations: `${PRE_ROUTE}/parts/machine-recommendations`,
