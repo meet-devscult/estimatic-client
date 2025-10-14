@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import CompanyDetailsCard from "../company-details-card"
 import MatchineTableSection from "../machine-table/machine-table-section"
 import PartTableSection from "../parts-table/part-table-section"
+import PlantTableSection from "../plants-table/plant-table-section"
 import TransactionTableSection from "../transaction-table/transaction-table-section"
 import UserTableSection from "../user-table/user-table-section"
 
@@ -32,6 +33,11 @@ export default function CompanyDetailsViewSection({ id }: CompanyDetailsViewSect
             label: "Users",
             value: "users",
             component: <UserTableSection company_id={id} />
+        },
+        {
+            label: "Plants",
+            value: "plants",
+            component: <PlantTableSection company_id={id} />
         },
         {
             label: "Machines",

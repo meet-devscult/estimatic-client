@@ -79,7 +79,7 @@ export default function NewMachineDetails({
 					}}
 				/>
 			}
-			submitFunction={() => {
+			submitFunction={async () => {
 				if (onSubmit) {
 					onSubmit(machineForm.getValues());
 					machineForm.reset();
