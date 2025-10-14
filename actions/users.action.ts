@@ -34,3 +34,9 @@ export async function deleteUser(user_id: string) {
     const response = await axiosInstance.put(URL, { user_id })
     return response.data
 }
+
+export async function changeUserPassword(data: { user_id: string | null, new_password: string }) {
+    const URL = endpoints.users.update_password
+    const response = await axiosInstance.put(URL, data)
+    return response.data
+}
