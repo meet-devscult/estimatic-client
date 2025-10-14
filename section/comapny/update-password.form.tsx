@@ -72,6 +72,7 @@ export default function ChangePasswordForm({user_id}: ChangePasswordFormProps) {
         isLoading={isLoading}
         loadingText="Updating Password..."
         formInstance={changePasswordForm}
+        isValidate={true}
         />
 }
 
