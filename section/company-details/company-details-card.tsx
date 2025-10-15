@@ -1,7 +1,10 @@
 import { deleteCompany } from "@/actions/company.action"
 import PopupForForm from "@/components/form-fields-components/form-popup-layout"
 import { Button } from "@/components/ui/button"
+import { Switch } from "@/components/ui/switch"
 import { useCompanyById, useCompanyMutation } from "@/hooks/use-company"
+import { useToggleMutation } from "@/hooks/use-toggle"
+import { endpoints } from "@/lib/axios"
 import { cn } from "@/lib/utils"
 import CompanyBasicDetailsForm from "@/section/comapny/company-basic-details.form"
 import { ICompany } from "@/types/company.type"
@@ -27,6 +30,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
     const queryClient = useQueryClient()
     const { data, isLoading } = useCompanyById(id)
     const { mutate: updateCompany, isPending: isUpdatingCompany } = useCompanyMutation({ queryClient })
+    const {mutate: updateCompanyStatus, isPending} = useToggleMutation({queryClient, queryKey: ["company"]})
 
     // Form setup with default values - initialize with empty values first
     const companyForm = useForm<TCompanyCreationSchema>({
@@ -61,7 +65,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
     const companyData = data.data as ICompany;
     const { name, website, created_at, type, status, upto_validated_at, quotations_limits, users_count, machines_count } = companyData;
 
-    const company_details_grid: Record<string, string>[] = [
+    const company_details_grid: Record<string, string | any>[] = [
         {
             title: "Company Name",
             value: name
@@ -80,7 +84,16 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
         },
         {
             title: "Status",
-            value: status
+            value: (<div className="flex items-center justify-center">
+                <span className="mr-2 text-sm font-medium">{status === "active" ? "Active" : "Inactive"}</span>
+                <Switch
+                    checked={status === "active"}
+                    onCheckedChange={() => {
+                        updateCompanyStatus({data: {company_id: companyData.company_id,status: status === "active" ? "inactive" : "active"}, url: endpoints.companies.root})
+                    }}
+                disabled={isPending}
+                />
+            </div>)
         },
         {
             title: "Valid Upto",
