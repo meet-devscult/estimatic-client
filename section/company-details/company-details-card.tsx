@@ -84,7 +84,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
         },
         {
             title: "Status",
-            value: (<div className="flex items-center justify-center">
+            value: <div className="flex items-center justify-center">
                 <span className="mr-2 text-sm font-medium">{status === "active" ? "Active" : "Inactive"}</span>
                 <Switch
                     checked={status === "active"}
@@ -93,7 +93,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
                     }}
                 disabled={isPending}
                 />
-            </div>)
+            </div>
         },
         {
             title: "Valid Upto",
@@ -169,19 +169,10 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
                 formInstance={companyForm}
             />
             <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
-            onClick={handleDelete}
-            disabled={isDeleting}>
-            {isDeleting ? (
-                <div className="flex gap-1 items-center">
-                    <LoaderCircle className="animate-spin" />
-                    <p className="hidden lg:inline">Deleting...</p>
-                </div>
-                ) : (
-                <div className="flex gap-1 items-center">
-                    <Trash2 />
-                    <p className="hidden lg:inline">Delete Company</p>
-                </div>
-            )}
+                onClick={handleDelete}
+                disabled={isDeleting}>
+                {isDeleting ? <LoaderCircle className="animate-spin" /> : <Trash2 />}
+                {isDeleting ? "Deleting..." : "Delete Company"}
             </Button>
             </div>
         </div>
@@ -192,7 +183,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
                     (index + 1) % 3 === 0 && "border-r-0" 
                 )} key={item.title}>
                     <h1 className="font-medium text-muted-foreground">{item.title} :</h1>
-                    <p>{item.value}</p>
+                    <div>{item.value}</div>
                 </div>
             ))}
         </div>
