@@ -1,10 +1,12 @@
 import { aiQuotationGeneration } from "@/actions/ai.actions";
-import { getSignedUrl } from "@/actions/part.action";
+import { deleteParts, getSignedUrl } from "@/actions/part.action";
 import { IOperation } from "@/types/operations.type";
 import { IPart } from "@/types/part.type";
 import { ColumnDef } from '@tanstack/react-table';
-import { DownloadCloud } from "lucide-react";
-import { useState } from "react";
+import { DownloadCloud, LoaderCircle, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 import { downloadQuotationPDF } from "../parts-quotation-pdf";
 import { DataTable } from "../table-layout/data-table";
 import { Button } from "../ui/button";
@@ -87,8 +89,10 @@ export const OperationColumn: ColumnDef<IOperation>[] = [
 ];
 
 export default function PartDetailCard({ partData }: PartDetailCardProps) {
+	const router = useRouter()
 	const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 	const [isDownloadingPartFile, setIsDownloadingPartFile] = useState(false);
+	const [isDeleting, startTransition] = useTransition()
 
 	const handleDownloadPDF = async () => {
 		setIsGeneratingPDF(true);
@@ -215,6 +219,18 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 		}
 	];
 
+	const handleDelete = () => {
+			startTransition(async () => {
+				try {
+					await deleteParts(partData.part_id)
+					toast.success("Part deleted successfully")
+					router.back()
+				} catch (error) {
+					console.error("Failed to delete part:", error)
+				}
+			})
+		}
+
     return (
         <div>
 			<div className="flex justify-between items-center p-5 border-b border-dashed">
@@ -248,6 +264,21 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 							{isGeneratingPDF ? 'Generating...' : 'Download Quotation'}
 						</span>
 					</Button>}
+					<Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
+            			onClick={handleDelete}
+            			disabled={isDeleting}>
+            			{isDeleting ? (
+                			<div className="flex gap-1 items-center">
+                    			<LoaderCircle className="animate-spin" />
+                    			<p className="hidden lg:inline">Deleting...</p>
+                			</div>
+                		) : (
+                			<div className="flex gap-1 items-center">
+                    			<Trash2 />
+                    			<p className="hidden lg:inline">Delete Part</p>
+                			</div>
+            			)}
+            		</Button>
 				</div>
 			</div>
 			<div className="grid grid-cols-3 border-b border-dashed divide-x divide-dashed">
