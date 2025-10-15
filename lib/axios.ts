@@ -82,6 +82,7 @@ export const endpoints = {
     detail: (id: string) => `${PRE_ROUTE}/machines/${id}`,
     machine_types: `${PRE_ROUTE}/machines/types`,
     machine_categories: `${PRE_ROUTE}/machines/categories`,
+    delete: `${PRE_ROUTE}/machines/delete`,
   },
   transactions: {
     root: `${PRE_ROUTE}/transactions`,
