@@ -51,5 +51,6 @@ export interface IPart {
     time_per_piece_min: number,
     cost_per_piece: number,
   }[]
+  quotation?: Record<string, any> | null,
   total_cost?: number,
 }

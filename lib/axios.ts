@@ -82,6 +82,7 @@ export const endpoints = {
     detail: (id: string) => `${PRE_ROUTE}/machines/${id}`,
     machine_types: `${PRE_ROUTE}/machines/types`,
     machine_categories: `${PRE_ROUTE}/machines/categories`,
+    delete: `${PRE_ROUTE}/machines/delete`,
   },
   transactions: {
     root: `${PRE_ROUTE}/transactions`,
@@ -91,6 +92,7 @@ export const endpoints = {
     root: `${PRE_ROUTE}/parts`,
     detail: (id: string) => `${PRE_ROUTE}/parts/${id}`,
     signed_url: `${PRE_ROUTE}/file-upload/signed-url`,
+    delete: `${PRE_ROUTE}/parts/delete`,
   },
   plants: {
     root: `${PRE_ROUTE}/plants`,

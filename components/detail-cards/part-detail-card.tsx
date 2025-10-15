@@ -1,10 +1,11 @@
-import { aiQuotationGeneration } from "@/actions/ai.actions";
-import { getSignedUrl } from "@/actions/part.action";
+import { deleteParts, getSignedUrl } from "@/actions/part.action";
 import { IOperation } from "@/types/operations.type";
 import { IPart } from "@/types/part.type";
 import { ColumnDef } from '@tanstack/react-table';
-import { DownloadCloud } from "lucide-react";
-import { useState } from "react";
+import { DownloadCloud, LoaderCircle, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 import { downloadQuotationPDF } from "../parts-quotation-pdf";
 import { DataTable } from "../table-layout/data-table";
 import { Button } from "../ui/button";
@@ -87,37 +88,36 @@ export const OperationColumn: ColumnDef<IOperation>[] = [
 ];
 
 export default function PartDetailCard({ partData }: PartDetailCardProps) {
+	const router = useRouter()
 	const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 	const [isDownloadingPartFile, setIsDownloadingPartFile] = useState(false);
+	const [isDeleting, startTransition] = useTransition()
 
 	const handleDownloadPDF = async () => {
 		setIsGeneratingPDF(true);
 		try {
 			// Validate part_id exists and is a string
-			if (!partData.part_id || typeof partData.part_id !== 'string') {
+			if (!partData.part_id || typeof partData.part_id !== 'string' || !partData.quotation) {
 				throw new Error('Invalid part ID');
 			}
-
-			// First call AI quotation generation
-			const aiResponse = await aiQuotationGeneration({ part_id: partData.part_id });
 			
 			// Extract the required data from aiResponse.data
 			const quotationData = {
-				part_name: aiResponse.data.part_name,
-				material: aiResponse.data.material,
-				tolerance: aiResponse.data.tolerance,
-				raw_material_cost: aiResponse.data.raw_material_cost,
-				raw_material_quantity: aiResponse.data.raw_material_quantity,
-				machining_cost: aiResponse.data.machining_cost,
-				machining_quantity: aiResponse.data.machining_quantity,
-				profit_percent: aiResponse.data.profit_percent,
-				profit_amount: aiResponse.data.profit_amount,
-				scrap_cost: aiResponse.data.scrap_cost,
-				scrap_quantity: aiResponse.data.scrap_quantity,
-				total_cost_per_piece: aiResponse.data.total_cost_per_piece,
-				total_quantity: aiResponse.data.total_quantity,
-				total_cost_all: aiResponse.data.total_cost_all,
-				currency: aiResponse.data.currency,
+				part_name: partData.quotation.part_name,
+				material: partData.quotation.material,
+				tolerance: partData.quotation.tolerance,
+				raw_material_cost: partData.quotation.raw_material_cost,
+				raw_material_quantity: partData.quotation.raw_material_quantity,
+				machining_cost: partData.quotation.machining_cost,
+				machining_quantity: partData.quotation.machining_quantity,
+				profit_percent: partData.quotation.profit_percent,
+				profit_amount: partData.quotation.profit_amount,
+				scrap_cost: partData.quotation.scrap_cost,
+				scrap_quantity: partData.quotation.scrap_quantity,
+				total_cost_per_piece: partData.quotation.total_cost_per_piece,
+				total_quantity: partData.quotation.total_quantity,
+				total_cost_all: partData.quotation.total_cost_all,
+				currency: partData.quotation.currency,
 			};
 			
 			// Generate and download PDF with AI-generated data
@@ -215,12 +215,25 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 		}
 	];
 
+	const handleDelete = () => {
+			startTransition(async () => {
+				try {
+					await deleteParts(partData.part_id)
+					toast.success("Part deleted successfully")
+					router.back()
+				} catch (error) {
+					console.error("Failed to delete part:", error)
+				}
+			})
+		}
+
     return (
         <div>
 			<div className="flex justify-between items-center p-5 border-b border-dashed">
 				<h1 className="text-2xl font-bold">Part Details</h1>
 				<div className="flex gap-2">
-					<Button 
+					{partData.quotation && (
+						<Button 
 						onClick={handleDownloadPartFile}
 						variant="outline" 
 						size="lg" 
@@ -231,7 +244,7 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 						<span className="hidden lg:inline">
 							{isDownloadingPartFile ? 'Downloading...' : 'Download Part File'}
 						</span>
-					</Button>
+					</Button>)}
 					{/* <Button variant="outline" size="lg" className="border-dashed cursor-pointer">
 						<DownloadCloud />
 						<span className="hidden lg:inline">Download Operations</span>
@@ -248,6 +261,12 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 							{isGeneratingPDF ? 'Generating...' : 'Download Quotation'}
 						</span>
 					</Button>}
+					<Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
+            			onClick={handleDelete}
+            			disabled={isDeleting}>
+            			{isDeleting ? <LoaderCircle className="animate-spin" /> : <Trash2 />}
+            			{isDeleting ? "Deleting..." : "Delete Part"}
+            		</Button>
 				</div>
 			</div>
 			<div className="grid grid-cols-3 border-b border-dashed divide-x divide-dashed">

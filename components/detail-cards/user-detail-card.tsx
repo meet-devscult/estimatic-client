@@ -92,17 +92,8 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
             <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
             onClick={handleDelete}
             disabled={isDeleting}>
-                {isDeleting ? (
-                <div className="flex gap-1 items-center">
-                    <LoaderCircle className="animate-spin" />
-                    <p className="hidden lg:inline">Deleting...</p>
-                </div>
-                ) : (
-                <div className="flex gap-1 items-center">
-                    <Trash2 />
-                    <p className="hidden lg:inline">Delete User</p>
-                </div>
-            )}
+                {isDeleting ? <LoaderCircle className="animate-spin" /> : <Trash2 />}
+                {isDeleting ? "Deleting..." : "Delete User"}
             </Button>
             </div>
         </div>

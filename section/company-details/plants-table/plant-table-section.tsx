@@ -12,8 +12,6 @@ export default function PlantTableSection({ company_id }: PlantTableSectionProps
 
     const { data: plants, isLoading: isPlantsLoading } = usePlantsByCompanyId(company_id)
 
-    console.log("🎀Plants data:", plants);
-
     if (isPlantsLoading) return <div className="flex justify-center items-center">
         <Loader2 className="w-10 h-10 animate-spin" />
     </div>
