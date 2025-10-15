@@ -1,12 +1,20 @@
+import { deleteUser } from "@/actions/users.action"
 import { cn } from "@/lib/utils"
 import NewUserDetailsForm from "@/section/comapny/new-user-details.form"
+import ChangePasswordForm from "@/section/comapny/update-password.form"
 import { IUser } from "@/types/user.type"
+import { LoaderCircle, Trash2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useTransition } from "react"
+import { toast } from "sonner"
 import { Button } from "../ui/button"
 
 interface UserDetailCardProps {
     user: IUser
 }
 export default function UserDetailCard({ user }: UserDetailCardProps) {
+    const router = useRouter()
+    const [isDeleting, startTransition] = useTransition()
 
     const section1 = [
         {
@@ -49,6 +57,18 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
         },
     ]
 
+    const handleDelete = () => {
+        startTransition(async () => {
+            try {
+                await deleteUser(user.user_id)
+                toast.success("User deleted successfully")
+                router.back()
+            } catch (error) {
+                console.error("Failed to delete user:", error)
+            }
+        })
+    }
+
     return (
         <div>
         <div className="flex justify-between items-center p-5 border-b border-dashed">
@@ -68,9 +88,21 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
               password: "",
               company_id: user.company_id,
             }} />
-            <Button variant="outline" size="lg" className="border-dashed cursor-pointer">
-                {/* <SquareAsteriskIcon /> */}
-                <span className="hidden lg:inline">Change Password</span>
+            <ChangePasswordForm user_id={user.user_id} />
+            <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
+            onClick={handleDelete}
+            disabled={isDeleting}>
+                {isDeleting ? (
+                <div className="flex gap-1 items-center">
+                    <LoaderCircle className="animate-spin" />
+                    <p className="hidden lg:inline">Deleting...</p>
+                </div>
+                ) : (
+                <div className="flex gap-1 items-center">
+                    <Trash2 />
+                    <p className="hidden lg:inline">Delete User</p>
+                </div>
+            )}
             </Button>
             </div>
         </div>

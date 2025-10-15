@@ -68,7 +68,7 @@ export default function NewTransaction({
 					}}
 				/>
 			}
-			submitFunction={() => {
+			submitFunction={async () => {
 				createTransaction({
 					data: form.getValues(),
 					method: defaultValues ? 'put' : 'post',

@@ -20,6 +20,7 @@ export interface IPart {
   lots_count: number,
   scrap_cost: number,
   gross_weight: number,
+  raw_material_weight: number,
   net_weight: number,
   profit: number,
   tolerance_standard: string,

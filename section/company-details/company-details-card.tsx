@@ -1,3 +1,4 @@
+import { deleteCompany } from "@/actions/company.action"
 import PopupForForm from "@/components/form-fields-components/form-popup-layout"
 import { Button } from "@/components/ui/button"
 import { useCompanyById, useCompanyMutation } from "@/hooks/use-company"
@@ -8,15 +9,20 @@ import { CompanyCreationSchema, TCompanyCreationSchema } from "@/zod/company.zod
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useQueryClient } from "@tanstack/react-query"
 import dayjs from "dayjs"
-import { Loader2, PencilIcon } from "lucide-react"
-import React from "react"
+import { Loader2, LoaderCircle, PencilIcon, Trash2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import React, { useTransition } from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 interface CompanyDetailsCardProps {
     id: string
 }
 
 export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
+
+    const router = useRouter()
+    const [isDeleting, startTransition] = useTransition()
 
     const queryClient = useQueryClient()
     const { data, isLoading } = useCompanyById(id)
@@ -94,11 +100,24 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
         },
     ]
 
+    const handleDelete = () => {
+        startTransition(async () => {
+            try {
+                await deleteCompany(id)
+                toast.success("Company deleted successfully")
+                router.back()
+            } catch (error) {
+                console.error("Failed to delete company:", error)
+            }
+        })
+    }
+
     return (
         <div>
         <div className="flex justify-between items-center p-5 border-b border-dashed">
             <h1 className="text-2xl font-bold">Companies</h1>
-            <PopupForForm
+            <div className="flex gap-2">
+                <PopupForForm
                 title="Edit Company Details"
                 triggerText={
                     <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
@@ -136,6 +155,22 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
                 loadingText="Updating Company..."
                 formInstance={companyForm}
             />
+            <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
+            onClick={handleDelete}
+            disabled={isDeleting}>
+            {isDeleting ? (
+                <div className="flex gap-1 items-center">
+                    <LoaderCircle className="animate-spin" />
+                    <p className="hidden lg:inline">Deleting...</p>
+                </div>
+                ) : (
+                <div className="flex gap-1 items-center">
+                    <Trash2 />
+                    <p className="hidden lg:inline">Delete Company</p>
+                </div>
+            )}
+            </Button>
+            </div>
         </div>
         <div className="grid grid-cols-3 divide-x">
             {company_details_grid.map((item, index) => (

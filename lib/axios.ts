@@ -69,10 +69,13 @@ export const endpoints = {
   companies: {
     root: `${PRE_ROUTE}/companies`,
     detail: (id: string) => `${PRE_ROUTE}/companies/${id}`,
+    delete: `${PRE_ROUTE}/companies/delete`
   },
   users: {
     root: `${PRE_ROUTE}/users`,
     detail: (id: string) => `${PRE_ROUTE}/users/${id}`,
+    delete: `${PRE_ROUTE}/users/delete`,
+    update_password: `${PRE_ROUTE}/users/password`,
   },
   machines: {
     root: `${PRE_ROUTE}/machines`,
@@ -92,6 +95,7 @@ export const endpoints = {
   plants: {
     root: `${PRE_ROUTE}/plants`,
     detail: (id: string) => `${PRE_ROUTE}/plants/${id}`,
+    delete: `${PRE_ROUTE}/plants/delete`,
   },
   ai: {
 		recommendations: `${PRE_ROUTE}/parts/machine-recommendations`,
