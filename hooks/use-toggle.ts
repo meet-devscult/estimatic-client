@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query"
 
 import { QueryClient } from "@tanstack/react-query"
 
-export function useToggleMutation({queryClient, queryKey}:{queryClient: QueryClient, queryKey: string[]}) {
+export function useToggleMutation({queryClient, queryKey, revalidateKey}:{queryClient: QueryClient, queryKey: string[], revalidateKey?: string[]}) {
 
     const { mutate, isPending, error, isError } = useMutation({
         onMutate: async ({data, url}:{data: any, url: string}) => {
@@ -31,7 +31,7 @@ export function useToggleMutation({queryClient, queryKey}:{queryClient: QueryCli
         },
         mutationFn: ({data, url}:{data: any, url: string}) => toggleRequest(url, data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKey })
+            queryClient.invalidateQueries({ queryKey: revalidateKey || queryKey })
         },
         onError: (error, variables, context) => {
             queryClient.setQueryData(queryKey, context?.previousData)

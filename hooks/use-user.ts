@@ -13,13 +13,13 @@ export function useUsers() {
 }
 
 export function useUserById(id: string) {
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, refetch } = useQuery({
         queryKey: ['users', id],
         enabled: !!id,
         queryFn: () => getUserById(id),
     })
 
-    return { data, isLoading }
+    return { data, isLoading, refetch }
 }
 
 export function useUserByCompanyId(companyId: string) {
