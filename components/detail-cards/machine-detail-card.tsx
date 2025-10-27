@@ -1,12 +1,16 @@
 import { deleteMachine } from '@/actions/machine.action';
+import { useToggleMutation } from '@/hooks/use-toggle';
+import { endpoints } from '@/lib/axios';
 import { cn } from '@/lib/utils';
 import NewMachineDetails from '@/section/comapny/new-machine-details.form';
 import { IMachine } from '@/types/machine.type';
+import { useQueryClient } from '@tanstack/react-query';
 import { LoaderCircle, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { Button } from '../ui/button';
+import { Switch } from '../ui/switch';
 
 interface MachineDetailCardProps {
 	machine: IMachine;
@@ -14,6 +18,9 @@ interface MachineDetailCardProps {
 export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
 	const router = useRouter()
 	const [isDeleting, startTransition] = useTransition()
+	const queryClient = useQueryClient()
+	const { mutate, isPending } = useToggleMutation({queryClient, queryKey: ["machines", "company", machine.company_id], revalidateKey: ["machines", machine.machine_id]})
+	
 	const section1 = [
 		{
 			label: 'Name',
@@ -61,6 +68,19 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
 		{
 			label: 'Setup Hour Rate ',
 			value: machine.setup_hour_rate,
+		},
+		{
+			label: "Status",
+			value: <div className="flex items-center gap-2">
+						<span className="text-sm">{machine.status === 'active' ? 'Active' : 'Inactive'}</span>
+						<Switch 
+							checked={machine.status === 'active'} 
+							onCheckedChange={() => {
+								mutate({url: endpoints.machines.root, data: {machine_id: machine.machine_id, status: machine.status === 'active' ? 'inactive' : 'active'}})
+							}} 
+							disabled={isPending} 
+						/>
+			</div>,
 		},
 	];
 
@@ -168,7 +188,7 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
 							<h1 className="text-muted-foreground font-medium">
 								{item.label} :
 							</h1>
-							<p>{item.value}</p>
+							<div>{item.value}</div>
 						</div>
 					))}
 				</div>

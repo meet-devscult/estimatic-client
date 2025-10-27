@@ -5,6 +5,7 @@ export interface IPart {
   user_id: string,
   status: 'active' | 'inactive',
   company_id: string,
+  company_name: string,
   user_name: string,
   name: string,
   unit_system: string,
