@@ -230,7 +230,10 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
     return (
         <div>
 			<div className="flex justify-between items-center p-5 border-b border-dashed">
-				<h1 className="text-2xl font-bold">Part Details</h1>
+				<div>
+					<h1 className="text-2xl font-bold">{partData.name}</h1>
+					<h2 className="text-base text-muted-foreground">{partData.company_name}</h2>
+				</div>
 				<div className="flex gap-2">
 					{partData.quotation && (
 						<Button 
