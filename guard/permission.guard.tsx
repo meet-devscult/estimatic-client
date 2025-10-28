@@ -7,10 +7,10 @@ import { useState } from "react";
 // ------------------------------------------------------------
 
 export const STATIC_PERMISSION = {
-    dashboard: PERMISSION.RESTRICTED,
-    companies: PERMISSION.VIEW_ONLY,
-    transactions: PERMISSION.VIEW_ONLY,
-    enquiries: PERMISSION.RESTRICTED,
+    dashboard: PERMISSION.VIEW_ONLY,
+    companies: PERMISSION.FULL_ACCESS,
+    transactions: PERMISSION.FULL_ACCESS,
+    enquiries: PERMISSION.FULL_ACCESS,
     roles: PERMISSION.RESTRICTED,
   };  
 
