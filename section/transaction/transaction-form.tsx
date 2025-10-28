@@ -11,8 +11,10 @@ import TextareaBox from '@/components/form-fields-components/textarea-box';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useRoutePermission } from '@/guard/permission.guard';
 import { useCompany } from '@/hooks/use-company';
 import { useMutateTransaction } from '@/hooks/use-transaction';
+import { PERMISSION } from '@/types/user.type';
 import {
 	TTransactionFormType,
 	transactionSchema,
@@ -25,6 +27,9 @@ export default function NewTransaction({
 	defaultValues?: TTransactionFormType;
 	companyId?: string;
 }) {
+
+	const { permission } = useRoutePermission("transactions");
+
 	const form = useForm<TTransactionFormType>({
 		resolver: zodResolver(transactionSchema),
 		defaultValues: defaultValues || {
@@ -41,12 +46,13 @@ export default function NewTransaction({
 	return (
 		<AddTransactionPopup
 			title={defaultValues ? 'Edit Transaction' : 'Add New Transaction'}
+			isSubmitDisabled={permission !== PERMISSION.FULL_ACCESS}
 			triggerText={
 				<Button
 					variant="outline"
 					size="lg"
 					className="border-dashed hover:cursor-pointer"
-					disabled={isCreatingTransaction}
+					disabled={isCreatingTransaction || permission !== PERMISSION.FULL_ACCESS}
 				>
 					{!defaultValues && <PlusIcon />}
 					{defaultValues ? (

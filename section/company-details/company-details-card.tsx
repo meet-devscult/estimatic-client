@@ -2,12 +2,14 @@ import { deleteCompany } from "@/actions/company.action"
 import PopupForForm from "@/components/form-fields-components/form-popup-layout"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
+import { useRoutePermission } from "@/guard/permission.guard"
 import { useCompanyById, useCompanyMutation } from "@/hooks/use-company"
 import { useToggleMutation } from "@/hooks/use-toggle"
 import { endpoints } from "@/lib/axios"
 import { cn } from "@/lib/utils"
 import CompanyBasicDetailsForm from "@/section/comapny/company-basic-details.form"
 import { ICompany } from "@/types/company.type"
+import { PERMISSION } from "@/types/user.type"
 import { CompanyCreationSchema, TCompanyCreationSchema } from "@/zod/company.zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useQueryClient } from "@tanstack/react-query"
@@ -23,6 +25,8 @@ interface CompanyDetailsCardProps {
 }
 
 export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
+
+    const { permission } = useRoutePermission("companies");
 
     const router = useRouter()
     const [isDeleting, startTransition] = useTransition()
@@ -91,7 +95,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
                     onCheckedChange={() => {
                         updateCompanyStatus({data: {company_id: companyData.company_id,status: status === "active" ? "inactive" : "active"}, url: endpoints.companies.root})
                     }}
-                disabled={isPending}
+                disabled={isPending || permission !== PERMISSION.FULL_ACCESS}
                 />
             </div>
         },
@@ -132,8 +136,9 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
             <div className="flex gap-2">
                 <PopupForForm
                 title="Edit Company Details"
+                isSubmitDisabled={permission !== PERMISSION.FULL_ACCESS}
                 triggerText={
-                    <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer">
+                    <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" disabled={permission !== PERMISSION.FULL_ACCESS}>
                         <PencilIcon />
                         <span className="hidden lg:inline">Edit Info</span>
                     </Button>
@@ -170,7 +175,7 @@ export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
             />
             <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
                 onClick={handleDelete}
-                disabled={isDeleting}>
+                disabled={isDeleting || permission !== PERMISSION.FULL_ACCESS}>
                 {isDeleting ? <LoaderCircle className="animate-spin" /> : <Trash2 />}
                 {isDeleting ? "Deleting..." : "Delete Company"}
             </Button>

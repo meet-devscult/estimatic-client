@@ -15,3 +15,15 @@ export interface IUser {
   created_at: number; // Epoch
   is_deleted: boolean;
 }
+
+export enum PERMISSION {
+  FULL_ACCESS = 'full_access',
+  VIEW_ONLY = 'view_only',
+  RESTRICTED = 'restricted',
+}
+export type PERMISSIONS = {
+  dashboard: PERMISSION;
+  companies: PERMISSION;
+  transactions: PERMISSION;
+  enquiries: PERMISSION;
+};

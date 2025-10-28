@@ -23,6 +23,7 @@ interface PopupForFormProps<T extends FieldValues> {
   isLoading?: boolean;
   loadingText?: string;
   isValidate?: boolean;
+  isSubmitDisabled?: boolean;
 }
   
 export default function PopupForForm<T extends FieldValues>({ 
@@ -35,7 +36,9 @@ export default function PopupForForm<T extends FieldValues>({
   enableCloseButton = false,
   isLoading = false,
   loadingText = "Loading...",
-  isValidate = false
+  isValidate = false,
+  isSubmitDisabled = false
+  
 }: PopupForFormProps<T>) {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +87,7 @@ export default function PopupForForm<T extends FieldValues>({
             type="submit"
             className="dark:bg-white bg-black dark:text-black text-white hover:bg-black"
             onClick={handleSubmit}
-            disabled={isLoading}
+            disabled={isLoading || isSubmitDisabled}
           >
             {isLoading ? loadingText : buttonText}
           </Button>

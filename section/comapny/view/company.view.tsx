@@ -3,7 +3,9 @@
 import FilterPannel from "@/components/filter-pannel"
 import { DataTable } from "@/components/table-layout/data-table"
 import { Button } from "@/components/ui/button"
+import { useRoutePermission } from "@/guard/permission.guard"
 import { useCompany } from "@/hooks/use-company"
+import { PERMISSION } from "@/types/user.type"
 import { Loader2, PlusIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState, useTransition } from "react"
@@ -19,6 +21,10 @@ export default function ComapnyViewSection() {
 
   const [filter, setFilter] = useState(defaultFilter)
   const [isApplyingFilters, startTransition] = useTransition()
+
+
+  const { permission } = useRoutePermission("companies");
+
 
   const handleFilterChange = (newFilter: { status?: string; search?: string; type?: string }) => {
     setFilter(prev => ({
@@ -45,7 +51,7 @@ export default function ComapnyViewSection() {
     <div>
       <div className="flex justify-between items-center p-5 border-b border-dashed">
         <h1 className="text-2xl font-bold">Companies</h1>
-        <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" onClick={() => router.push("/company/create")}>
+        <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" onClick={() => router.push("/company/create")} disabled={permission !== PERMISSION.FULL_ACCESS}>
           <PlusIcon />
           <span className="hidden lg:inline">Add Company</span>
         </Button>
