@@ -96,6 +96,8 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 	const [isDownloadingPartFile, setIsDownloadingPartFile] = useState(false);
 	const [isDeleting, startTransition] = useTransition()
 
+	console.log("Part Data:", partData);
+
 	const handleDownloadPDF = async () => {
 		setIsGeneratingPDF(true);
 		try {
@@ -215,6 +217,10 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 		{
 			label: "Tolerance Standard",
 			value: partData.tolerance_standard
+		},
+		{
+			label: "Status",
+			value: partData.total_cost ? 'Completed' : 'Ongoing'
 		}
 	];
 
