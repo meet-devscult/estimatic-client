@@ -76,6 +76,8 @@ export const endpoints = {
     detail: (id: string) => `${PRE_ROUTE}/users/${id}`,
     delete: `${PRE_ROUTE}/users/delete`,
     update_password: `${PRE_ROUTE}/users/password`,
+    create_company_admin: `${PRE_ROUTE}/users/company-admin`,
+    user_permissions: `${PRE_ROUTE}/users/company-admin`,
   },
   machines: {
     root: `${PRE_ROUTE}/machines`,

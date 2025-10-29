@@ -26,4 +26,5 @@ export type PERMISSIONS = {
   companies: PERMISSION;
   transactions: PERMISSION;
   enquiries: PERMISSION;
+  roles: PERMISSION;
 };

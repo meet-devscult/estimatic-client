@@ -1,6 +1,6 @@
 "use client"
 
-import DropdownBox from "@/components/form-fields-components/dropdown-box";
+import { createCompanyAdminUser } from "@/actions/users.action";
 import InputBox from "@/components/form-fields-components/input-box";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,6 +12,7 @@ import { Loader2, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export default function RoleCreateView() {
     const router = useRouter();
@@ -20,16 +21,17 @@ export default function RoleCreateView() {
     const form = useForm<TRoleCreationSchema>({
         resolver: zodResolver(RoleCreationSchema),
         defaultValues: {
-            user_id: "",
             user_name: "",
             password: "",
-            status: "active",
+            email: "",
+            company_admin_password: "",
             allow_all_access: false,
             permissions: {
                 dashboard: "restricted",
                 companies: "restricted", 
                 transactions: "restricted",
                 enquiries: "restricted",
+                roles: "restricted",
             },
         },
     });
@@ -57,16 +59,19 @@ export default function RoleCreateView() {
     async function onSubmit(data: TRoleCreationSchema) {
         setIsSubmitting(true);
         try {
-            // Here you would typically call an API to create the role
-            console.log("Role creation data:", data);
-            
             // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // await new Promise(resolve => setTimeout(resolve, 2000));
+            const { allow_all_access, ...dataToSend } = data;
+            console.log("🎀Data to send:", dataToSend);
+            await createCompanyAdminUser(dataToSend as TRoleCreationSchema);
+
+            toast.success("Role created successfully!");
             
             // Reset form and navigate back
             form.reset();
             router.push("/role");
         } catch (error) {
+            toast.error("Failed to create role.");
             console.error("Failed to create role:", error);
         } finally {
             setIsSubmitting(false);
@@ -87,18 +92,6 @@ export default function RoleCreateView() {
                         <div className="grid grid-cols-2 gap-4">
                             <InputBox
                                 form={form}
-                                name="user_id"
-                                placeholder="User ID"
-                            />
-                            <DropdownBox
-                                form={form}
-                                name="status"
-                                placeholder="Status"
-                                options={STATUS_OPTIONS}
-                                className="h-full w-full"
-                            />
-                            <InputBox
-                                form={form}
                                 name="user_name"
                                 placeholder="Name"
                             />
@@ -106,6 +99,17 @@ export default function RoleCreateView() {
                                 form={form}
                                 name="password"
                                 placeholder="Password"
+                                type="password"
+                            />
+                            <InputBox
+                                form={form}
+                                name="email"
+                                placeholder="Email Address"
+                            />
+                            <InputBox
+                                form={form}
+                                name="company_admin_password"
+                                placeholder="Company Admin Password"
                                 type="password"
                             />
                         </div>

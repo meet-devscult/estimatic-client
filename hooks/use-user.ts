@@ -1,5 +1,5 @@
 import { getPartByUserIdAndCompanyId } from "@/actions/part.action";
-import { getUserById, getUsers, getUsersByCompanyId, mutateUser } from "@/actions/users.action";
+import { getAllUsersPermissions, getUserById, getUsers, getUsersByCompanyId, mutateUser } from "@/actions/users.action";
 import { TNewUserSchema } from "@/zod/user.zod";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
@@ -55,4 +55,13 @@ export function useUserMutation({queryClient, companyId}:{queryClient: QueryClie
     })
 
     return { mutate, isPending, error, isError }
+}
+
+export function useAllUsersPermissions() {
+    const { data, isLoading } = useQuery({
+        queryKey: ['role'],
+        queryFn: () => getAllUsersPermissions(),
+    })
+
+    return { data, isLoading }
 }
