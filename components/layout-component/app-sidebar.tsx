@@ -47,7 +47,7 @@ const data = {
     },
     {
       title: "Roles",
-      url: "/role",
+      url: "/roles",
       icon: Users2,
     },
     {

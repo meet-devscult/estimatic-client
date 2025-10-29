@@ -19,7 +19,6 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 import { useRoutePermission } from "@/guard/permission.guard"
-import { PERMISSION } from "@/types/user.type"
 import { usePathname } from "next/navigation"
 
 export function NavMain({
@@ -45,7 +44,8 @@ export function NavMain({
     <SidebarGroup>
       <SidebarGroupLabel>Overview</SidebarGroupLabel>
       <SidebarMenu>
-        {items.filter((item) => permissions[item.title.toLowerCase() as keyof typeof permissions] !== PERMISSION.RESTRICTED).map((item) => (
+        {/* {items.filter((item) => permissions[item.title.toLowerCase() as keyof typeof permissions] !== PERMISSION.RESTRICTED).map((item) => ( */}
+        {items.map((item) => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip={item.title} isActive={pathname.startsWith(item.url)}>

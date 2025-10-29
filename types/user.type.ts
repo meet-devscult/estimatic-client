@@ -21,6 +21,7 @@ export enum PERMISSION {
   VIEW_ONLY = 'view_only',
   RESTRICTED = 'restricted',
 }
+
 export type PERMISSIONS = {
   dashboard: PERMISSION;
   companies: PERMISSION;
