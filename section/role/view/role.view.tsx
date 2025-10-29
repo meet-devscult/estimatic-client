@@ -16,7 +16,6 @@ export default function RoleViewSection() {
     // </div>
 
   return <div>
-    <div className="container">
       <div className="flex justify-between items-center p-5 border-b border-dashed">
         <h1 className="text-2xl font-bold">Roles</h1>
         <Link href="/role/create">
@@ -26,7 +25,6 @@ export default function RoleViewSection() {
           </Button>
         </Link>
       </div>
+      <DataTable columns={roleTableColumn} data={data.users as unknown as IUser[]} />
     </div>
-    <DataTable columns={roleTableColumn} data={data.users as unknown as IUser[]} />
-  </div>
 }

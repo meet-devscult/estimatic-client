@@ -23,9 +23,10 @@ export type TChangePasswordSchema = z.infer<typeof changePasswordSchema>;
 
 interface ChangePasswordFormProps {
     user_id: string | null;
+    disabled?: boolean;
 }
 
-export default function ChangePasswordForm({user_id}: ChangePasswordFormProps) {
+export default function ChangePasswordForm({user_id, disabled = false}: ChangePasswordFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     
     const changePasswordForm = useForm<TChangePasswordSchema>({
@@ -52,7 +53,7 @@ export default function ChangePasswordForm({user_id}: ChangePasswordFormProps) {
     return  <AddNewUserPopup
         title={"Change Password"}
         triggerText={
-            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
+            <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" disabled={disabled}>
                 <Pencil />
                 <p>Change Password</p>
             </Button>

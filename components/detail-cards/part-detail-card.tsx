@@ -1,6 +1,8 @@
 import { deleteParts, getSignedUrl } from "@/actions/part.action";
+import { useRoutePermission } from "@/guard/permission.guard";
 import { IOperation } from "@/types/operations.type";
 import { IPart } from "@/types/part.type";
+import { PERMISSION } from "@/types/user.type";
 import { ColumnDef } from '@tanstack/react-table';
 import { DownloadCloud, LoaderCircle, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -88,10 +90,13 @@ export const OperationColumn: ColumnDef<IOperation>[] = [
 ];
 
 export default function PartDetailCard({ partData }: PartDetailCardProps) {
+	const { permission } = useRoutePermission("companies");
 	const router = useRouter()
 	const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 	const [isDownloadingPartFile, setIsDownloadingPartFile] = useState(false);
 	const [isDeleting, startTransition] = useTransition()
+
+	console.log("Part Data:", partData);
 
 	const handleDownloadPDF = async () => {
 		setIsGeneratingPDF(true);
@@ -212,6 +217,10 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 		{
 			label: "Tolerance Standard",
 			value: partData.tolerance_standard
+		},
+		{
+			label: "Status",
+			value: partData.total_cost ? 'Completed' : 'Ongoing'
 		}
 	];
 
@@ -266,7 +275,7 @@ export default function PartDetailCard({ partData }: PartDetailCardProps) {
 					</Button>}
 					<Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
             			onClick={handleDelete}
-            			disabled={isDeleting}>
+            			disabled={isDeleting || permission !== PERMISSION.FULL_ACCESS}>
             			{isDeleting ? <LoaderCircle className="animate-spin" /> : <Trash2 />}
             			{isDeleting ? "Deleting..." : "Delete Part"}
             		</Button>

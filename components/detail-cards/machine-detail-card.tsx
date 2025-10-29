@@ -1,9 +1,11 @@
 import { deleteMachine } from '@/actions/machine.action';
+import { useRoutePermission } from '@/guard/permission.guard';
 import { useToggleMutation } from '@/hooks/use-toggle';
 import { endpoints } from '@/lib/axios';
 import { cn } from '@/lib/utils';
 import NewMachineDetails from '@/section/comapny/new-machine-details.form';
 import { IMachine } from '@/types/machine.type';
+import { PERMISSION } from '@/types/user.type';
 import { useQueryClient } from '@tanstack/react-query';
 import { LoaderCircle, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -16,6 +18,7 @@ interface MachineDetailCardProps {
 	machine: IMachine;
 }
 export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
+	const { permission } = useRoutePermission("companies");
 	const router = useRouter()
 	const [isDeleting, startTransition] = useTransition()
 	const queryClient = useQueryClient()
@@ -78,7 +81,7 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
 							onCheckedChange={() => {
 								mutate({url: endpoints.machines.root, data: {machine_id: machine.machine_id, status: machine.status === 'active' ? 'inactive' : 'active'}})
 							}} 
-							disabled={isPending} 
+							disabled={isPending || permission !== PERMISSION.FULL_ACCESS} 
 						/>
 			</div>,
 		},
@@ -160,7 +163,7 @@ export default function MachineDetailCard({ machine }: MachineDetailCardProps) {
 					/>
 					<Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
             			onClick={handleDelete}
-            			disabled={isDeleting}>
+            			disabled={isDeleting || permission !== PERMISSION.FULL_ACCESS}>
 						{isDeleting ? <LoaderCircle className="animate-spin" /> : <Trash2 />}
 						{isDeleting ? "Deleting..." : "Delete Machine"}
             		</Button>

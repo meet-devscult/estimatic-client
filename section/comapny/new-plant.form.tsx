@@ -3,7 +3,9 @@ import AddNewUserPopup from "@/components/form-fields-components/form-popup-layo
 import InputBox from "@/components/form-fields-components/input-box";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { useRoutePermission } from "@/guard/permission.guard";
 import { usePlantMutation, usePlantsByCompanyId } from "@/hooks/use-plants";
+import { PERMISSION } from "@/types/user.type";
 import { plantSchema, TPlantSchema } from "@/zod/plant.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
@@ -18,6 +20,7 @@ interface NewPlantDetailsFormsProps {
 }
 
 export default function NewPlantDetailsForms({defaultValues, company_id, onSubmit, iconButton = false}: NewPlantDetailsFormsProps) {
+    const { permission } = useRoutePermission("companies");
 
     const queryClient = useQueryClient()
 
@@ -38,10 +41,10 @@ export default function NewPlantDetailsForms({defaultValues, company_id, onSubmi
     return  <AddNewUserPopup
         title={defaultValues ? "Edit Plant" : "Add New Plant"}
         triggerText={
-            !iconButton ? <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
+            !iconButton ? <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" disabled={permission !== PERMISSION.FULL_ACCESS}>
               {!defaultValues && <PlusIcon />}
               {defaultValues ? <span className="hidden lg:inline">Edit Plant</span> : <span className="hidden lg:inline">Add Plant</span>}
-            </Button> : <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
+            </Button> : <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" disabled={permission !== PERMISSION.FULL_ACCESS}>
               {iconButton && defaultValues && <PencilIcon /> || <PlusIcon />}
             </Button>
         } 
