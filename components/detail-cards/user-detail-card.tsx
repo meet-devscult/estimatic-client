@@ -1,10 +1,11 @@
 import { deleteUser } from "@/actions/users.action"
+import { useRoutePermission } from "@/guard/permission.guard"
 import { useToggleMutation } from "@/hooks/use-toggle"
 import { endpoints } from "@/lib/axios"
 import { cn } from "@/lib/utils"
 import NewUserDetailsForm from "@/section/comapny/new-user-details.form"
 import ChangePasswordForm from "@/section/comapny/update-password.form"
-import { IUser } from "@/types/user.type"
+import { IUser, PERMISSION } from "@/types/user.type"
 import { useQueryClient } from "@tanstack/react-query"
 import { LoaderCircle, Trash2 } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -17,6 +18,7 @@ interface UserDetailCardProps {
     user: IUser
 }
 export default function UserDetailCard({ user }: UserDetailCardProps) {
+    const { permission } = useRoutePermission("companies");
     const router = useRouter()
     const [isDeleting, startTransition] = useTransition()
     const queryClient = useQueryClient()
@@ -46,7 +48,7 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
                     <Switch 
                         checked={user.status === 'active'} 
                         onCheckedChange={() => updateUserStatus({url: endpoints.users.root, data: {user_id: user.user_id, status: user.status === 'active' ? 'inactive' : 'active'}})} 
-                        disabled={isPending}
+                        disabled={isPending || permission !== PERMISSION.FULL_ACCESS}
                     />
                 </div>
             )
@@ -103,10 +105,10 @@ export default function UserDetailCard({ user }: UserDetailCardProps) {
               password: "",
               company_id: user.company_id,
             }} />
-            <ChangePasswordForm user_id={user.user_id} />
+            <ChangePasswordForm user_id={user.user_id} disabled={permission !== PERMISSION.FULL_ACCESS} />
             <Button variant="destructive" size="lg" className="border-dashed hover:cursor-pointer" 
             onClick={handleDelete}
-            disabled={isDeleting}>
+            disabled={isDeleting || permission !== PERMISSION.FULL_ACCESS}>
                 {isDeleting ? <LoaderCircle className="animate-spin" /> : <Trash2 />}
                 {isDeleting ? "Deleting..." : "Delete User"}
             </Button>

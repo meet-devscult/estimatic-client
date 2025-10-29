@@ -1,7 +1,9 @@
 import { deletePlant } from "@/actions/plants.action"
 import { Button } from "@/components/ui/button"
+import { useRoutePermission } from "@/guard/permission.guard"
 import { usePlantsByCompanyId } from "@/hooks/use-plants"
 import NewPlantDetailsForms from "@/section/comapny/new-plant.form"
+import { PERMISSION } from "@/types/user.type"
 import { ColumnDef } from "@tanstack/react-table"
 import { Loader2, Trash2 } from "lucide-react"
 import { useTransition } from "react"
@@ -34,6 +36,7 @@ export const plantTableColumn: ColumnDef<IPlant>[] = [
         accessorKey: "action",
         header: " ",
         cell: ({ row }) => {
+          const { permission } = useRoutePermission("companies");
           const [isDeleting, startTransition] = useTransition()
           const {refetch} = usePlantsByCompanyId(row.original.company_id || "");
           const handleDelete = () => {
@@ -61,7 +64,7 @@ export const plantTableColumn: ColumnDef<IPlant>[] = [
                 size="lg"
                 className="border-dashed cursor-pointer"
                 onClick={handleDelete}
-                disabled={isDeleting}
+                disabled={isDeleting || permission !== PERMISSION.FULL_ACCESS}
               >
                 {isDeleting ? (
                     <Loader2 className="w-4 h-4 animate-spin" />) : 

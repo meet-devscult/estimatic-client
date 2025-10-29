@@ -1,6 +1,8 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useRoutePermission } from "@/guard/permission.guard"
+import { PERMISSION } from "@/types/user.type"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import CompanyDetailsCard from "../company-details-card"
@@ -15,6 +17,7 @@ interface CompanyDetailsViewSectionProps {
 }
 
 export default function CompanyDetailsViewSection({ id }: CompanyDetailsViewSectionProps) {
+    const { permission } = useRoutePermission("transactions");
     const searchParams = useSearchParams()
     const urlTab = searchParams.get('tab')
     
@@ -62,7 +65,7 @@ export default function CompanyDetailsViewSection({ id }: CompanyDetailsViewSect
         <Tabs value={activeTab} onValueChange={setActiveTab} className="items-center gap-0">
             <div className="w-full border-b border-dashed">
       <TabsList className="text-foreground h-14 gap-2 rounded-none bg-transparent p-0">
-        {tabs_list.map((tab) => (
+        {tabs_list.filter((tab) => !(permission === PERMISSION.RESTRICTED && tab.value === "transactions")).map((tab) => (
             <TabsTrigger
                 value={tab.value}
                 key={tab.value}
