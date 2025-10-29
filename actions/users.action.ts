@@ -53,3 +53,15 @@ export async function getAllUsersPermissions () {
     const response = await axiosInstance.get(URL)
     return response.data
 }
+
+export async function getCompanyAdminUsersDetails(user_id: string) {
+    const URL = endpoints.users.user_permissions + `/${user_id}`
+    const response = await axiosInstance.get(URL)
+    return response.data
+}
+
+export async function getUserPermissions() {
+    const URL = endpoints.users.get_permissions
+    const response = await axiosInstance.get(URL)
+    return response.data
+}

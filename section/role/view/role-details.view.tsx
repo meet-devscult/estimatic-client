@@ -1,38 +1,22 @@
 "use client"
 
-import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
+import { useCompanyAdminUsersDetails } from "@/hooks/use-user";
+import { Loader2 } from "lucide-react";
 
 interface RoleDetailsViewProps {
     id: string;
 }
 
-// Static data based on the image provided
-const getRoleData = (id: string) => ({
-    user_id: "user2241",
-    user_name: "davidelson2415", 
-    last_login: "Mar 30, 2024 7:29 am",
-    status: "active",
-    permissions: {
-        dashboard: "restricted",
-        companies: "restricted", 
-        transactions: "full_access",
-        prompt_mang: "restricted",
-        enquiries: "restricted"
-    }
-});
-
 const PERMISSION_SECTIONS = [
     { key: "dashboard", label: "Dashboard" },
     { key: "companies", label: "Companies" },
     { key: "transactions", label: "Transactions" },
-    { key: "prompt_mang", label: "Prompt Mang" },
     { key: "enquiries", label: "Enquiries" },
+    { key: "roles", label: "Roles" },
 ];
 
 export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
-    const roleData = getRoleData(id);
-    const [isActive, setIsActive] = useState(roleData.status === "active");
+    const { data: roleData, isLoading: isRoleDataLoading } = useCompanyAdminUsersDetails(id);
 
     const getPermissionDisplay = (permission: string) => {
         switch (permission) {
@@ -47,21 +31,27 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
         }
     };
 
+    if (isRoleDataLoading) return <div className="flex justify-center items-center h-screen">
+        <Loader2 className="w-10 h-10 animate-spin" />
+    </div>
+
+    const {status, email, user_name, permissions, last_login} = roleData.data[0]
+
     return (
         <div>
             {/* Role Details Header */}
             <div className="p-5 border-b border-dashed">
                 <div className="flex justify-between items-center">
                     <h1 className="text-2xl font-bold">Role Details</h1>
-                    <div className="flex items-center gap-2">
+                    {/* <div className="flex items-center gap-2">
                         <h1 className="text-sm">
-                            {isActive ? "Active" : "Inactive"}
+                            {status === "active" ? "Active" : "Inactive"}
                         </h1>
                         <Switch
-                            checked={isActive}
-                            onCheckedChange={setIsActive}
+                            checked={status === "active"}
+                            onCheckedChange={() => {}}
                         />
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
@@ -69,20 +59,20 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
             <div className="grid grid-cols-3 border-b border-dashed divide-x divide-dashed">
                 <div className="divide-y divide-dashed">
                     <div className="flex items-center gap-1 p-2">
-                        <h1 className="font-medium text-muted-foreground">User Login ID:</h1>
-                        <p>{roleData.user_id || '-'}</p>
+                        <h1 className="font-medium text-muted-foreground">User Login Email:</h1>
+                        <p>{email || '-'}</p>
                     </div>
                 </div>
                 <div className="divide-y divide-dashed">
                     <div className="flex items-center gap-1 p-2">
                         <h1 className="font-medium text-muted-foreground">User Name:</h1>
-                        <p>{roleData.user_name || '-'}</p>
+                        <p>{user_name || '-'}</p>
                     </div>
                 </div>
                 <div className="divide-y divide-dashed">
                     <div className="flex items-center gap-1 p-2">
                         <h1 className="font-medium text-muted-foreground">Last Login:</h1>
-                        <p>{roleData.last_login || '-'}</p>
+                        <p>{last_login || '-'}</p>
                     </div>
                 </div>
             </div>
@@ -103,7 +93,7 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
                     
                     {/* Table Rows */}
                     {PERMISSION_SECTIONS.map((section, index) => {
-                        const permission = (roleData.permissions as any)[section.key];
+                        const permission = permissions[section.key];
                         const display = getPermissionDisplay(permission);
                         
                         return (

@@ -10,9 +10,9 @@ export const STATIC_PERMISSION = {
     dashboard: PERMISSION.VIEW_ONLY,
     companies: PERMISSION.FULL_ACCESS,
     transactions: PERMISSION.FULL_ACCESS,
-    enquiries: PERMISSION.FULL_ACCESS,
-    roles: PERMISSION.RESTRICTED,
-  };  
+    enquiries: PERMISSION.RESTRICTED,
+    roles: PERMISSION.FULL_ACCESS,
+};  
 
 // ------------------------------------------------------------
 
