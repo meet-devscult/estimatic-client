@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { IUser } from "@/types/user.type"
 import { ColumnDef } from "@tanstack/react-table"
@@ -8,12 +7,12 @@ export const roleTableColumn: ColumnDef<IUser>[] = [
     {
       accessorKey: "name",
       header: "Name",
-      cell: ({ row }) => <div className="text-center" >{row.original.user_id}</div>,
+      cell: ({ row }) => <div className="text-center" >{row.original.user_name}</div>,
     },
     {
       accessorKey: "username",
-      header: "Username",
-      cell: ({ row }) => <div className="text-center" >{row.original.user_name}</div>,
+      header: "Email",
+      cell: ({ row }) => <div className="text-center" >{row.original.email}</div>,
     },
     {
       accessorKey: "status",
@@ -29,9 +28,9 @@ export const roleTableColumn: ColumnDef<IUser>[] = [
         accessorKey: "action",
         header: " ",
         cell: ({ row }) => <div className="flex items-center justify-end gap-2">
-            <Button variant="outline" size="sm">
+            {/* <Button variant="outline" size="sm">
               Edit Info
-            </Button>
+            </Button> */}
             <Link href={`/role/${row.original.user_id}`} className="flex items-center text-sm hover:text-primary">
                 Show Details <ChevronRight className="ml-1 h-4 w-4" />
             </Link>

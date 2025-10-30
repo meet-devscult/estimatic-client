@@ -1,5 +1,5 @@
 import { getPartByUserIdAndCompanyId } from "@/actions/part.action";
-import { getUserById, getUsers, getUsersByCompanyId, mutateUser } from "@/actions/users.action";
+import { getAllUsersPermissions, getCompanyAdminUsersDetails, getUserById, getUserPermissions, getUsers, getUsersByCompanyId, mutateUser } from "@/actions/users.action";
 import { TNewUserSchema } from "@/zod/user.zod";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
@@ -55,4 +55,32 @@ export function useUserMutation({queryClient, companyId}:{queryClient: QueryClie
     })
 
     return { mutate, isPending, error, isError }
+}
+
+export function useCompanyAdminUsers() {
+    const { data, isLoading } = useQuery({
+        queryKey: ['company-admin-users'],
+        queryFn: () => getAllUsersPermissions(),
+    })
+
+    return { data, isLoading }
+}
+
+export function useCompanyAdminUsersDetails(user_id: string) {
+    const { data, isLoading } = useQuery({
+        queryKey: ['company-admin-users-details', user_id],
+        enabled: !!user_id,
+        queryFn: () => getCompanyAdminUsersDetails(user_id),
+    })
+
+    return { data, isLoading }
+}
+
+export function useUsersPermissions() {
+    const { data, isLoading } = useQuery({
+        queryKey: ['users-permissions'],
+        queryFn: () => getUserPermissions(),
+    })
+
+    return { data, isLoading }
 }

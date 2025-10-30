@@ -3,7 +3,7 @@
 import FilterPannel from "@/components/filter-pannel"
 import { DataTable } from "@/components/table-layout/data-table"
 import { Button } from "@/components/ui/button"
-import { useRoutePermission } from "@/guard/permission.guard"
+import { usePermissionStore } from "@/guard/permission.store"
 import { useCompany } from "@/hooks/use-company"
 import { PERMISSION } from "@/types/user.type"
 import { Loader2, PlusIcon } from "lucide-react"
@@ -22,9 +22,8 @@ export default function ComapnyViewSection() {
   const [filter, setFilter] = useState(defaultFilter)
   const [isApplyingFilters, startTransition] = useTransition()
 
-
-  const { permission } = useRoutePermission("companies");
-
+  const { getPermission } = usePermissionStore();
+  const permission = getPermission('companies');
 
   const handleFilterChange = (newFilter: { status?: string; search?: string; type?: string }) => {
     setFilter(prev => ({

@@ -3,7 +3,7 @@ import AddNewUserPopup from "@/components/form-fields-components/form-popup-layo
 import InputBox from "@/components/form-fields-components/input-box";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useRoutePermission } from "@/guard/permission.guard";
+import { usePermissionStore } from "@/guard/permission.store";
 import { useUserMutation } from "@/hooks/use-user";
 import { PERMISSION } from "@/types/user.type";
 import { NewUserSchema, TNewUserSchema } from "@/zod/user.zod";
@@ -13,7 +13,8 @@ import { PencilIcon, PlusIcon } from "lucide-react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
 export default function NewUserDetailsForm({defaultValues, company_id, onSubmit, iconButton = false}: { defaultValues?: TNewUserSchema, company_id?: string, onSubmit?: (data: TNewUserSchema) => void, iconButton?: boolean }) {
-    const { permission } = useRoutePermission("companies");
+    const { getPermission } = usePermissionStore();
+    const permission = getPermission('companies');
     const queryClient = useQueryClient()
 
     const userForm = useForm<TNewUserSchema>({

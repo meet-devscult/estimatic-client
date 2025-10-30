@@ -1,5 +1,5 @@
 import { deleteUser } from "@/actions/users.action"
-import { useRoutePermission } from "@/guard/permission.guard"
+import { usePermissionStore } from "@/guard/permission.store"
 import { useToggleMutation } from "@/hooks/use-toggle"
 import { endpoints } from "@/lib/axios"
 import { cn } from "@/lib/utils"
@@ -18,7 +18,8 @@ interface UserDetailCardProps {
     user: IUser
 }
 export default function UserDetailCard({ user }: UserDetailCardProps) {
-    const { permission } = useRoutePermission("companies");
+    const { getPermission } = usePermissionStore();
+    const permission = getPermission('companies');
     const router = useRouter()
     const [isDeleting, startTransition] = useTransition()
     const queryClient = useQueryClient()

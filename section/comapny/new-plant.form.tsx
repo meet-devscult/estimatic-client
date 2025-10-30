@@ -3,7 +3,7 @@ import AddNewUserPopup from "@/components/form-fields-components/form-popup-layo
 import InputBox from "@/components/form-fields-components/input-box";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useRoutePermission } from "@/guard/permission.guard";
+import { usePermissionStore } from "@/guard/permission.store";
 import { usePlantMutation, usePlantsByCompanyId } from "@/hooks/use-plants";
 import { PERMISSION } from "@/types/user.type";
 import { plantSchema, TPlantSchema } from "@/zod/plant.zod";
@@ -20,7 +20,8 @@ interface NewPlantDetailsFormsProps {
 }
 
 export default function NewPlantDetailsForms({defaultValues, company_id, onSubmit, iconButton = false}: NewPlantDetailsFormsProps) {
-    const { permission } = useRoutePermission("companies");
+    const { getPermission } = usePermissionStore();
+    const permission = getPermission('companies');
 
     const queryClient = useQueryClient()
 
