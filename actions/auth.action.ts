@@ -1,4 +1,5 @@
 
+import { usePermissionStore } from "@/guard/permission.store"
 import axiosInstance, { endpoints } from "@/lib/axios"
 import { redirect } from "next/navigation"
 
@@ -13,6 +14,9 @@ export async function loginAction({ email, password }: LoginParams) {
         password,
     })
 
+    const { setPermissions } = usePermissionStore.getState();
+    setPermissions(response.data.data.user.permissions);
+
     const token = response.data.data.token
     document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=strict`;
     document.cookie = `user_data=${JSON.stringify(response.data.data.user)}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=strict`;
@@ -22,6 +26,10 @@ export async function loginAction({ email, password }: LoginParams) {
 
 export async function logoutAction() {
     await axiosInstance.post(endpoints.auth.logout)
+
+    const { clearPermissions } = usePermissionStore.getState();
+    clearPermissions();
+
     document.cookie = 'auth_token=; path=/; max-age=0; secure; samesite=strict';
     document.cookie = 'user_data=; path=/; max-age=0; secure; samesite=strict';
     redirect('/auth')

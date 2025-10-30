@@ -1,5 +1,5 @@
 import { deleteParts, getSignedUrl } from "@/actions/part.action";
-import { useRoutePermission } from "@/guard/permission.guard";
+import { usePermissionStore } from "@/guard/permission.store";
 import { IOperation } from "@/types/operations.type";
 import { IPart } from "@/types/part.type";
 import { PERMISSION } from "@/types/user.type";
@@ -90,7 +90,8 @@ export const OperationColumn: ColumnDef<IOperation>[] = [
 ];
 
 export default function PartDetailCard({ partData }: PartDetailCardProps) {
-	const { permission } = useRoutePermission("companies");
+	const { getPermission } = usePermissionStore();
+	const permission = getPermission('companies');
 	const router = useRouter()
 	const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 	const [isDownloadingPartFile, setIsDownloadingPartFile] = useState(false);

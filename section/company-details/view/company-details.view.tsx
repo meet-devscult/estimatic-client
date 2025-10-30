@@ -1,7 +1,7 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useRoutePermission } from "@/guard/permission.guard"
+import { usePermissionStore } from "@/guard/permission.store"
 import { PERMISSION } from "@/types/user.type"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -17,7 +17,8 @@ interface CompanyDetailsViewSectionProps {
 }
 
 export default function CompanyDetailsViewSection({ id }: CompanyDetailsViewSectionProps) {
-    const { permission } = useRoutePermission("transactions");
+    const { getPermission } = usePermissionStore();
+    const permission = getPermission('transactions');
     const searchParams = useSearchParams()
     const urlTab = searchParams.get('tab')
     

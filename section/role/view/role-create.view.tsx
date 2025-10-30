@@ -60,7 +60,6 @@ export default function RoleCreateView() {
         setIsSubmitting(true);
         try {
             // Simulate API call
-            // await new Promise(resolve => setTimeout(resolve, 2000));
             const { allow_all_access, ...dataToSend } = data;
             console.log("🎀Data to send:", dataToSend);
             await createCompanyAdminUser(dataToSend as TRoleCreationSchema);
@@ -69,7 +68,7 @@ export default function RoleCreateView() {
             
             // Reset form and navigate back
             form.reset();
-            router.push("/role");
+            router.push("/roles");
         } catch (error) {
             toast.error("Failed to create role.");
             console.error("Failed to create role:", error);

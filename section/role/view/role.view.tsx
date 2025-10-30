@@ -18,7 +18,7 @@ export default function RoleViewSection() {
   return <div>
       <div className="flex justify-between items-center p-5 border-b border-dashed">
         <h1 className="text-2xl font-bold">Roles</h1>
-        <Link href="/role/create">
+        <Link href="/roles/create">
           <Button variant="outline" size="lg" className="border-dashed">
             <PlusIcon />
             <span className="hidden lg:inline">Add Role</span>

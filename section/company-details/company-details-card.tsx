@@ -2,7 +2,7 @@ import { deleteCompany } from "@/actions/company.action"
 import PopupForForm from "@/components/form-fields-components/form-popup-layout"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
-import { useRoutePermission } from "@/guard/permission.guard"
+import { usePermissionStore } from "@/guard/permission.store"
 import { useCompanyById, useCompanyMutation } from "@/hooks/use-company"
 import { useToggleMutation } from "@/hooks/use-toggle"
 import { endpoints } from "@/lib/axios"
@@ -26,7 +26,8 @@ interface CompanyDetailsCardProps {
 
 export default function CompanyDetailsCard({id}: CompanyDetailsCardProps) {
 
-    const { permission } = useRoutePermission("companies");
+    const { getPermission } = usePermissionStore();
+    const permission = getPermission('companies');
 
     const router = useRouter()
     const [isDeleting, startTransition] = useTransition()

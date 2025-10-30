@@ -8,7 +8,7 @@ import PopupForForm from '@/components/form-fields-components/form-popup-layout'
 import InputBox from '@/components/form-fields-components/input-box';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { useRoutePermission } from '@/guard/permission.guard';
+import { usePermissionStore } from '@/guard/permission.store';
 import {
 	useMachineMutation
 } from '@/hooks/use-machine';
@@ -29,7 +29,8 @@ export default function NewMachineDetails({
 	companyId,
 	onSubmit,
 }: NewMachineDetailsFormPopUpProps) {
-	const { permission } = useRoutePermission("companies");
+	const { getPermission } = usePermissionStore();
+	const permission = getPermission('companies');
 	const queryClient = useQueryClient();
 	const { mutate: createMachine, isPending: isCreatingMachine } =
 		useMachineMutation(queryClient, companyId || '');

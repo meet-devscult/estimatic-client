@@ -11,7 +11,7 @@ import TextareaBox from '@/components/form-fields-components/textarea-box';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useRoutePermission } from '@/guard/permission.guard';
+import { usePermissionStore } from '@/guard/permission.store';
 import { useCompany } from '@/hooks/use-company';
 import { useMutateTransaction } from '@/hooks/use-transaction';
 import { PERMISSION } from '@/types/user.type';
@@ -28,7 +28,8 @@ export default function NewTransaction({
 	companyId?: string;
 }) {
 
-	const { permission } = useRoutePermission("transactions");
+	const { getPermission } = usePermissionStore();
+	const permission = getPermission("transactions");
 
 	const form = useForm<TTransactionFormType>({
 		resolver: zodResolver(transactionSchema),

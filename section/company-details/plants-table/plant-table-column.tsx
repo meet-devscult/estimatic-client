@@ -1,6 +1,6 @@
 import { deletePlant } from "@/actions/plants.action"
 import { Button } from "@/components/ui/button"
-import { useRoutePermission } from "@/guard/permission.guard"
+import { usePermissionStore } from "@/guard/permission.store"
 import { usePlantsByCompanyId } from "@/hooks/use-plants"
 import NewPlantDetailsForms from "@/section/comapny/new-plant.form"
 import { PERMISSION } from "@/types/user.type"
@@ -36,7 +36,8 @@ export const plantTableColumn: ColumnDef<IPlant>[] = [
         accessorKey: "action",
         header: " ",
         cell: ({ row }) => {
-          const { permission } = useRoutePermission("companies");
+          const { getPermission } = usePermissionStore();
+          const permission = getPermission('companies');
           const [isDeleting, startTransition] = useTransition()
           const {refetch} = usePlantsByCompanyId(row.original.company_id || "");
           const handleDelete = () => {

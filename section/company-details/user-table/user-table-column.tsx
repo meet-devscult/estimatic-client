@@ -1,5 +1,5 @@
 import { Switch } from "@/components/ui/switch"
-import { useRoutePermission } from "@/guard/permission.guard"
+import { usePermissionStore } from "@/guard/permission.store"
 import { useToggleMutation } from "@/hooks/use-toggle"
 import { endpoints } from "@/lib/axios"
 import NewUserDetailsForm from "@/section/comapny/new-user-details.form"
@@ -38,7 +38,8 @@ export const userTableColumn: ColumnDef<IUser>[] = [
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
-        const { permission } = useRoutePermission("companies");
+        const { getPermission } = usePermissionStore();
+        const permission = getPermission('companies');
         const queryClient = useQueryClient()
         const { mutate, isPending, error, isError } = useToggleMutation({queryClient, queryKey: ["users","company", row.original.company_id]})
         return (

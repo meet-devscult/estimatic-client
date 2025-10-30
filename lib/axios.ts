@@ -1,3 +1,4 @@
+import { usePermissionStore } from "@/guard/permission.store";
 import axios, { AxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create({ 
@@ -29,11 +30,14 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (res) => res,
   (error) => {
+    const { clearPermissions } = usePermissionStore.getState();
     if (typeof window !== 'undefined') {
       const originalRequest = error.config;
       
       if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
+
+        clearPermissions();
         
         // Handle unauthorized error
         document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';

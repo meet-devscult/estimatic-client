@@ -1,5 +1,5 @@
 import { Switch } from "@/components/ui/switch"
-import { useRoutePermission } from "@/guard/permission.guard"
+import { usePermissionStore } from "@/guard/permission.store"
 import { useToggleMutation } from "@/hooks/use-toggle"
 import { endpoints } from "@/lib/axios"
 import { ICompany } from "@/types/company.type"
@@ -26,7 +26,8 @@ export const companyColumn: ColumnDef<ICompany>[] = [
       cell: ({ row }) => {
       const queryClient = useQueryClient()
       const {mutate: updateCompanyStatus, isPending} = useToggleMutation({queryClient, queryKey: ["company"]})
-      const { permission } = useRoutePermission("companies");
+      const { getPermission } = usePermissionStore();
+      const permission = getPermission('companies');
       return  <div className="flex items-center justify-center">
           <span className="mr-2 text-sm font-medium">{row.original.status === "active" ? "Active" : "Inactive"}</span>
           <Switch
