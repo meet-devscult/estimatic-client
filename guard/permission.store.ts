@@ -2,7 +2,13 @@
 
 import { PERMISSION, PERMISSIONS } from '@/types/user.type';
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
+
+interface User {
+    user_id: string,
+    user_name: string,
+    email: string,
+}
 
 interface PermissionState {
 	// State
@@ -21,11 +27,19 @@ interface PermissionState {
 
 	// Computed values
 	getAllPermissions: () => PERMISSIONS | null;
+
+    // User info
+    user: User | null;
+
+    // User actions
+    setUser: (user: User) => void;
+    clearUser: () => void;
 }
 
 export const usePermissionStore = create<PermissionState>()(
-	persist(
-		(set, get) => ({
+	devtools(
+		persist(
+			(set, get) => ({
 			// Initial state
 			permissions: null,
 
@@ -90,13 +104,28 @@ export const usePermissionStore = create<PermissionState>()(
 				const state = get();
 				return state.permissions;
 			},
+
+            // User info
+            user: null,
+
+            // User actions
+            setUser: (user: User) => {
+                set({ user });
+            },
+
+            clearUser: () => {
+                set({ user: null });
+            },
 		}),
 		{
 			name: 'permission-store', // unique name for localStorage
 			partialize: (state) => ({
 				permissions: state.permissions,
+				user: state.user,
 			}),
 		}
+	),
+	{ name: 'PermissionStore' }
 	)
 );
 
@@ -117,6 +146,12 @@ export const usePermissions = () => {
 		(state) => state.getAllPermissions
 	);
 
+    // User info
+    const user = usePermissionStore((state) => state.user);
+
+    const setUser = usePermissionStore((state) => state.setUser);
+    const clearUser = usePermissionStore((state) => state.clearUser);
+
 	return {
 		// State
 		permissions,
@@ -134,5 +169,10 @@ export const usePermissions = () => {
 
 		// Computed values
 		getAllPermissions,
+
+        // User info
+        user,
+        setUser,
+        clearUser
 	};
 };

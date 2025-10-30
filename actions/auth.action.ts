@@ -14,8 +14,15 @@ export async function loginAction({ email, password }: LoginParams) {
         password,
     })
 
-    const { setPermissions } = usePermissionStore.getState();
+    const storedUserInfo = {
+        user_name: response.data.data.user.user_name,
+        email: response.data.data.user.email,
+        user_id: response.data.data.user.user_id,
+    }
+
+    const { setPermissions, setUser } = usePermissionStore.getState();
     setPermissions(response.data.data.user.permissions);
+    setUser(storedUserInfo);
 
     const token = response.data.data.token
     document.cookie = `auth_token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=strict`;
