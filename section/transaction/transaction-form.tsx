@@ -126,7 +126,6 @@ export function TransactionForm({ form, onSubmit }: TransactionFormProps) {
 						form={form}
 						name="paid_time"
 						placeholder="Paid Date"
-						futureDatesOnly
 					/>
 					<InputBox
 						form={form}
@@ -138,7 +137,6 @@ export function TransactionForm({ form, onSubmit }: TransactionFormProps) {
 						form={form}
 						name="upto_validated_at"
 						placeholder="Valid Until"
-						futureDatesOnly
 					/>
 					<InputBox
 						form={form}
