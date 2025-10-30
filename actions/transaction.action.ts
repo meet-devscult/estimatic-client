@@ -67,7 +67,7 @@ export async function mutateTransaction(
 	const response = await axiosInstance[method](URL, {
 		...data,
 		reason: data.reason || 'TEMP REASON',
-		company_id: companyId,
+		company_id: data.company_id || companyId,
 	});
 	return response.data.data;
 }

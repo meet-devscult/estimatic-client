@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import { PlusIcon } from 'lucide-react';
+import { useEffect } from 'react';
 import { UseFormReturn, useForm } from 'react-hook-form';
 
 import CalendarInputBox from '@/components/form-fields-components/calender-input-box';
@@ -101,6 +102,21 @@ export function TransactionForm({ form, onSubmit }: TransactionFormProps) {
 		{ label: 'Quarterly', value: 'quarterly' },
 		{ label: 'Yearly', value: 'yearly' },
 	];
+
+	// Watch for company_name changes and update company_id accordingly
+	const watchedCompanyName = form.watch('company_name');
+
+	useEffect(() => {
+		if (watchedCompanyName && data && data.length > 0) {
+			const selectedCompany = data.find((company: { name: string; company_id: string }) => 
+				company.name === watchedCompanyName
+			);
+			
+			if (selectedCompany) {
+				form.setValue('company_id', selectedCompany.company_id);
+			}
+		}
+	}, [watchedCompanyName, data, form]);
 
 	return (
 		<Form {...form}>
