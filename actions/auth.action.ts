@@ -34,8 +34,9 @@ export async function loginAction({ email, password }: LoginParams) {
 export async function logoutAction() {
     await axiosInstance.post(endpoints.auth.logout)
 
-    const { clearPermissions } = usePermissionStore.getState();
+    const { clearPermissions, clearUser } = usePermissionStore.getState();
     clearPermissions();
+    clearUser();
 
     document.cookie = 'auth_token=; path=/; max-age=0; secure; samesite=strict';
     document.cookie = 'user_data=; path=/; max-age=0; secure; samesite=strict';

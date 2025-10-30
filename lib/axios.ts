@@ -30,7 +30,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (res) => res,
   (error) => {
-    const { clearPermissions } = usePermissionStore.getState();
+    const { clearPermissions, clearUser } = usePermissionStore.getState();
     if (typeof window !== 'undefined') {
       const originalRequest = error.config;
       
@@ -38,6 +38,7 @@ axiosInstance.interceptors.response.use(
         originalRequest._retry = true;
 
         clearPermissions();
+        clearUser();
         
         // Handle unauthorized error
         document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
