@@ -31,7 +31,7 @@ export const roleTableColumn: ColumnDef<IUser>[] = [
             {/* <Button variant="outline" size="sm">
               Edit Info
             </Button> */}
-            <Link href={`/role/${row.original.user_id}`} className="flex items-center text-sm hover:text-primary">
+            <Link href={`/roles/${row.original.user_id}`} className="flex items-center text-sm hover:text-primary">
                 Show Details <ChevronRight className="ml-1 h-4 w-4" />
             </Link>
         </div>,
