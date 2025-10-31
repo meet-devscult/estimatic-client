@@ -1,7 +1,12 @@
 "use client"
 
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { useCompanyAdminUsersDetails } from "@/hooks/use-user";
+import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
+
 
 interface RoleDetailsViewProps {
     id: string;
@@ -43,7 +48,7 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
             <div className="p-5 border-b border-dashed">
                 <div className="flex justify-between items-center">
                     <h1 className="text-2xl font-bold">Role Details</h1>
-                    {/* <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
                         <h1 className="text-sm">
                             {status === "active" ? "Active" : "Inactive"}
                         </h1>
@@ -51,7 +56,15 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
                             checked={status === "active"}
                             onCheckedChange={() => {}}
                         />
-                    </div> */}
+                        <Button
+                            variant="destructive"
+                            onClick={() => {
+                                // Handle delete user action
+                            }}
+                        >
+                            Delete User
+                        </Button>
+                    </div>
                 </div>
             </div>
 
@@ -79,7 +92,12 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
 
             {/* Permissions Section */}
             <div className="space-y-5">
-                <h2 className="text-xl font-bold px-5 pt-5">Permissions</h2>
+                <div className="flex justify-between pt-5 px-5">
+                    <h2 className="text-xl font-bold ">Permissions</h2>
+                    <Link href={`/roles/create?user_id=${id}`} className={cn("border-dashed", buttonVariants({variant: 'outline'}))}>
+                        Edit Permissions
+                    </Link>
+                </div>
                 
                 {/* Permissions Table */}
                 <div className="border border-dashed overflow-hidden">

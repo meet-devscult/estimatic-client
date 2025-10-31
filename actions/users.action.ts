@@ -1,4 +1,5 @@
 import axiosInstance, { endpoints } from "@/lib/axios"
+import { PERMISSIONS } from "@/types/user.type"
 import { TRoleCreationSchema } from "@/zod/role.zod"
 import { TNewUserSchema } from "@/zod/user.zod"
 
@@ -45,6 +46,12 @@ export async function changeUserPassword(data: { user_id: string | null, new_pas
 export async function createCompanyAdminUser(data: TRoleCreationSchema) {
     const URL = endpoints.users.create_company_admin
     const response = await axiosInstance.post(URL, {...data})
+    return response.data
+}
+
+export async function updateCompanyAdminUserPermissions(data: { user_id: string, permissions: PERMISSIONS}) {
+    const URL = endpoints.users.create_company_admin
+    const response = await axiosInstance.put(URL, {...data})
     return response.data
 }
 
