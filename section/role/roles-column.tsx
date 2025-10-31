@@ -1,3 +1,4 @@
+import { buttonVariants } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { IUser } from "@/types/user.type"
 import { ColumnDef } from "@tanstack/react-table"
@@ -28,9 +29,9 @@ export const roleTableColumn: ColumnDef<IUser>[] = [
         accessorKey: "action",
         header: " ",
         cell: ({ row }) => <div className="flex items-center justify-end gap-2">
-            {/* <Button variant="outline" size="sm">
+            <Link href={`/roles/create?user_id=${row.original.user_id}`} className={buttonVariants({variant: 'outline', size: 'sm'})}>
               Edit Info
-            </Button> */}
+            </Link>
             <Link href={`/roles/${row.original.user_id}`} className="flex items-center text-sm hover:text-primary">
                 Show Details <ChevronRight className="ml-1 h-4 w-4" />
             </Link>

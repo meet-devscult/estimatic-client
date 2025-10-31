@@ -9,9 +9,10 @@ interface InputBoxProps<T extends FieldValues> {
     placeholder: string;
     className?: string;
     type?: string;
+    disabled?: boolean;
 }
 
-export default function InputBox<T extends FieldValues>({ form, name, placeholder, className, type="text" }: InputBoxProps<T>) {   
+export default function InputBox<T extends FieldValues>({ form, name, placeholder, className, type="text", disabled }: InputBoxProps<T>) {   
     return <FormField
         control={form.control}
         name={name}
@@ -33,6 +34,7 @@ export default function InputBox<T extends FieldValues>({ form, name, placeholde
                                 field.onChange(value);
                             }
                         }}
+                        disabled={disabled}
                     />
                 </FormControl>
                 <FormDescription className="text-destructive">{form.formState.errors[name]?.message as string || ""}</FormDescription>
