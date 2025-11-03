@@ -58,12 +58,12 @@ export function useUserMutation({queryClient, companyId}:{queryClient: QueryClie
 }
 
 export function useCompanyAdminUsers() {
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, refetch } = useQuery({
         queryKey: ['company-admin-users'],
         queryFn: () => getAllUsersPermissions(),
     })
 
-    return { data, isLoading }
+    return { data, isLoading, refetch }
 }
 
 export function useCompanyAdminUsersDetails(user_id: string) {

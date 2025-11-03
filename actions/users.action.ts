@@ -32,8 +32,8 @@ export async function mutateUser(data: TNewUserSchema, method: 'post' | 'put') {
 }
 
 export async function deleteUser(user_id: string) {
-    const URL = endpoints.users.delete
-    const response = await axiosInstance.put(URL, { user_id })
+    const URL = endpoints.users.root + `/${user_id}`
+    const response = await axiosInstance.delete(URL)
     return response.data
 }
 

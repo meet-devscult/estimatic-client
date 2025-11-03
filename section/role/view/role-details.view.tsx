@@ -1,14 +1,17 @@
 "use client"
 
+import { deleteUser } from "@/actions/users.action";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { useCompanyAdminUsersDetails, useUpdateCompanyAdminUserPermissions } from "@/hooks/use-user";
+import { useCompanyAdminUsers, useCompanyAdminUsersDetails, useUpdateCompanyAdminUserPermissions } from "@/hooks/use-user";
 import { cn } from "@/lib/utils";
 import { IUser } from "@/types/user.type";
 import { useQueryClient } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { Loader2, LoaderCircle, Trash2 } from "lucide-react";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
 interface RoleDetailsViewProps {
     id: string;
@@ -57,6 +60,10 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
         }
 
     const { data: roleData, isLoading: isRoleDataLoading } = useCompanyAdminUsersDetails(id);
+    const router = useRouter();
+
+    const [isDeleting, startTransition] = useTransition()
+    const { refetch: refetchRoles } = useCompanyAdminUsers()
 
     const getPermissionDisplay = (permission: string) => {
         switch (permission) {
@@ -77,6 +84,20 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
 
     const {status, email, user_name, permissions, last_login} = roleData.data[0]
 
+    const handleDelete = () => {
+        startTransition(async () => {
+            try {
+                await deleteUser(id)
+                await refetchRoles()
+                toast.success("User deleted successfully")
+                router.back()
+            } catch (error) {
+                console.error("Failed to delete user:", error)
+                toast.error("Failed to delete user")
+            }
+        })
+    }
+
     return (
         <div>
             {/* Role Details Header */}
@@ -95,11 +116,11 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
                         />
                         <Button
                             variant="destructive"
-                            onClick={() => {
-                                // Handle delete user action
-                            }}
+                            onClick={handleDelete}
+                            disabled={isDeleting}
                         >
-                            Delete User
+                            {isDeleting ? <LoaderCircle className="animate-spin" /> : <Trash2 />}
+                            {isDeleting ? "Deleting..." : "Delete User"}
                         </Button>
                     </div>
                 </div>
