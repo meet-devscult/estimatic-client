@@ -49,7 +49,7 @@ export async function createCompanyAdminUser(data: TRoleCreationSchema) {
     return response.data
 }
 
-export async function updateCompanyAdminUserPermissions(data: { user_id: string, permissions: PERMISSIONS}) {
+export async function updateCompanyAdminUserPermissions(data: { user_id: string, permissions?: PERMISSIONS, status?: 'active' | 'inactive' }) {
     const URL = endpoints.users.create_company_admin
     const response = await axiosInstance.put(URL, {...data})
     return response.data

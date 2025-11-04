@@ -1,5 +1,5 @@
 import { getPartByUserIdAndCompanyId } from "@/actions/part.action";
-import { getAllUsersPermissions, getCompanyAdminUsersDetails, getUserById, getUserPermissions, getUsers, getUsersByCompanyId, mutateUser } from "@/actions/users.action";
+import { getAllUsersPermissions, getCompanyAdminUsersDetails, getUserById, getUserPermissions, getUsers, getUsersByCompanyId, mutateUser, updateCompanyAdminUserPermissions } from "@/actions/users.action";
 import { TNewUserSchema } from "@/zod/user.zod";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
@@ -83,4 +83,15 @@ export function useUsersPermissions() {
     })
 
     return { data, isLoading }
+}
+
+
+export function useUpdateCompanyAdminUserPermissions() {
+    const { mutate, isPending } = useMutation({
+        mutationFn: async (data: { user_id: string, permissions?: any, status?: 'active' | 'inactive' }) => {
+            return await updateCompanyAdminUserPermissions(data)
+        },
+    })
+
+    return { mutate, isPending }
 }

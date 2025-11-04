@@ -2,8 +2,10 @@
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { useCompanyAdminUsersDetails } from "@/hooks/use-user";
+import { useCompanyAdminUsersDetails, useUpdateCompanyAdminUserPermissions } from "@/hooks/use-user";
 import { cn } from "@/lib/utils";
+import { IUser } from "@/types/user.type";
+import { useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
@@ -21,6 +23,39 @@ const PERMISSION_SECTIONS = [
 ];
 
 export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
+    const queryClient = useQueryClient()
+    const { mutate, isPending } = useUpdateCompanyAdminUserPermissions()
+    const handleStatusChange = (checked: boolean) => {
+          const newStatus = checked ? 'active' : 'inactive'
+          
+          // Optimistically update the detail view cache
+          queryClient.setQueryData(['company-admin-users-details', id], (old: any) => {
+            if (!old?.data) return old
+            return {
+              ...old,
+              data: old.data.map((user: IUser) => ({
+                ...user,
+                status: newStatus
+              }))
+            }
+          })
+          
+          mutate(
+            {
+              user_id: id,
+              status: newStatus
+            },
+            {
+              onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ['company-admin-users-details', id] })
+              },
+              onError: () => {
+                queryClient.invalidateQueries({ queryKey: ['company-admin-users-details', id] })
+              }
+            }
+          )
+        }
+
     const { data: roleData, isLoading: isRoleDataLoading } = useCompanyAdminUsersDetails(id);
 
     const getPermissionDisplay = (permission: string) => {
@@ -54,7 +89,9 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
                         </h1>
                         <Switch
                             checked={status === "active"}
-                            onCheckedChange={() => {}}
+                            onCheckedChange={handleStatusChange}
+                            disabled={isPending}
+                            className="cursor-pointer"
                         />
                         <Button
                             variant="destructive"
