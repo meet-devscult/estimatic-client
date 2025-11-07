@@ -5,6 +5,7 @@ export interface IPart {
   user_id: string,
   status: 'active' | 'inactive',
   company_id: string,
+  company_name: string,
   user_name: string,
   name: string,
   unit_system: string,
@@ -20,6 +21,7 @@ export interface IPart {
   lots_count: number,
   scrap_cost: number,
   gross_weight: number,
+  raw_material_weight: number,
   net_weight: number,
   profit: number,
   tolerance_standard: string,
@@ -50,5 +52,6 @@ export interface IPart {
     time_per_piece_min: number,
     cost_per_piece: number,
   }[]
+  quotation?: Record<string, any> | null,
   total_cost?: number,
 }

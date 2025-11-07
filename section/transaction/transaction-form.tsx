@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
 import { PlusIcon } from 'lucide-react';
+import { useEffect } from 'react';
 import { UseFormReturn, useForm } from 'react-hook-form';
 
 import CalendarInputBox from '@/components/form-fields-components/calender-input-box';
@@ -11,8 +12,10 @@ import TextareaBox from '@/components/form-fields-components/textarea-box';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Skeleton } from '@/components/ui/skeleton';
+import { usePermissionStore } from '@/guard/permission.store';
 import { useCompany } from '@/hooks/use-company';
 import { useMutateTransaction } from '@/hooks/use-transaction';
+import { PERMISSION } from '@/types/user.type';
 import {
 	TTransactionFormType,
 	transactionSchema,
@@ -25,6 +28,10 @@ export default function NewTransaction({
 	defaultValues?: TTransactionFormType;
 	companyId?: string;
 }) {
+
+	const { getPermission } = usePermissionStore();
+	const permission = getPermission("transactions");
+
 	const form = useForm<TTransactionFormType>({
 		resolver: zodResolver(transactionSchema),
 		defaultValues: defaultValues || {
@@ -41,12 +48,13 @@ export default function NewTransaction({
 	return (
 		<AddTransactionPopup
 			title={defaultValues ? 'Edit Transaction' : 'Add New Transaction'}
+			isSubmitDisabled={permission !== PERMISSION.FULL_ACCESS}
 			triggerText={
 				<Button
 					variant="outline"
 					size="lg"
 					className="border-dashed hover:cursor-pointer"
-					disabled={isCreatingTransaction}
+					disabled={isCreatingTransaction || permission !== PERMISSION.FULL_ACCESS}
 				>
 					{!defaultValues && <PlusIcon />}
 					{defaultValues ? (
@@ -68,7 +76,7 @@ export default function NewTransaction({
 					}}
 				/>
 			}
-			submitFunction={() => {
+			submitFunction={async () => {
 				createTransaction({
 					data: form.getValues(),
 					method: defaultValues ? 'put' : 'post',
@@ -95,6 +103,21 @@ export function TransactionForm({ form, onSubmit }: TransactionFormProps) {
 		{ label: 'Yearly', value: 'yearly' },
 	];
 
+	// Watch for company_name changes and update company_id accordingly
+	const watchedCompanyName = form.watch('company_name');
+
+	useEffect(() => {
+		if (watchedCompanyName && data && data.length > 0) {
+			const selectedCompany = data.find((company: { name: string; company_id: string }) => 
+				company.name === watchedCompanyName
+			);
+			
+			if (selectedCompany) {
+				form.setValue('company_id', selectedCompany.company_id);
+			}
+		}
+	}, [watchedCompanyName, data, form]);
+
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>
@@ -119,7 +142,6 @@ export function TransactionForm({ form, onSubmit }: TransactionFormProps) {
 						form={form}
 						name="paid_time"
 						placeholder="Paid Date"
-						futureDatesOnly
 					/>
 					<InputBox
 						form={form}
@@ -131,7 +153,6 @@ export function TransactionForm({ form, onSubmit }: TransactionFormProps) {
 						form={form}
 						name="upto_validated_at"
 						placeholder="Valid Until"
-						futureDatesOnly
 					/>
 					<InputBox
 						form={form}

@@ -12,6 +12,7 @@ import { transactionTableColumn } from '../transaction-column';
 import NewTransaction from '../transaction-form';
 
 export default function TransactionViewSection() {
+
 	const defaultFilter = {
 		search: '',
 		payment_mode: '',

@@ -1,38 +1,69 @@
 "use client"
 
+import { deleteUser } from "@/actions/users.action";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
+import { useCompanyAdminUsers, useCompanyAdminUsersDetails, useUpdateCompanyAdminUserPermissions } from "@/hooks/use-user";
+import { cn } from "@/lib/utils";
+import { IUser } from "@/types/user.type";
+import { useQueryClient } from "@tanstack/react-query";
+import { Loader2, LoaderCircle, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
 interface RoleDetailsViewProps {
     id: string;
 }
 
-// Static data based on the image provided
-const getRoleData = (id: string) => ({
-    user_id: "user2241",
-    user_name: "davidelson2415", 
-    last_login: "Mar 30, 2024 7:29 am",
-    status: "active",
-    permissions: {
-        dashboard: "restricted",
-        companies: "restricted", 
-        transactions: "full_access",
-        prompt_mang: "restricted",
-        enquiries: "restricted"
-    }
-});
-
 const PERMISSION_SECTIONS = [
     { key: "dashboard", label: "Dashboard" },
     { key: "companies", label: "Companies" },
     { key: "transactions", label: "Transactions" },
-    { key: "prompt_mang", label: "Prompt Mang" },
     { key: "enquiries", label: "Enquiries" },
+    { key: "roles", label: "Roles" },
 ];
 
 export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
-    const roleData = getRoleData(id);
-    const [isActive, setIsActive] = useState(roleData.status === "active");
+    const queryClient = useQueryClient()
+    const { mutate, isPending } = useUpdateCompanyAdminUserPermissions()
+    const handleStatusChange = (checked: boolean) => {
+          const newStatus = checked ? 'active' : 'inactive'
+          
+          // Optimistically update the detail view cache
+          queryClient.setQueryData(['company-admin-users-details', id], (old: any) => {
+            if (!old?.data) return old
+            return {
+              ...old,
+              data: old.data.map((user: IUser) => ({
+                ...user,
+                status: newStatus
+              }))
+            }
+          })
+          
+          mutate(
+            {
+              user_id: id,
+              status: newStatus
+            },
+            {
+              onSuccess: () => {
+                queryClient.invalidateQueries({ queryKey: ['company-admin-users-details', id] })
+              },
+              onError: () => {
+                queryClient.invalidateQueries({ queryKey: ['company-admin-users-details', id] })
+              }
+            }
+          )
+        }
+
+    const { data: roleData, isLoading: isRoleDataLoading } = useCompanyAdminUsersDetails(id);
+    const router = useRouter();
+
+    const [isDeleting, startTransition] = useTransition()
+    const { refetch: refetchRoles } = useCompanyAdminUsers()
 
     const getPermissionDisplay = (permission: string) => {
         switch (permission) {
@@ -47,6 +78,26 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
         }
     };
 
+    if (isRoleDataLoading) return <div className="flex justify-center items-center h-screen">
+        <Loader2 className="w-10 h-10 animate-spin" />
+    </div>
+
+    const {status, email, user_name, permissions, last_login} = roleData.data[0]
+
+    const handleDelete = () => {
+        startTransition(async () => {
+            try {
+                await deleteUser(id)
+                await refetchRoles()
+                toast.success("User deleted successfully")
+                router.back()
+            } catch (error) {
+                console.error("Failed to delete user:", error)
+                toast.error("Failed to delete user")
+            }
+        })
+    }
+
     return (
         <div>
             {/* Role Details Header */}
@@ -55,12 +106,22 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
                     <h1 className="text-2xl font-bold">Role Details</h1>
                     <div className="flex items-center gap-2">
                         <h1 className="text-sm">
-                            {isActive ? "Active" : "Inactive"}
+                            {status === "active" ? "Active" : "Inactive"}
                         </h1>
                         <Switch
-                            checked={isActive}
-                            onCheckedChange={setIsActive}
+                            checked={status === "active"}
+                            onCheckedChange={handleStatusChange}
+                            disabled={isPending}
+                            className="cursor-pointer"
                         />
+                        <Button
+                            variant="destructive"
+                            onClick={handleDelete}
+                            disabled={isDeleting}
+                        >
+                            {isDeleting ? <LoaderCircle className="animate-spin" /> : <Trash2 />}
+                            {isDeleting ? "Deleting..." : "Delete User"}
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -69,27 +130,32 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
             <div className="grid grid-cols-3 border-b border-dashed divide-x divide-dashed">
                 <div className="divide-y divide-dashed">
                     <div className="flex items-center gap-1 p-2">
-                        <h1 className="font-medium text-muted-foreground">User Login ID:</h1>
-                        <p>{roleData.user_id || '-'}</p>
+                        <h1 className="font-medium text-muted-foreground">User Login Email:</h1>
+                        <p>{email || '-'}</p>
                     </div>
                 </div>
                 <div className="divide-y divide-dashed">
                     <div className="flex items-center gap-1 p-2">
                         <h1 className="font-medium text-muted-foreground">User Name:</h1>
-                        <p>{roleData.user_name || '-'}</p>
+                        <p>{user_name || '-'}</p>
                     </div>
                 </div>
                 <div className="divide-y divide-dashed">
                     <div className="flex items-center gap-1 p-2">
                         <h1 className="font-medium text-muted-foreground">Last Login:</h1>
-                        <p>{roleData.last_login || '-'}</p>
+                        <p>{last_login || '-'}</p>
                     </div>
                 </div>
             </div>
 
             {/* Permissions Section */}
             <div className="space-y-5">
-                <h2 className="text-xl font-bold px-5 pt-5">Permissions</h2>
+                <div className="flex justify-between pt-5 px-5">
+                    <h2 className="text-xl font-bold ">Permissions</h2>
+                    <Link href={`/roles/create?user_id=${id}`} className={cn("border-dashed", buttonVariants({variant: 'outline'}))}>
+                        Edit Permissions
+                    </Link>
+                </div>
                 
                 {/* Permissions Table */}
                 <div className="border border-dashed overflow-hidden">
@@ -103,7 +169,7 @@ export default function RoleDetailsViewSection({ id }: RoleDetailsViewProps) {
                     
                     {/* Table Rows */}
                     {PERMISSION_SECTIONS.map((section, index) => {
-                        const permission = (roleData.permissions as any)[section.key];
+                        const permission = permissions[section.key];
                         const display = getPermissionDisplay(permission);
                         
                         return (

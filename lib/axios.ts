@@ -1,3 +1,4 @@
+import { usePermissionStore } from "@/guard/permission.store";
 import axios, { AxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create({ 
@@ -29,11 +30,15 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (res) => res,
   (error) => {
+    const { clearPermissions, clearUser } = usePermissionStore.getState();
     if (typeof window !== 'undefined') {
       const originalRequest = error.config;
       
       if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
+
+        clearPermissions();
+        clearUser();
         
         // Handle unauthorized error
         document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -69,16 +74,23 @@ export const endpoints = {
   companies: {
     root: `${PRE_ROUTE}/companies`,
     detail: (id: string) => `${PRE_ROUTE}/companies/${id}`,
+    delete: `${PRE_ROUTE}/companies/delete`
   },
   users: {
     root: `${PRE_ROUTE}/users`,
     detail: (id: string) => `${PRE_ROUTE}/users/${id}`,
+    delete: `${PRE_ROUTE}/users/delete`,
+    update_password: `${PRE_ROUTE}/users/password`,
+    create_company_admin: `${PRE_ROUTE}/users/company-admin`,
+    user_permissions: `${PRE_ROUTE}/users/company-admin-permissions`,
+    get_permissions: `${PRE_ROUTE}/users/company-admin-permissions`,
   },
   machines: {
     root: `${PRE_ROUTE}/machines`,
     detail: (id: string) => `${PRE_ROUTE}/machines/${id}`,
     machine_types: `${PRE_ROUTE}/machines/types`,
     machine_categories: `${PRE_ROUTE}/machines/categories`,
+    delete: `${PRE_ROUTE}/machines/delete`,
   },
   transactions: {
     root: `${PRE_ROUTE}/transactions`,
@@ -88,10 +100,12 @@ export const endpoints = {
     root: `${PRE_ROUTE}/parts`,
     detail: (id: string) => `${PRE_ROUTE}/parts/${id}`,
     signed_url: `${PRE_ROUTE}/file-upload/signed-url`,
+    delete: `${PRE_ROUTE}/parts/delete`,
   },
   plants: {
     root: `${PRE_ROUTE}/plants`,
     detail: (id: string) => `${PRE_ROUTE}/plants/${id}`,
+    delete: `${PRE_ROUTE}/plants/delete`,
   },
   ai: {
 		recommendations: `${PRE_ROUTE}/parts/machine-recommendations`,

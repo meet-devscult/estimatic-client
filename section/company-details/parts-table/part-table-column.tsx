@@ -10,15 +10,6 @@ export const partTableColumn: ColumnDef<IPart>[] = [
       cell: ({ row }) => <div className="text-center">{row.original.name}</div>,
     },
     // {
-    //   accessorKey: "status",
-    //   header: "Status",
-    //   cell: ({ row }) => (
-    //     <div className="text-center">
-    //       {row.original.status}
-    //     </div>
-    //   ),
-    // },
-    // {
     //   accessorKey: "type",
     //   header: "Type",
     //   cell: ({ row }) => <div className="text-center">{row.original.file_type}</div>,
@@ -55,7 +46,16 @@ export const partTableColumn: ColumnDef<IPart>[] = [
           {row.original.total_cost ? row.original.total_cost.toFixed(2) : '-'}
         </div>
       ),
-    }, 
+    },
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => (
+        <div className="text-center">
+          {row.original.total_cost ? 'Completed' : 'Ongoing'}
+        </div>
+      ),
+    },
     {
       accessorKey: "createdOn",
       header: "Created On",

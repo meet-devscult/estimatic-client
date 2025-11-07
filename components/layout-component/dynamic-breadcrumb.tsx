@@ -69,19 +69,19 @@ export default function DynamicBreadcrumb() {
         // Get entity name based on type
         switch (prevSegment) {
           case 'company':
-            label = companyData?.name || segment;
+            label = companyData?.data?.name || segment;
             isLoading = companyLoading && !companyData;
             break;
           case 'machine':
-            label = machineData?.data?.name || segment;
+            label = machineData?.name || segment;
             isLoading = machineLoading && !machineData;
             break;
           case 'user':
-            label = userData?.data?.user_name || segment;
+            label = userData?.user_name || segment;
             isLoading = userLoading && !userData;
             break;
           case 'part':
-            label = partData?.data?.name || segment;
+            label = partData?.name || segment;
             isLoading = partLoading && !partData;
             break;
         }

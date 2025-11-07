@@ -8,10 +8,12 @@ import PopupForForm from '@/components/form-fields-components/form-popup-layout'
 import InputBox from '@/components/form-fields-components/input-box';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
+import { usePermissionStore } from '@/guard/permission.store';
 import {
 	useMachineMutation
 } from '@/hooks/use-machine';
 import { MachineFamily } from '@/lib/const.data';
+import { PERMISSION } from '@/types/user.type';
 import { TNewMachineSchema, newMachineSchema } from '@/zod/machine.zod';
 
 interface NewMachineDetailsFormPopUpProps {
@@ -27,6 +29,8 @@ export default function NewMachineDetails({
 	companyId,
 	onSubmit,
 }: NewMachineDetailsFormPopUpProps) {
+	const { getPermission } = usePermissionStore();
+	const permission = getPermission('companies');
 	const queryClient = useQueryClient();
 	const { mutate: createMachine, isPending: isCreatingMachine } =
 		useMachineMutation(queryClient, companyId || '');
@@ -53,6 +57,7 @@ export default function NewMachineDetails({
 					variant="outline"
 					size="lg"
 					className="border-dashed hover:cursor-pointer"
+					disabled={permission !== PERMISSION.FULL_ACCESS}
 				>
 					{!defaultValues && <PlusIcon />}
 					{defaultValues ? (
@@ -79,7 +84,7 @@ export default function NewMachineDetails({
 					}}
 				/>
 			}
-			submitFunction={() => {
+			submitFunction={async () => {
 				if (onSubmit) {
 					onSubmit(machineForm.getValues());
 					machineForm.reset();

@@ -2,11 +2,13 @@
 	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.codeActionsOnSave": {
-		"source.fixAll": "always",
-		"source.organizeImports": "always"
+	  "source.fixAll": "always",
+	  "source.organizeImports": "always"
 	},
 	"files.associations": {
-		"*.css": "tailwindcss"
+	  "*.css": "tailwindcss"
 	},
-	"typescript.tsdk": "node_modules/typescript/lib"
-}
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true
+  }
+  

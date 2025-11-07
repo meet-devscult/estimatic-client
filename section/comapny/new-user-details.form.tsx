@@ -3,7 +3,9 @@ import AddNewUserPopup from "@/components/form-fields-components/form-popup-layo
 import InputBox from "@/components/form-fields-components/input-box";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { usePermissionStore } from "@/guard/permission.store";
 import { useUserMutation } from "@/hooks/use-user";
+import { PERMISSION } from "@/types/user.type";
 import { NewUserSchema, TNewUserSchema } from "@/zod/user.zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
@@ -11,7 +13,8 @@ import { PencilIcon, PlusIcon } from "lucide-react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
 export default function NewUserDetailsForm({defaultValues, company_id, onSubmit, iconButton = false}: { defaultValues?: TNewUserSchema, company_id?: string, onSubmit?: (data: TNewUserSchema) => void, iconButton?: boolean }) {
-
+    const { getPermission } = usePermissionStore();
+    const permission = getPermission('companies');
     const queryClient = useQueryClient()
 
     const userForm = useForm<TNewUserSchema>({
@@ -32,10 +35,10 @@ export default function NewUserDetailsForm({defaultValues, company_id, onSubmit,
     return  <AddNewUserPopup
         title={defaultValues ? "Edit User" : "Add New User"}
         triggerText={
-            !iconButton ? <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
+            !iconButton ? <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" disabled={permission !== PERMISSION.FULL_ACCESS}>
               {!defaultValues && <PlusIcon />}
               {defaultValues ? <span className="hidden lg:inline">Edit Info</span> : <span className="hidden lg:inline">Add User</span>}
-            </Button> : <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" >
+            </Button> : <Button variant="outline" size="lg" className="border-dashed hover:cursor-pointer" disabled={permission !== PERMISSION.FULL_ACCESS}>
               {iconButton && defaultValues && <PencilIcon /> || <PlusIcon />}
             </Button>
         } 
@@ -51,6 +54,7 @@ export default function NewUserDetailsForm({defaultValues, company_id, onSubmit,
                         userForm.reset()
                     }
                 }}
+                isDefault={!defaultValues}
             />}
             submitFunction={async () => {
                 if(onSubmit) {
@@ -72,9 +76,10 @@ export default function NewUserDetailsForm({defaultValues, company_id, onSubmit,
 interface NewUserDetailsFormProps {
     form: UseFormReturn<TNewUserSchema>;
     onSubmit: (data: TNewUserSchema) => void;
+    isDefault: boolean;
 }
 
-export function UserDetailsForm({form, onSubmit}: NewUserDetailsFormProps) {
+export function UserDetailsForm({form, onSubmit, isDefault = false}: NewUserDetailsFormProps) {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -84,7 +89,7 @@ export function UserDetailsForm({form, onSubmit}: NewUserDetailsFormProps) {
                     <InputBox form={form} name="phone_number" placeholder="Phone" />
                     <DropdownBox form={form} name="type" placeholder="Type" options={[{label: "Admin", value: "admin"}, {label: "User", value: "non-admin"}]} className="w-full h-full" />
                     <InputBox form={form} name="email" placeholder="Email" />
-                    <InputBox form={form} name="password" placeholder="Password" type="password" />
+                    {isDefault && <InputBox form={form} name="password" placeholder="Password" type="password" />}
                 </div>
             </form>
         </Form>

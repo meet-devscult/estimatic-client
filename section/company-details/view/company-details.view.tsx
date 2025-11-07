@@ -1,11 +1,14 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { usePermissionStore } from "@/guard/permission.store"
+import { PERMISSION } from "@/types/user.type"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import CompanyDetailsCard from "../company-details-card"
 import MatchineTableSection from "../machine-table/machine-table-section"
 import PartTableSection from "../parts-table/part-table-section"
+import PlantTableSection from "../plants-table/plant-table-section"
 import TransactionTableSection from "../transaction-table/transaction-table-section"
 import UserTableSection from "../user-table/user-table-section"
 
@@ -14,6 +17,8 @@ interface CompanyDetailsViewSectionProps {
 }
 
 export default function CompanyDetailsViewSection({ id }: CompanyDetailsViewSectionProps) {
+    const { getPermission } = usePermissionStore();
+    const permission = getPermission('transactions');
     const searchParams = useSearchParams()
     const urlTab = searchParams.get('tab')
     
@@ -32,6 +37,11 @@ export default function CompanyDetailsViewSection({ id }: CompanyDetailsViewSect
             label: "Users",
             value: "users",
             component: <UserTableSection company_id={id} />
+        },
+        {
+            label: "Plants",
+            value: "plants",
+            component: <PlantTableSection company_id={id} />
         },
         {
             label: "Machines",
@@ -56,7 +66,7 @@ export default function CompanyDetailsViewSection({ id }: CompanyDetailsViewSect
         <Tabs value={activeTab} onValueChange={setActiveTab} className="items-center gap-0">
             <div className="w-full border-b border-dashed">
       <TabsList className="text-foreground h-14 gap-2 rounded-none bg-transparent p-0">
-        {tabs_list.map((tab) => (
+        {tabs_list.filter((tab) => !(permission === PERMISSION.RESTRICTED && tab.value === "transactions")).map((tab) => (
             <TabsTrigger
                 value={tab.value}
                 key={tab.value}

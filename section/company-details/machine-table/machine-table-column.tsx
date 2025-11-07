@@ -1,8 +1,10 @@
 import { Switch } from "@/components/ui/switch"
+import { usePermissionStore } from "@/guard/permission.store"
 import { useToggleMutation } from "@/hooks/use-toggle"
 import { endpoints } from "@/lib/axios"
 import NewMachineDetails from "@/section/comapny/new-machine-details.form"
 import { IMachine } from "@/types/machine.type"
+import { PERMISSION } from "@/types/user.type"
 import { useQueryClient } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
@@ -17,6 +19,8 @@ export const machineTableColumn: ColumnDef<IMachine>[] = [
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
+        const { getPermission } = usePermissionStore();
+        const permission = getPermission('companies');
         const queryClient = useQueryClient()
         const { mutate, isPending, error, isError } = useToggleMutation({queryClient, queryKey: ["machines","company", row.original.company_id]})
         return (
@@ -27,7 +31,7 @@ export const machineTableColumn: ColumnDef<IMachine>[] = [
               onCheckedChange={() => {
                 mutate({url: endpoints.machines.root, data: {machine_id: row.original.machine_id, status: row.original.status === 'active' ? 'inactive' : 'active'}})
               }} 
-              disabled={isPending} 
+              disabled={isPending || permission !== PERMISSION.FULL_ACCESS} 
             />
           </div>
         )

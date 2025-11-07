@@ -25,6 +25,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { usePermissions } from "@/guard/permission.store"
 import Link from "next/link"
 
 const data = {
@@ -33,20 +34,6 @@ const data = {
       title: "Dashboard",
       url: "#",
       icon: Gauge,
-      // items: [
-      //   {
-      //     title: "Genesis",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Explorer",
-      //     url: "#",
-      //   },
-      //   {
-      //     title: "Quantum",
-      //     url: "#",
-      //   },
-      // ],
     },
     {
       title: "Companies",
@@ -61,7 +48,7 @@ const data = {
     },
     {
       title: "Roles",
-      url: "/role",
+      url: "/roles",
       icon: Users2,
     },
     {
@@ -86,13 +73,7 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-
-  // const user = JSON.parse(document.cookie.split('; ').find(row => row.startsWith('user_data='))?.split('=')[1] || '{}');
-  const user = {
-    user_name: "John Doe",
-    email: "john.doe@example.com",
-    image: "https://github.com/shadcn.png",
-  }
+  const { user } = usePermissions();
   
   return (
     <Sidebar
@@ -121,7 +102,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user} />
+        <NavUser user={user || { user_name: "", email: "", user_id: "" }} />
       </SidebarFooter>
     </Sidebar>
   )

@@ -1,8 +1,9 @@
 import { Switch } from "@/components/ui/switch"
+import { usePermissionStore } from "@/guard/permission.store"
 import { useToggleMutation } from "@/hooks/use-toggle"
 import { endpoints } from "@/lib/axios"
 import NewUserDetailsForm from "@/section/comapny/new-user-details.form"
-import { IUser } from "@/types/user.type"
+import { IUser, PERMISSION } from "@/types/user.type"
 import { useQueryClient } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
@@ -37,6 +38,8 @@ export const userTableColumn: ColumnDef<IUser>[] = [
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
+        const { getPermission } = usePermissionStore();
+        const permission = getPermission('companies');
         const queryClient = useQueryClient()
         const { mutate, isPending, error, isError } = useToggleMutation({queryClient, queryKey: ["users","company", row.original.company_id]})
         return (
@@ -45,7 +48,7 @@ export const userTableColumn: ColumnDef<IUser>[] = [
             <Switch 
               checked={row.original.status === 'active'} 
               onCheckedChange={() => mutate({url: endpoints.users.root, data: {user_id: row.original.user_id, status: row.original.status === 'active' ? 'inactive' : 'active'}})} 
-              disabled={isPending}
+              disabled={isPending || permission !== PERMISSION.FULL_ACCESS}
             />
           </div>
         )

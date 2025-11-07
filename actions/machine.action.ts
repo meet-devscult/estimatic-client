@@ -73,3 +73,14 @@ export async function createMachine(machine: TNewMachineSchema, companyId: strin
     const response = await axiosInstance[method](URL, { ...machine, company_id: companyId })
     return response.data.data
 }
+
+/**
+ * Delete machine by id
+ * @param id Machine id
+ * @returns Machine
+ */
+export async function deleteMachine(machine_id: string) {
+    const URL = endpoints.machines.delete
+    const response = await axiosInstance.put(URL, { machine_id })
+    return response.data.data
+}

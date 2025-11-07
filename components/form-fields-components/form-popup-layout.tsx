@@ -10,17 +10,20 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
+import { toast } from "sonner";
 
 interface PopupForFormProps<T extends FieldValues> {
   title: string;
   triggerText: React.ReactNode;
   form: React.ReactNode;
-  submitFunction: () => void;
+  submitFunction: () => Promise<void>;
   buttonText: string;
   formInstance?: UseFormReturn<T>;
   enableCloseButton?: boolean;
   isLoading?: boolean;
   loadingText?: string;
+  isValidate?: boolean;
+  isSubmitDisabled?: boolean;
 }
   
 export default function PopupForForm<T extends FieldValues>({ 
@@ -32,34 +35,32 @@ export default function PopupForForm<T extends FieldValues>({
   formInstance,
   enableCloseButton = false,
   isLoading = false,
-  loadingText = "Loading..."
+  loadingText = "Loading...",
+  isValidate = false,
+  isSubmitDisabled = false
+  
 }: PopupForFormProps<T>) {
 
   const [isOpen, setIsOpen] = useState(false);
-  const handleSubmit = () => {
-    // if (formInstance) {
-    //   formInstance.trigger();
-
-    //   console.log(formInstance.formState.isValid);
-    //   if (formInstance.formState.isValid) {
-    //     setIsOpen(false);
-    //     submitFunction();
-    //     formInstance.reset();
-    //   }
-    // } else {
-    //   submitFunction();
-    // }
-
-    /**
-     * Temparary changes
-     */
-    if(formInstance) {
+  const handleSubmit = async () => {
+    if (formInstance) {
       formInstance.trigger();
-      setIsOpen(false);
-      submitFunction();
-      formInstance.reset();
-    } else {
-      console.log("no form instance");
+
+      if (isValidate && formInstance.formState.isValid ) {
+        await submitFunction().then(() => {
+          setIsOpen(false);
+          formInstance.reset();
+        });
+      }
+      else if(!isValidate){
+        await submitFunction().then(() => {
+          setIsOpen(false);
+          formInstance.reset();
+        });
+      }
+    }
+    else{
+      toast.error("No form instance found");
     }
   };
 
@@ -86,7 +87,7 @@ export default function PopupForForm<T extends FieldValues>({
             type="submit"
             className="dark:bg-white bg-black dark:text-black text-white hover:bg-black"
             onClick={handleSubmit}
-            disabled={isLoading}
+            disabled={isLoading || isSubmitDisabled}
           >
             {isLoading ? loadingText : buttonText}
           </Button>

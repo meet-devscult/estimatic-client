@@ -1,7 +1,9 @@
 import { Switch } from "@/components/ui/switch"
+import { usePermissionStore } from "@/guard/permission.store"
 import { useToggleMutation } from "@/hooks/use-toggle"
 import { endpoints } from "@/lib/axios"
 import { ICompany } from "@/types/company.type"
+import { PERMISSION } from "@/types/user.type"
 import { useQueryClient } from "@tanstack/react-query"
 import { ColumnDef } from "@tanstack/react-table"
 import { ChevronRight } from "lucide-react"
@@ -24,7 +26,8 @@ export const companyColumn: ColumnDef<ICompany>[] = [
       cell: ({ row }) => {
       const queryClient = useQueryClient()
       const {mutate: updateCompanyStatus, isPending} = useToggleMutation({queryClient, queryKey: ["company"]})
-
+      const { getPermission } = usePermissionStore();
+      const permission = getPermission('companies');
       return  <div className="flex items-center justify-center">
           <span className="mr-2 text-sm font-medium">{row.original.status === "active" ? "Active" : "Inactive"}</span>
           <Switch
@@ -32,7 +35,7 @@ export const companyColumn: ColumnDef<ICompany>[] = [
             onCheckedChange={() => {
               updateCompanyStatus({data: {company_id: row.original.company_id,status: row.original.status === "active" ? "inactive" : "active"}, url: endpoints.companies.root})
             }}
-            disabled={isPending}
+            disabled={isPending || permission !== PERMISSION.FULL_ACCESS}
           />
         </div>
       },

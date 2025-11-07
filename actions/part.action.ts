@@ -40,3 +40,9 @@ export async function getSignedUrl(file_id: string, file_type: "glb" | "step") {
 	const response = await axiosInstance.post(URL, params);
 	return response.data.data;
 }
+
+export async function deleteParts(part_id: string) {
+    const URL = endpoints.parts.delete
+    const response = await axiosInstance.put(URL, { part_id })
+    return response.data
+}
